@@ -22,5 +22,6 @@ public class mid_circl : Sprite
 
     public void _on_Button_pressed(){
         GD.Print("PLEASE FOR THE LOVE OF GOD");
+        Visible = !Visible;
     }
 }

@@ -20,9 +20,9 @@ text = "middle :D"
 flat = true
 script = ExtResource( 4 )
 
-[node name="Circl" type="Sprite" parent="."]
-position = Vector2( 651, 298 )
+[node name="Circl" type="Sprite" parent="Button"]
+position = Vector2( 80, 75 )
 texture = ExtResource( 3 )
 script = ExtResource( 2 )
 
-[connection signal="pressed" from="Button" to="Circl" method="_on_Button_pressed"]
+[connection signal="pressed" from="Button" to="Button/Circl" method="_on_Button_pressed"]
