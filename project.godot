@@ -21,7 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="sped-tic-tac-toe"
-run/main_scene="res://testD.tscn"
+run/main_scene="res://click on assets/new scene.tscn"
 config/icon="res://icon.png"
 
 [editor]
