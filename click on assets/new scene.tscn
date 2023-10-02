@@ -42,7 +42,7 @@ margin_bottom = 306.0
 text = "On for O, Off for X"
 align = 1
 
-[connection signal="pressed" from="Button" to="Button/Circl" method="_on_Button_pressed"]
 [connection signal="pressed" from="Button" to="Button/Cros" method="_on_Button_pressed"]
-[connection signal="toggled" from="XO_Button" to="Button/Circl" method="_on_XO_Button_toggled"]
+[connection signal="pressed" from="Button" to="Button/Circl" method="_on_Button_pressed"]
 [connection signal="toggled" from="XO_Button" to="Button/Cros" method="_on_XO_Button_toggled"]
+[connection signal="toggled" from="XO_Button" to="Button/Circl" method="_on_XO_Button_toggled"]

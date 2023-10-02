@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://netwirk/servr_v1.cs" type="Script" id=1]
+[ext_resource path="res://netwirk/client.cs" type="Script" id=2]
+
+[node name="Node" type="Node"]
+
+[node name="server" type="Node" parent="."]
+script = ExtResource( 1 )
+
+[node name="client" type="Node" parent="."]
+script = ExtResource( 2 )
