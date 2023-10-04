@@ -16,12 +16,10 @@ public class client : Node
         peer.CreateClient("127.0.0.1", 2222);
         GetTree().NetworkPeer = peer;
         Debug.Print("Client is Server?: " + GetTree().IsNetworkServer());
-
         GetTree().Connect("network_peer_connected", this, "_player_connected");
         GetTree().Connect("network_peer_disconnected", this, "_player_disconnected");
     }
-
-
+    
 
     String[] name = {"Johnson Magenta"};
     void _player_connected(int id){
