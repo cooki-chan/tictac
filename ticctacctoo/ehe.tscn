@@ -15,15 +15,95 @@ margin_right = 209.0
 margin_bottom = 51.0
 text = "name:"
 
-[node name="name_input" type="TextEdit" parent="name_label"]
-margin_left = 46.0
-margin_top = 2.0
-margin_right = 357.0
-margin_bottom = 42.0
+[node name="name_input" type="TextEdit" parent="."]
+margin_left = 73.0
+margin_top = 7.0
+margin_right = 384.0
+margin_bottom = 47.0
+text = "TCPIP"
 
-[node name="Button" type="Button" parent="."]
-margin_left = 21.0
-margin_top = 94.0
-margin_right = 215.0
-margin_bottom = 144.0
+[node name="host_game" type="Button" parent="."]
+margin_left = 13.0
+margin_top = 68.0
+margin_right = 207.0
+margin_bottom = 118.0
 text = "Host Game"
+
+[node name="ip_label" type="Label" parent="host_game"]
+margin_left = 221.0
+margin_top = 5.0
+margin_right = 437.0
+margin_bottom = 28.0
+text = "IP: [NONE]"
+
+[node name="port_label" type="Label" parent="host_game"]
+margin_left = 200.0
+margin_top = 24.0
+margin_right = 416.0
+margin_bottom = 47.0
+text = "PORT: [NONE]"
+
+[node name="join_game" type="Button" parent="."]
+margin_left = 13.0
+margin_top = 125.0
+margin_right = 207.0
+margin_bottom = 175.0
+text = "Join Game"
+
+[node name="ip_label" type="Label" parent="join_game"]
+margin_left = 222.0
+margin_top = 9.0
+margin_right = 438.0
+margin_bottom = 32.0
+text = "IP:"
+
+[node name="port_label" type="Label" parent="join_game"]
+margin_left = 200.0
+margin_top = 30.0
+margin_right = 416.0
+margin_bottom = 53.0
+text = "PORT: "
+
+[node name="ip_in" type="TextEdit" parent="join_game"]
+margin_left = 241.0
+margin_top = 2.0
+margin_right = 393.0
+margin_bottom = 22.0
+text = "E"
+
+[node name="port_in" type="TextEdit" parent="join_game"]
+margin_left = 241.0
+margin_top = 25.0
+margin_right = 288.0
+margin_bottom = 45.0
+text = "E"
+
+[node name="anc_label" type="Label" parent="."]
+margin_left = 26.0
+margin_top = 192.0
+margin_right = 389.0
+margin_bottom = 227.0
+text = "Welcome to Tic_Tac_Toe! :D
+-------------------------------------------------------------------"
+align = 1
+
+[node name="opponent_label" type="Label" parent="anc_label"]
+margin_left = 108.0
+margin_top = 36.0
+margin_right = 328.0
+margin_bottom = 54.0
+text = "Opponent:"
+
+[node name="opponent_id_label" type="Label" parent="anc_label"]
+margin_left = 48.0
+margin_top = 57.0
+margin_right = 268.0
+margin_bottom = 75.0
+text = "Opponent Client ID:"
+
+[node name="turn_label" type="Label" parent="anc_label"]
+margin_left = 93.0
+margin_top = 78.0
+margin_right = 313.0
+margin_bottom = 96.0
+text = "Current Turn:"
