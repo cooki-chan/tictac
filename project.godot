@@ -21,7 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="sped-tic-tac-toe"
-run/main_scene="res://netwirk/servr_v1.tscn"
+run/main_scene="res://netwirk/join-connect.tscn"
 config/icon="res://icon.png"
 
 [editor]
