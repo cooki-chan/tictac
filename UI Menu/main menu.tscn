@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://UI Menu/Label.cs" type="Script" id=1]
+[ext_resource path="res://UI Menu/Title_Words.cs" type="Script" id=2]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Title Words" type="RichTextLabel" parent="."]
+margin_left = 371.0
+margin_top = 114.0
+margin_right = 735.0
+margin_bottom = 257.0
+bbcode_enabled = true
+bbcode_text = "[fill][rainbow freq=0.2 sat=10 val=20][center][b]yahello![/b]"
+text = "yahello!"
+scroll_active = false
+script = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = 427.0
+margin_top = 202.0
+margin_right = 470.0
+margin_bottom = 216.0
+text = "yippie!"
+align = 1
+valign = 1
+script = ExtResource( 1 )
