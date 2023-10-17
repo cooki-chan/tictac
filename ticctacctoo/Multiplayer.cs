@@ -19,6 +19,7 @@ public class Multiplayer : Node2D
     private Label opponent_id_label;
     private Label turn_label;
     private Boolean currentTurn;
+    
     NetworkedMultiplayerENet peer = new NetworkedMultiplayerENet();
 
     public override void _Ready()
@@ -36,11 +37,12 @@ public class Multiplayer : Node2D
         opponent_label = GetNode<Label>("title/opponent_label");
         opponent_id_label = GetNode<Label>("title/opponent_id_label");
         turn_label = GetNode<Label>("title/turn_label");
+
+        GD.Randomize();
     }
     public void _on_host_button_down(){  
-        printLabel(ip_label, (String)IP.GetLocalAddresses()[5]); //why this is 5 i don't know, but it works
-        Random rnd = new Random();
-        int port = rnd.Next(1025, 65536);
+        printLabel(ip_label, (string)IP.GetLocalAddresses()[5]); //why this is 5 i don't know, but it works
+        int port = (int)GD.RandRange(1025, 65536);
         printLabel(port_label, port.ToString());
         peer.CreateServer(port, 1);
         GetTree().NetworkPeer = peer;
@@ -66,12 +68,19 @@ public class Multiplayer : Node2D
     }
 
     void _player_connected(int id){
-        debug("Connect: " + id);
-        RpcId(id, "greetings", name_input.Text);
+        debug("Opponent Connect: " + id);
+        if(GetTree().IsNetworkServer()){
+            //server first, send false
+            if(GD.Randf() < 0.5){
+                RpcId(id, "greetings", name_input.Text, false);
+            } else {
+                RpcId(id, "greetings", name_input.Text, true);
+            }
+        }
     }
 
     void _player_disconnected(int id){
-        Debug.Print("Disconnect: " + id);
+        Debug.Print("Opponent Disconnect: " + id);
     }
 
     void _on_disconnect_button_down(){
@@ -80,13 +89,12 @@ public class Multiplayer : Node2D
 
 //RPC Functions
     [Remote]
-    void greetings(String name){
+    void greetings(String name, bool first){
         printLabel(opponent_label, name);
-    }
+        printLabel(opponent_id_label, GetTree().GetRpcSenderId().ToString());
+        currentTurn = first;
+    }   
 
-    void setTurn(Boolean turn){
-
-    }
 
 //Helper Functions
     void debug(String msg){
@@ -96,4 +104,5 @@ public class Multiplayer : Node2D
     void printLabel(Label outp, String msg){
         outp.Text = msg;
     }
+    
 }

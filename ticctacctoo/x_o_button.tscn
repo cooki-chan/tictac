@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://ticctacctoo/x_o_button.cs" type="Script" id=1]
+[ext_resource path="res://circl.png" type="Texture" id=2]
+[ext_resource path="res://cros.png" type="Texture" id=3]
+[ext_resource path="res://highlight.png" type="Texture" id=4]
+
+[node name="Node2D" type="Node2D"]
+position = Vector2( 203, 149 )
+script = ExtResource( 1 )
+
+[node name="Button" type="Button" parent="."]
+margin_left = -71.0
+margin_top = -71.0
+margin_right = 71.0
+margin_bottom = 74.0
+
+[node name="Cros" type="Sprite" parent="."]
+position = Vector2( -1, 1 )
+texture = ExtResource( 3 )
+
+[node name="Circl" type="Sprite" parent="."]
+position = Vector2( 0, 1 )
+texture = ExtResource( 2 )
+
+[node name="Highlight" type="Sprite" parent="."]
+position = Vector2( -9.53674e-07, 2.5 )
+scale = Vector2( 0.75, 0.763158 )
+texture = ExtResource( 4 )
+
+[connection signal="mouse_entered" from="Button" to="." method="_on_Button_mouse_entered"]
+[connection signal="mouse_exited" from="Button" to="." method="_on_Button_mouse_exited"]
