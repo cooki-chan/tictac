@@ -146,17 +146,17 @@ margin_bottom = 96.0
 text = "Current Turn:"
 
 [node name="disconnect" type="Button" parent="."]
-margin_left = 62.0
-margin_top = 555.0
-margin_right = 329.0
-margin_bottom = 587.0
+margin_left = 54.0
+margin_top = 293.0
+margin_right = 321.0
+margin_bottom = 325.0
 text = "End Game"
 
 [node name="debug" type="Label" parent="."]
-margin_left = 28.0
-margin_top = 360.0
-margin_right = 403.0
-margin_bottom = 545.0
+margin_left = 5.0
+margin_top = 335.0
+margin_right = 413.0
+margin_bottom = 585.0
 text = "Console:"
 autowrap = true
 

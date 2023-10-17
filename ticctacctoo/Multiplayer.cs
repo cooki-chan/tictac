@@ -18,6 +18,7 @@ public class Multiplayer : Node2D
     private Label opponent_label;
     private Label opponent_id_label;
     private Label turn_label;
+    private Boolean currentTurn;
     NetworkedMultiplayerENet peer = new NetworkedMultiplayerENet();
 
     public override void _Ready()
@@ -43,6 +44,7 @@ public class Multiplayer : Node2D
         printLabel(port_label, port.ToString());
         peer.CreateServer(port, 1);
         GetTree().NetworkPeer = peer;
+
         GetTree().Connect("network_peer_connected", this, "_player_connected");
         GetTree().Connect("network_peer_disconnected", this, "_player_disconnected");
         GetTree().Connect("connected_to_server", this, "_connected_ok");
@@ -53,9 +55,9 @@ public class Multiplayer : Node2D
     public void _on_join_button_down(){
         string ip = ip_in.Text;
         int port = int.Parse(port_in.Text);
-
         peer.CreateClient(ip, port);
         GetTree().NetworkPeer = peer;
+
         GetTree().Connect("network_peer_connected", this, "_player_connected");
         GetTree().Connect("network_peer_disconnected", this, "_player_disconnected");
         GetTree().Connect("connected_to_server", this, "_connected_ok");
@@ -80,6 +82,10 @@ public class Multiplayer : Node2D
     [Remote]
     void greetings(String name){
         printLabel(opponent_label, name);
+    }
+
+    void setTurn(Boolean turn){
+
     }
 
 //Helper Functions
