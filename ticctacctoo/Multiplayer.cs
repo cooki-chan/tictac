@@ -70,10 +70,10 @@ public class Multiplayer : Node2D
     void _player_connected(int id){
         debug("Opponent Connect: " + id);
         if(GetTree().IsNetworkServer()){
-            //server first, send false
+            //if server goes first, send false 
             if(GD.Randf() < 0.5){
                 RpcId(id, "greetings", name_input.Text, false);
-            } else {
+            } else { //send true
                 RpcId(id, "greetings", name_input.Text, true);
             }
         }

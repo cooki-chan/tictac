@@ -1,32 +1,97 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://ticctacctoo/x_o_button.cs" type="Script" id=1]
 [ext_resource path="res://circl.png" type="Texture" id=2]
 [ext_resource path="res://cros.png" type="Texture" id=3]
 [ext_resource path="res://highlight.png" type="Texture" id=4]
+[ext_resource path="res://boaerd.png" type="Texture" id=5]
 
 [node name="Node2D" type="Node2D"]
-position = Vector2( 203, 149 )
+position = Vector2( 73, 92 )
+
+[node name="Boaerd" type="Sprite" parent="."]
+position = Vector2( 614, 212 )
+texture = ExtResource( 5 )
+
+[node name="top_L" type="Node" parent="Boaerd"]
 script = ExtResource( 1 )
 
-[node name="Button" type="Button" parent="."]
-margin_left = -71.0
-margin_top = -71.0
-margin_right = 71.0
-margin_bottom = 74.0
+[node name="e" type="Button" parent="Boaerd/top_L"]
+margin_left = 428.0
+margin_top = 46.0
+margin_right = 570.0
+margin_bottom = 191.0
 
-[node name="Cros" type="Sprite" parent="."]
-position = Vector2( -1, 1 )
+[node name="Cros" type="Sprite" parent="Boaerd/top_L/e"]
+visible = false
+position = Vector2( 70, 72 )
 texture = ExtResource( 3 )
 
-[node name="Circl" type="Sprite" parent="."]
-position = Vector2( 0, 1 )
+[node name="Circl" type="Sprite" parent="Boaerd/top_L/e"]
+visible = false
+position = Vector2( 71, 72 )
 texture = ExtResource( 2 )
 
-[node name="Highlight" type="Sprite" parent="."]
-position = Vector2( -9.53674e-07, 2.5 )
+[node name="Highlight" type="Sprite" parent="Boaerd/top_L/e"]
+visible = false
+position = Vector2( 71, 73.5 )
 scale = Vector2( 0.75, 0.763158 )
 texture = ExtResource( 4 )
 
-[connection signal="mouse_entered" from="Button" to="." method="_on_Button_mouse_entered"]
-[connection signal="mouse_exited" from="Button" to="." method="_on_Button_mouse_exited"]
+[node name="top_M" type="Node" parent="Boaerd"]
+
+[node name="Button" type="Button" parent="Boaerd/top_M"]
+margin_left = 621.0
+margin_top = 47.0
+margin_right = 763.0
+margin_bottom = 192.0
+
+[node name="Cros" type="Sprite" parent="Boaerd/top_M/Button"]
+visible = false
+position = Vector2( 70, 72 )
+texture = ExtResource( 3 )
+
+[node name="Circl" type="Sprite" parent="Boaerd/top_M/Button"]
+visible = false
+position = Vector2( 71, 72 )
+texture = ExtResource( 2 )
+
+[node name="Highlight" type="Sprite" parent="Boaerd/top_M/Button"]
+visible = false
+position = Vector2( 71, 73.5 )
+scale = Vector2( 0.75, 0.763158 )
+texture = ExtResource( 4 )
+
+[node name="top_R" type="Node" parent="Boaerd"]
+
+[node name="Button" type="Button" parent="Boaerd/top_R"]
+margin_left = 801.0
+margin_top = 46.0
+margin_right = 943.0
+margin_bottom = 191.0
+
+[node name="Cros" type="Sprite" parent="Boaerd/top_R/Button"]
+visible = false
+position = Vector2( 70, 72 )
+texture = ExtResource( 3 )
+
+[node name="Circl" type="Sprite" parent="Boaerd/top_R/Button"]
+visible = false
+position = Vector2( 71, 72 )
+texture = ExtResource( 2 )
+
+[node name="Highlight" type="Sprite" parent="Boaerd/top_R/Button"]
+visible = false
+position = Vector2( 71, 73.5 )
+scale = Vector2( 0.75, 0.763158 )
+texture = ExtResource( 4 )
+
+[connection signal="mouse_entered" from="Boaerd/top_L/e" to="Boaerd/top_L" method="_on_Button_mouse_entered"]
+[connection signal="mouse_exited" from="Boaerd/top_L/e" to="Boaerd/top_L" method="_on_Button_mouse_exited"]
+[connection signal="pressed" from="Boaerd/top_L/e" to="Boaerd/top_L" method="_on_Button_pressed"]
+[connection signal="mouse_entered" from="Boaerd/top_M/Button" to="Boaerd/top_M" method="_on_Button_mouse_entered"]
+[connection signal="mouse_exited" from="Boaerd/top_M/Button" to="Boaerd/top_M" method="_on_Button_mouse_exited"]
+[connection signal="pressed" from="Boaerd/top_M/Button" to="Boaerd/top_M" method="_on_Button_pressed"]
+[connection signal="mouse_entered" from="Boaerd/top_R/Button" to="Boaerd/top_R/Button" method="_on_top_L_mouse_entered"]
+[connection signal="mouse_exited" from="Boaerd/top_R/Button" to="Boaerd/top_R/Button" method="_on_top_L_mouse_exited"]
+[connection signal="pressed" from="Boaerd/top_R/Button" to="Boaerd/top_R/Button" method="_on_top_L_pressed"]
