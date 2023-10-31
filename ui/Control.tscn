@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://ui/a_button.cs" type="Script" id=1]
 [ext_resource path="res://ui/leave_button.cs" type="Script" id=2]
 [ext_resource path="res://circl.png" type="Texture" id=3]
+[ext_resource path="res://ui/somewhere_else.cs" type="Script" id=4]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -15,10 +16,10 @@ margin_right = 661.0
 margin_bottom = 285.0
 
 [node name="Label" type="Label" parent="."]
-margin_left = 118.0
-margin_top = -30.0
-margin_right = 883.0
-margin_bottom = 247.0
+margin_left = 120.0
+margin_top = -20.0
+margin_right = 885.0
+margin_bottom = 257.0
 text = "this is a thing"
 align = 1
 valign = 1
@@ -52,4 +53,13 @@ text = "summon joe"
 position = Vector2( 99, -91 )
 texture = ExtResource( 3 )
 
+[node name="somewhere_else" type="Button" parent="."]
+margin_left = 914.0
+margin_top = 19.0
+margin_right = 1032.0
+margin_bottom = 382.0
+text = "somewhere else"
+script = ExtResource( 4 )
+
 [connection signal="pressed" from="summon_joe" to="leave_button" method="_on_summon_joe_pressed"]
+[connection signal="pressed" from="somewhere_else" to="somewhere_else" method="_on_somewhere_else_pressed"]
