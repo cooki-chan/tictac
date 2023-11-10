@@ -23,13 +23,17 @@ public class leave_button : Button
 
     private Sprite joe;
     private Texture joe_face;
-
+    private int count = 0;
     public void _on_summon_joe_pressed(){
         joe_face = GD.Load<Texture>("res://icon.png");
 
         joe = new Sprite(); // Create a new Sprite2D.
         joe.Texture = joe_face;
+        
+        //joe.SetScript();
         AddChild(joe);
+        count++;
+        if(count%2 == 0)joe.MoveLocalY(75);
         GD.Print("joe hasth been sumoned");
     }
 }
