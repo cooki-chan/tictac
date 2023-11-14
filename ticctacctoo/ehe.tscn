@@ -157,7 +157,7 @@ text = "Console:"
 autowrap = true
 
 [node name="Boaerd" type="Sprite" parent="."]
-position = Vector2( 720, 297 )
+position = Vector2( 946, 301 )
 texture = ExtResource( 1 )
 
 [connection signal="button_down" from="host" to="." method="_on_host_button_down"]
