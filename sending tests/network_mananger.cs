@@ -1,37 +1,32 @@
 using Godot;
 using System;
 using System.Diagnostics;
+using System.Text;
 
-public class network_mananger : Node
-{
+public class network_mananger : Node{
  // Declare member variables here. Examples:
     // private int a = 2;
     // private string b = "text";
-
     // Called when the node enters the scene tree for the first time.
     private Label debugOut;
     private TextEdit name_input;
     private Label join_code_label;
     private TextEdit join_code_in;
-    
     NetworkedMultiplayerENet peer = new NetworkedMultiplayerENet();
 
-    public override void _Ready()
-    {
-        debugOut = GetNode<Label>("debug");
-
-        name_input = GetNode<TextEdit>("name_input");
-
-        join_code_label = GetNode<Label>("host/join_label");
-
-        join_code_in = GetNode<TextEdit>("join/join_in");
-
+    public override void _Ready(){
+        debugOut = GetNode<Label>("/root/send/debug");
+        name_input = GetNode<TextEdit>("/root/send/name_input");
+        join_code_label = GetNode<Label>("/root/send/host/join_label");
+        join_code_in = GetNode<TextEdit>("/root/send/join/join_in");
 
         GD.Randomize();
     }
+
     public void _on_host_button_down(){  
-        printLabel(join_code_label, (string)IP.GetLocalAddresses()[5]); //why this is 5 i don't know, but it works
+        string ip = (string)IP.GetLocalAddresses()[5]; //why this is 5 i don't know, but it works
         int port = (int)GD.RandRange(1025, 65536);
+        printLabel(join_code_label, encodeIp(ip, port));
         peer.CreateServer(port, 1);
         GetTree().NetworkPeer = peer;
 
@@ -43,7 +38,8 @@ public class network_mananger : Node
     }
 
     public void _on_join_button_down(){
-        string ip = join_code_in.Text;
+        string ip = decodeIp(join_code_in.ToString()).Substring(0, join_code_in.ToString().IndexOf(":"));
+        int port = Convert.ToInt32(decodeIp(join_code_in.ToString()).Substring(join_code_in.ToString().IndexOf(":")+1));
         peer.CreateClient(ip, 973);
         GetTree().NetworkPeer = peer;
 
@@ -81,7 +77,6 @@ public class network_mananger : Node
         debug("Opponent RPC ID: " + GetTree().GetRpcSenderId().ToString());
     }   
 
-
 //Helper Functions
     void debug(String msg){
         debugOut.Text += "\n" + msg;
@@ -91,10 +86,30 @@ public class network_mananger : Node
         outp.Text = msg;
     }
 
-    String encodeIp(String ip, int port){
-        String[] strings= ip.Split(".");
+    string encodeIp(String ip, int port){
+        string output = "";
+        string Chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        String[] strings = ip.Split(".");
         string base10 = string.Join("", strings) + Convert.ToString(port);
-        int base10Int = Convert.ToInt32(base10);
-        string  base16 = Convert.ToString(base10, 16);
+        long value = Convert.ToInt64(base10);
+        while (value > 0){
+            long test = value % 62;
+            output = Chars[(int)(value % 62)] + output; 
+            value /= 62;
+        }
+        return output;
+    }
+
+    string decodeIp(String code){
+        int outputInt = 0;
+        string Chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        foreach(String i in code.Split("")){
+            outputInt += Chars.IndexOf(i);
+        }
+        string output = Convert.ToString(outputInt);
+        while(output.Length() != 17){
+            output = "0" + output;
+        }
+        return output.Substring(0,3) + "." + output.Substring(3,6) + "." + output.Substring(6,9) + "." + output.Substring(9,12) + ":" + output.Substring(12);
     }
 }
