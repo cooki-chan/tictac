@@ -52,7 +52,9 @@ margin_left = 201.0
 margin_top = 1.0
 margin_right = 417.0
 margin_bottom = 24.0
-text = "Join Code:"
+text = "Join Code:
+
+CODE IS CASE SENSITIVE!!!!!!"
 
 [node name="join_in" type="TextEdit" parent="join"]
 margin_left = 268.0

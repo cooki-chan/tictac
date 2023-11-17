@@ -24,7 +24,14 @@ public class network_mananger : Node{
     }
 
     public void _on_host_button_down(){  
-        string ip = (string)IP.GetLocalAddresses()[5]; //why this is 5 i don't know, but it works
+        string ip = ""; //why this is 5 i don't know, but it works
+        foreach(String i in IP.GetLocalAddresses()){
+            String temp = i.Substring(0,3);
+            if(string.Equals(temp,"192") || string.Equals(temp,"172") || string.Equals(temp,"10")){
+                ip = i;
+                break;
+            }
+        }
         int port = (int)GD.RandRange(1025, 65536);
         printLabel(join_code_label, encodeIp(ip, port));
         peer.CreateServer(port, 1);
