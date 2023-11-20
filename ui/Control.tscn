@@ -54,9 +54,9 @@ position = Vector2( 99, -91 )
 texture = ExtResource( 3 )
 
 [node name="somewhere_else" type="Button" parent="."]
-margin_left = 914.0
+margin_left = 916.0
 margin_top = 19.0
-margin_right = 1032.0
+margin_right = 1034.0
 margin_bottom = 382.0
 text = "somewhere else"
 script = ExtResource( 4 )

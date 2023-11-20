@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.Serialization;
 
 public class leave_button : Button
 {
@@ -30,10 +31,13 @@ public class leave_button : Button
         joe = new Sprite(); // Create a new Sprite2D.
         joe.Texture = joe_face;
         
-        //joe.SetScript();
-        AddChild(joe);
+        ulong objID = joe.GetInstanceId();
         count++;
+        joe.SetScript(GD.Load<Script>("res://ui/joeScript.cs"));
+        joe = (Sprite) GD.InstanceFromId(objID);
+        AddChild(joe);
         if(count%2 == 0)joe.MoveLocalY(75);
         GD.Print("joe hasth been sumoned");
     }
 }
+ 
