@@ -45,7 +45,7 @@ public class network_mananger : Node{
     }
 
     public void _on_join_button_down(){
-        string ip = decodeIp(join_code_in.ToString()).Substring(0, join_code_in.ToString().IndexOf(":"));
+        string ip = decodeIp(join_code_in.Text).Substring(0, join_code_in.ToString().IndexOf(":"));
         int port = Convert.ToInt32(decodeIp(join_code_in.ToString()).Substring(join_code_in.ToString().IndexOf(":")+1));
         peer.CreateClient(ip, 973);
         GetTree().NetworkPeer = peer;
@@ -55,6 +55,10 @@ public class network_mananger : Node{
         GetTree().Connect("connected_to_server", this, "_connected_ok");
         GetTree().Connect("connection_failed", this, "_connected_fail");
         GetTree().Connect("server_disconnected", this, "_server_disconnected");
+    }
+
+    public void _on_copy_button_pressed(){
+        OS.SetClipboard(join_code_label.Text);
     }
 
     void _player_connected(int id){
@@ -97,7 +101,7 @@ public class network_mananger : Node{
         string output = "";
         string Chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
         String[] strings = ip.Split(".");
-        string base10 = string.Join("", strings) + Convert.ToString(port);
+        string base10 = string.Join("", strings) + String.Format("{0:00000}", 8080); //TODO: CHANGE BACK TO PORT!!!!!
         long value = Convert.ToInt64(base10);
         while (value > 0){
             long test = value % 62;
@@ -108,15 +112,17 @@ public class network_mananger : Node{
     }
 
     string decodeIp(String code){
-        int outputInt = 0;
+        int outputInt = 1;
         string Chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-        foreach(String i in code.Split("")){
-            outputInt += Chars.IndexOf(i);
+        for(int i = code.Length()-1; i > 0; i--){
+            int index = Chars.IndexOf(code[i]);
+            char currLetter = code[i];
+            outputInt += Chars.IndexOf(code[i]) * (int)Math.Pow(62,i-code.Length()-1);
         }
         string output = Convert.ToString(outputInt);
         while(output.Length() != 17){
             output = "0" + output;
         }
-        return output.Substring(0,3) + "." + output.Substring(3,6) + "." + output.Substring(6,9) + "." + output.Substring(9,12) + ":" + output.Substring(12);
+        return output.Substring(0,3) + "." + output.Substring(3,6) + "." + output.Substring(6,9) + "." + output.Substring(9,12) + ":" + output.Substring(12,17);
     }
 }
