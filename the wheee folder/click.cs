@@ -21,7 +21,7 @@ public class click : Node2D
 
 
 
-     if(Input.IsMouseButtonPressed(1)){//Left Button
+     if(Input.IsActionJustPressed("click")){//Left Button
         dave_face = GD.Load<Texture>("res://dave.jpg");
         dave_script = GD.Load<Script>("res://the wheee folder/go.cs");
 

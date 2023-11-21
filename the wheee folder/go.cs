@@ -16,7 +16,7 @@ public class go : Sprite
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
  public override void _Process(float delta)
  {
-     Position = Vector2.Up * delta;
+     MoveLocalX(50);
      GD.Print("this script is runninggggg");
  }
 }
