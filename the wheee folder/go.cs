@@ -17,6 +17,6 @@ public class go : Sprite
  public override void _Process(float delta)
  {
      MoveLocalX(50);
-     GD.Print("this script is runninggggg");
+
  }
 }

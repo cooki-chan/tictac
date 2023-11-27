@@ -25,8 +25,8 @@ public class click : Node2D
         dave_face = GD.Load<Texture>("res://dave.jpg");
         dave_script = GD.Load<Script>("res://the wheee folder/go.cs");
 
-        dave = new Sprite(); // Create a new Sprite2D.
-        dave.Texture = dave_face;
+        dave = (Sprite)GetNode<Sprite>("Dave").Duplicate(); // Create a new Sprite2D.
+        dave.Position = GetViewport().GetMousePosition();
 
         ulong objId = dave.GetInstanceId();
         dave.SetScript(dave_script);

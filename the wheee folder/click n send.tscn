@@ -8,10 +8,16 @@
 script = ExtResource( 3 )
 
 [node name="Dave" type="Sprite" parent="."]
-position = Vector2( 252, 786 )
+position = Vector2( 219, 723 )
 scale = Vector2( 0.1435, 0.13275 )
 texture = ExtResource( 2 )
 
 [node name="Icon" type="Sprite" parent="."]
 position = Vector2( 46, 643 )
 texture = ExtResource( 1 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = 15.0
+margin_top = 565.0
+margin_right = 393.0
+margin_bottom = 593.0
