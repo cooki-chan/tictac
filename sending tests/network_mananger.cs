@@ -98,6 +98,7 @@ public class network_mananger : Node{
     }
 
     string encodeIp(String ip, int port){
+        GD.Print(ip + ":" + port);
         string output = "";
         string Chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
         String[] strings = ip.Split(".");
@@ -123,6 +124,7 @@ public class network_mananger : Node{
         while(output.Length() != 17){
             output = "0" + output;
         }
+        GD.Print(output);
         return output.Substring(0,3) + "." + output.Substring(3,6) + "." + output.Substring(6,9) + "." + output.Substring(9,12) + ":" + output.Substring(12,17);
     }
 }

@@ -21,8 +21,15 @@ _global_script_class_icons={
 [application]
 
 config/name="sped-tic-tac-toe"
-run/main_scene="res://the wheee folder/click n send.tscn"
+run/main_scene="res://sending tests/send_test.tscn"
 config/icon="res://icon.png"
+
+[display]
+
+window/size/width=1920
+window/size/height=1080
+window/stretch/mode="viewport"
+window/stretch/aspect="keep_width"
 
 [editor]
 

@@ -8,12 +8,12 @@
 script = ExtResource( 3 )
 
 [node name="Dave" type="Sprite" parent="."]
-position = Vector2( 219, 723 )
-scale = Vector2( 0.1435, 0.13275 )
+position = Vector2( 194.813, 1358.59 )
+scale = Vector2( 0.372375, 0.344479 )
 texture = ExtResource( 2 )
 
 [node name="Icon" type="Sprite" parent="."]
-position = Vector2( 46, 643 )
+position = Vector2( -522, 1243 )
 texture = ExtResource( 1 )
 
 [node name="Label" type="Label" parent="."]

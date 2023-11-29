@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.CodeDom;
 
 public class go : Sprite
 {
@@ -16,7 +17,13 @@ public class go : Sprite
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
  public override void _Process(float delta)
  {
-     MoveLocalX(50);
+     MoveLocalX(5);
+     GD.Print(Position);
+     //if(Position.x >= (1920 + Texture.GetSize().x/2)){
+    if(Position.x >= OS.WindowSize.x + this.Scale.x * Texture.GetWidth()/2){
+        GD.Print("Dave Hath Thus Bein Slain...");
+        QueueFree();
+     }
 
  }
 }
