@@ -27,7 +27,7 @@ public class network_mananger : Node{
         string ip = ""; //why this is 5 i don't know, but it works
         foreach(String i in IP.GetLocalAddresses()){
             String temp = i.Substring(0,3);
-            if(string.Equals(temp,"192") || string.Equals(temp,"172") || string.Equals(temp,"10")){
+            if(string.Equals(temp,"192") || string.Equals(temp,"172") || string.Equals(i.Substring(0,2),"10")){
                 ip = i;
                 break;
             }
@@ -45,8 +45,9 @@ public class network_mananger : Node{
     }
 
     public void _on_join_button_down(){
-        string ip = decodeIp(join_code_in.Text).Substring(0, join_code_in.ToString().IndexOf(":"));
-        int port = Convert.ToInt32(decodeIp(join_code_in.ToString()).Substring(join_code_in.ToString().IndexOf(":")+1));
+        string ipRaw = decodeIp(join_code_in.Text);
+        string ip = ipRaw.Substring(0, ipRaw.Length-5);
+        int port = Convert.ToInt32(ipRaw.Substring(join_code_in.ToString().IndexOf(":")+1, 5));
         peer.CreateClient(ip, 973);
         GetTree().NetworkPeer = peer;
 
@@ -97,15 +98,18 @@ public class network_mananger : Node{
         outp.Text = msg;
     }
 
+    //https://www.dcode.fr/base-n-convert
+
     string encodeIp(String ip, int port){
-        GD.Print(ip + ":" + port);
         string output = "";
         string Chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
         String[] strings = ip.Split(".");
-        string base10 = string.Join("", strings) + String.Format("{0:00000}", 8080); //TODO: CHANGE BACK TO PORT!!!!!
+        for(int i = 0; i < strings.Length; i++){
+            strings[i] = String.Format("{0:000}", Convert.ToInt32(strings[i]));
+        }
+        string base10 = string.Join("", strings) + String.Format("{0:00000}", port); //TODO: CHANGE BACK TO PORT!!!!!
         long value = Convert.ToInt64(base10);
         while (value > 0){
-            long test = value % 62;
             output = Chars[(int)(value % 62)] + output; 
             value /= 62;
         }
@@ -113,18 +117,17 @@ public class network_mananger : Node{
     }
 
     string decodeIp(String code){
-        int outputInt = 1;
+        long outputInt = 0;
         string Chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-        for(int i = code.Length()-1; i > 0; i--){
-            int index = Chars.IndexOf(code[i]);
-            char currLetter = code[i];
-            outputInt += Chars.IndexOf(code[i]) * (int)Math.Pow(62,i-code.Length()-1);
+        for(int i = 0; i < code.Length(); i++){
+            outputInt = (outputInt * 62) + Chars.IndexOf(code[i]);
         }
+
         string output = Convert.ToString(outputInt);
-        while(output.Length() != 17){
+        while(output.Length() < 17){
             output = "0" + output;
         }
-        GD.Print(output);
-        return output.Substring(0,3) + "." + output.Substring(3,6) + "." + output.Substring(6,9) + "." + output.Substring(9,12) + ":" + output.Substring(12,17);
+
+        return output.Substring(0,3) + "." + output.Substring(3,3) + "." + output.Substring(6,3) + "." + output.Substring(9,3) + ":" + output.Substring(12,5);
     }
 }
