@@ -10,7 +10,6 @@ public class summon_joe2 : Button{
     // private string b = "text";
     private Sprite joe;
     private Texture joe_face;
-    private int count = 0;
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
@@ -20,15 +19,18 @@ public class summon_joe2 : Button{
  // Called every frame. 'delta' is the elapsed time since the previous frame.
  public override void _Process(float delta){}
     public void _on_summon_joe_pressed(){
-        joe_face = GD.Load<Texture>("res://icon.png");
-        joe = new Sprite(); 
-        joe.Texture = joe_face;
-        ulong objID = joe.GetInstanceId();
-        joe.SetScript(GD.Load<Script>("res://ui/joeScript.cs"));
-        joe = (Sprite) GD.InstanceFromId(objID);
-        AddChild(joe);
-        joe.MoveLocalY(-200);
-        GD.Print("joe hasth been sumoned");
+        Generate temp = GetNode<Generate>("/root/Control/Generate");
+        if(temp.build(10)){
+            joe_face = GD.Load<Texture>("res://icon.png");
+            joe = new Sprite(); 
+            joe.Texture = joe_face;
+            ulong objID = joe.GetInstanceId();
+            joe.SetScript(GD.Load<Script>("res://ui/joeScript.cs"));
+            joe = (Sprite) GD.InstanceFromId(objID);
+            AddChild(joe);
+            joe.MoveLocalY(-200);   
+            GD.Print("joe hasth been sumoned");
+        }
     }
 }
  

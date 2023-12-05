@@ -10,8 +10,8 @@
 [node name="Control" type="Control"]
 anchor_right = 1.717
 anchor_bottom = 0.529
-margin_right = -0.200073
-margin_bottom = -0.320068
+margin_right = -1365.64
+margin_bottom = 488.68
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 margin_left = 193.0
@@ -31,12 +31,12 @@ text = "summon joe"
 script = ExtResource( 2 )
 
 [node name="summon_joe2" type="Button" parent="."]
-anchor_right = 0.582
-anchor_bottom = 1.887
+anchor_right = 1.0
+anchor_bottom = 1.0
 margin_left = 420.0
 margin_top = 906.0
-margin_right = -1201.53
-margin_bottom = -65.4771
+margin_right = -1289.0
+margin_bottom = -52.0
 custom_fonts/font = ExtResource( 5 )
 text = "summon joe"
 script = ExtResource( 1 )
@@ -46,12 +46,12 @@ position = Vector2( 99, -91 )
 texture = ExtResource( 3 )
 
 [node name="somewhere_else" type="Button" parent="."]
-anchor_right = 0.582
-anchor_bottom = 1.892
+anchor_right = 1.0
+anchor_bottom = 1.0
 margin_left = 1605.0
 margin_top = 46.0
-margin_right = -25.5281
-margin_bottom = -671.332
+margin_right = -38.0
+margin_bottom = -627.0
 custom_fonts/font = ExtResource( 5 )
 text = "somewhere else"
 script = ExtResource( 4 )
