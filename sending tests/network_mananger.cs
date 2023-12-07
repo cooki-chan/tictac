@@ -82,14 +82,24 @@ public class network_mananger : Node{
         GetTree().NetworkPeer = null;
     }
 
-//RPC Functions
+//Dave Things -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    void _dave_died(int xPos, string type){
+        Debug.Print("Dave has been sent to the enemy");
+        Rpc("summonDave", xPos, type);
+    }
+
+//RPC Functions -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     [Remote]
     void greetings(String name, bool first){
         debug("Opponent Name: " + name);
         debug("Opponent RPC ID: " + GetTree().GetRpcSenderId().ToString());
     }   
 
-//Helper Functions
+    [Remote]
+    void summonDave(int xPos, string type){
+        Debug.Print("New Dave Summoned @ x=" + xPos + " with type: " + type);
+    }
+//Helper Functions ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
     void debug(String msg){
         debugOut.Text += "\n" + msg;
     }
