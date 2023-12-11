@@ -47,8 +47,8 @@ public class network_mananger : Node{
     public void _on_join_button_down(){
         string ipRaw = decodeIp(join_code_in.Text);
         string ip = ipRaw.Substring(0, ipRaw.Length-5);
-        int port = Convert.ToInt32(ipRaw.Substring(join_code_in.ToString().IndexOf(":")+1, 5));
-        peer.CreateClient(ip, 973);
+        int port = Convert.ToInt32(ipRaw.Split(":")[1]);
+        peer.CreateClient(ip, port);
         GetTree().NetworkPeer = peer;
 
         GetTree().Connect("network_peer_connected", this, "_player_connected");
@@ -138,6 +138,6 @@ public class network_mananger : Node{
             output = "0" + output;
         }
 
-        return output.Substring(0,3) + "." + output.Substring(3,3) + "." + output.Substring(6,3) + "." + output.Substring(9,3) + ":" + output.Substring(12,5);
+        return output.Substring(0,3) + "." + output.Substring(3,3) + "." + output.Substring(6,3) + "." + output.Substring(9,3) + ":" + Convert.ToString(outputInt % 100000);
     }
 }

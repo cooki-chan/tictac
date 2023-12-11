@@ -23,7 +23,7 @@ public class click : Node2D
         if(Input.IsActionJustPressed("click")){//Left Button
             int bound = 850;
             if(GetViewport().GetMousePosition().y <= bound- dave.Scale.y * dave_face.GetWidth()/2){
-                dave_script = GD.Load<Script>("res://netwirk/go.cs");
+                dave_script = GD.Load<Script>("res://sending tests/goR.cs");
 
                 Sprite newdave = (Sprite)dave.Duplicate(); // Create a new Sprite2D.
                 newdave.Position = GetViewport().GetMousePosition();
