@@ -34,7 +34,7 @@ public class network_mananger : Node{
         }
         int port = (int)GD.RandRange(1025, 65536);
         printLabel(join_code_label, encodeIp(ip, port));
-        peer.CreateServer(port, 10);
+        peer.CreateServer(port, 1);
         GetTree().NetworkPeer = peer;
 
         GetTree().Connect("network_peer_connected", this, "_player_connected");
