@@ -22,8 +22,7 @@ public class summon_joe2 : Button{
         Generate temp = GetNode<Generate>("/root/Control/Generate");
         if(temp.build(10)){
             joe_face = GD.Load<Texture>("res://icon.png");
-            joe = new Sprite(); 
-            joe.Texture = joe_face;
+            joe = new Sprite{Texture = joe_face};
             ulong objID = joe.GetInstanceId();
             joe.SetScript(GD.Load<Script>("res://ui/joeScript.cs"));
             joe = (Sprite) GD.InstanceFromId(objID);

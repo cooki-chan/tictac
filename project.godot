@@ -21,7 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="sped-tic-tac-toe"
-run/main_scene="res://ui/Control.tscn"
+run/main_scene="res://MenuBar.tscn"
 config/icon="res://icon.png"
 
 [display]

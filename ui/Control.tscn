@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://ui/summon_joe2.cs" type="Script" id=1]
 [ext_resource path="res://ui/leave_button.cs" type="Script" id=2]
-[ext_resource path="res://circl.png" type="Texture" id=3]
 [ext_resource path="res://ui/somewhere_else.cs" type="Script" id=4]
 [ext_resource path="res://Font1.tres" type="DynamicFont" id=5]
 [ext_resource path="res://ui/Generate.cs" type="Script" id=6]
@@ -19,13 +18,13 @@ margin_top = 110.0
 margin_right = 661.0
 margin_bottom = 285.0
 
-[node name="Node" type="Node" parent="."]
-
 [node name="summon_joe" type="Button" parent="."]
+anchor_right = 0.993
+anchor_bottom = 1.019
 margin_left = 89.0
 margin_top = 906.0
-margin_right = 386.0
-margin_bottom = 1010.0
+margin_right = -1531.48
+margin_bottom = -70.14
 custom_fonts/font = ExtResource( 5 )
 text = "summon joe"
 script = ExtResource( 2 )
@@ -41,17 +40,13 @@ custom_fonts/font = ExtResource( 5 )
 text = "summon joe"
 script = ExtResource( 1 )
 
-[node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 99, -91 )
-texture = ExtResource( 3 )
-
 [node name="somewhere_else" type="Button" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 1605.0
-margin_top = 46.0
-margin_right = -38.0
-margin_bottom = -627.0
+margin_left = 1565.0
+margin_top = 41.0
+margin_right = -78.0
+margin_bottom = -632.0
 custom_fonts/font = ExtResource( 5 )
 text = "somewhere else"
 script = ExtResource( 4 )
