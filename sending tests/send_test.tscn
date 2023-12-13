@@ -66,14 +66,6 @@ margin_right = 420.0
 margin_bottom = 17.0
 text = "wiggle"
 
-[node name="debug" type="Label" parent="."]
-margin_left = 555.0
-margin_top = 885.0
-margin_right = 1131.0
-margin_bottom = 1054.0
-text = "Console:"
-autowrap = true
-
 [node name="play_border" type="Label" parent="."]
 margin_left = -15.0
 margin_top = 873.0
@@ -92,6 +84,14 @@ text = "Copy Code"
 position = Vector2( -107, 80 )
 scale = Vector2( 0.095, 0.095 )
 texture = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = 452.0
+margin_top = 900.0
+margin_right = 1219.0
+margin_bottom = 1057.0
+text = "debug:
+"
 
 [connection signal="button_down" from="host" to="network_mananger" method="_on_host_button_down"]
 [connection signal="button_down" from="join" to="network_mananger" method="_on_join_button_down"]

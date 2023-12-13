@@ -34,7 +34,7 @@ public class network_mananger : Node{
         }
         int port = (int)GD.RandRange(1025, 65536);
         printLabel(join_code_label, encodeIp(ip, port));
-        peer.CreateServer(port, 1);
+        peer.CreateServer(port, 10);
         GetTree().NetworkPeer = peer;
 
         GetTree().Connect("network_peer_connected", this, "_player_connected");
@@ -64,14 +64,11 @@ public class network_mananger : Node{
 
     void _player_connected(int id){
         debug("Opponent Connect: " + id);
-        if(GetTree().IsNetworkServer()){
-            //if server goes first, send false 
-            if(GD.Randf() < 0.5){
-                RpcId(id, "greetings", name_input.Text, false);
-            } else { //send true
-                RpcId(id, "greetings", name_input.Text, true);
-            }
-        }
+        RpcId(id, "greetings", name_input.Text);
+    }
+
+    void connected_to_server(int id){
+        RpcId(id, "greetings", name_input.Text);
     }
 
     void _player_disconnected(int id){
@@ -90,14 +87,14 @@ public class network_mananger : Node{
 
 //RPC Functions -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     [Remote]
-    void greetings(String name, bool first){
+    void greetings(String name){
         debug("Opponent Name: " + name);
         debug("Opponent RPC ID: " + GetTree().GetRpcSenderId().ToString());
     }   
 
     [Remote]
     void summonDave(int xPos, string type){
-        Debug.Print("New Dave Summoned @ x=" + xPos + " with type: " + type);
+        debug("New Dave Summoned @ x=" + xPos + " with type: " + type);
     }
 //Helper Functions ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
     void debug(String msg){
