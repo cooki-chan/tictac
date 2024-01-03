@@ -25,7 +25,7 @@ public class Plane : Sprite
     public override void _Process(float delta)
     {
 
-        if( goLeft){
+        if(goLeft){
             MoveLocalX(-10);
         } else {
             MoveLocalX(10);

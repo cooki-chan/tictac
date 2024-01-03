@@ -24,7 +24,7 @@ public class network_mananger : Node{
     }
 
     public void _on_host_button_down(){  
-        string ip = ""; //why this is 5 i don't know, but it works
+        string ip = ""; 
         foreach(String i in IP.GetLocalAddresses()){
             String temp = i.Substring(0,3);
             if(string.Equals(temp,"192") || string.Equals(temp,"172") || string.Equals(i.Substring(0,2),"10")){
@@ -32,6 +32,7 @@ public class network_mananger : Node{
                 break;
             }
         }
+        debug("SERVER IP:" + ip);
         int port = (int)GD.RandRange(1025, 65536);
         printLabel(join_code_label, encodeIp(ip, port));
         peer.CreateServer(port, 1);
@@ -46,8 +47,9 @@ public class network_mananger : Node{
 
     public void _on_join_button_down(){
         string ipRaw = decodeIp(join_code_in.Text);
-        string ip = ipRaw.Substring(0, ipRaw.Length-5);
+        string ip = ipRaw.Split(":")[0];
         int port = Convert.ToInt32(ipRaw.Split(":")[1]);
+        debug("ATTEMPTING TO CONNECT TO:" + ip+ ":" + port);
         peer.CreateClient(ip, port);
         GetTree().NetworkPeer = peer;
 
