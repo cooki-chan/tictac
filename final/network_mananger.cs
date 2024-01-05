@@ -13,6 +13,8 @@ public class network_mananger : Node{
     private Label join_code_label;
     private TextEdit join_code_in;
     NetworkedMultiplayerENet peer = new NetworkedMultiplayerENet();
+    [Signal] public delegate void summon_dave(int yPos);
+    [Signal] public delegate void summon_evad(int yPos);
 
     public override void _Ready(){
         debugOut = GetNode<Label>("/root/send/debug");
@@ -96,7 +98,8 @@ public class network_mananger : Node{
 
     [Remote]
     void summonDave(int xPos, string type){
-        debug("New Dave Summoned @ x=" + xPos + " with type: " + type);
+        debug("New Dave Summoned @ y=" + xPos + " with type: " + type);
+        EmitSignal("summon_evad", (float)xPos);
     }
 //Helper Functions ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
     void debug(String msg){
