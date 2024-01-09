@@ -8,52 +8,61 @@ public class Bay : ColorRect{
    public bool inBounds(int x1, int y1){
       return RectPosition.x<=x1 && x1<=(RectPosition.x + RectSize.x) && RectPosition.y<=y1 && y1<=(RectPosition.y + RectSize.y);
    }
+   public Bay(){
+      GD.Print(RectPosition.y);
+   }
    public override void _Ready(){
       control = GetNode<Control>("/root/Control");
    }
    public void onButtonPressed(){
       temp = new Sprite{Texture = GD.Load<Texture>("res://Ship1.png")};
-      temp.MoveLocalY(RectPosition.y+71);
-      temp.MoveLocalX(RectPosition.x+125);
       ship = new Ship(1,null);
    }
    public void on2Pressed(){
       temp = new Sprite{Texture = GD.Load<Texture>("res://Ship2.png")};
-      temp.MoveLocalY(RectPosition.y+71);
-      temp.MoveLocalX(RectPosition.x+125);
       ship = new Ship(2,null);
+   }
+   public void on3Pressed(){
+      temp = new Sprite{Texture = GD.Load<Texture>("res://Ship3.png")};
+      ship = new Ship(3,null);
    }
    public void on5Pressed(){
       temp = new Sprite{Texture = GD.Load<Texture>("res://Ship5.png")};
-      temp.MoveLocalY(RectPosition.y+71);
-      temp.MoveLocalX(RectPosition.x+125);
       ship = new Ship(5,null);
    }
    public void onMouseEnter(){
       if(temp != null){
+         temp.Position = new Vector2(RectPosition.x+125,RectPosition.y+71);
          control.AddChild(temp);
       }
    }
    public void onMouseExit(){
-      if(control.GetChildCount() !=0)
+      if(temp != null && control.GetChildCount() != 0 && control.IsAParentOf(temp)){
          control.RemoveChild(temp);
+         temp.Position = new Vector2(temp.Position.x,RectPosition.y-71);
+      }
    }
     public override void _Process(float delta){
-      Generate temp = GetNode<Generate>("/root/Control/Generate");
+      Generate gen = GetNode<Generate>("/root/Control/Generate");
       if(Input.IsActionJustPressed("click") && ship != null){
+         temp.Texture = null;
          if(inBounds((int)GetViewport().GetMousePosition().x, (int)GetViewport().GetMousePosition().y)){
             GD.Print(RectPosition.y);
             switch (ship.getType()){
-                case 1: 
-                  if(temp.build(10))//attempts to build a ship for cost of 10
+               case 1: 
+                  if(gen.build(10))//attempts to build a ship for cost of 10
                      genShip();
                   break;
-                case 2:
-                  if(temp.build(15))//attempts to build a ship for cost of 15
+               case 2:
+                  if(gen.build(15))//attempts to build a ship for cost of 15
+                     genShip();
+                  break;
+               case 3:
+                  if(gen.build(12))//attempts to build a ship for cost of 15
                      genShip();
                   break;
                case 5:
-                  if(temp.build(20))//attempts to build a ship for cost of 20
+                  if(gen.build(20))//attempts to build a ship for cost of 20
                      genShip();
                   break;
             }

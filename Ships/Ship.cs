@@ -15,6 +15,9 @@ public class Ship : Sprite, ICloneable{
             case 2:
                 speed = 15;
                 break;
+            case 3:
+                speed = 8;
+                break;
             case 5:
                 speed = 5;
                 break;
@@ -34,8 +37,7 @@ public class Ship : Sprite, ICloneable{
         return Type;
     }
 
-    public object Clone()
-    {
+    public object Clone(){
         return new Ship(Type, Method);
     }
 }
