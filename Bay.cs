@@ -50,7 +50,7 @@ public class Bay : ColorRect{
             GD.Print(RectPosition.y);
             switch (ship.getType()){
                case 1: 
-                  if(gen.build(10))//attempts to build a ship for cost of 10
+                  if(gen.build(1))//attempts to build a ship for cost of 1
                      genShip();
                   break;
                case 2:
