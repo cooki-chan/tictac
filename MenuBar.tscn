@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Ship1.png" type="Texture" id=1]
 [ext_resource path="res://Ship3.png" type="Texture" id=2]
 [ext_resource path="res://Ship5.png" type="Texture" id=3]
 [ext_resource path="res://Font1.tres" type="DynamicFont" id=4]
 [ext_resource path="res://ui/Generate.cs" type="Script" id=5]
+[ext_resource path="res://Ship4.png" type="Texture" id=6]
 [ext_resource path="res://Ship2.png" type="Texture" id=8]
 [ext_resource path="res://Bay.cs" type="Script" id=9]
 
@@ -61,11 +62,12 @@ icon = ExtResource( 2 )
 icon_align = 1
 
 [node name="Button4" type="Button" parent="ItemList"]
-margin_left = 1392.0
-margin_top = 42.0
-margin_right = 1631.0
-margin_bottom = 177.0
+margin_left = 1385.0
+margin_top = 23.0
+margin_right = 1636.0
+margin_bottom = 205.0
 rect_pivot_offset = Vector2( 94, 119 )
+icon = ExtResource( 6 )
 
 [node name="Button5" type="Button" parent="ItemList"]
 margin_left = 1652.0
@@ -76,55 +78,55 @@ rect_pivot_offset = Vector2( 94, 119 )
 icon = ExtResource( 3 )
 
 [node name="Generate" type="Button" parent="."]
-margin_left = 111.0
-margin_top = 892.0
-margin_right = 469.0
-margin_bottom = 1035.0
+margin_left = 97.0
+margin_top = 889.0
+margin_right = 455.0
+margin_bottom = 1032.0
 custom_fonts/font = ExtResource( 4 )
 text = "Create Generator"
 script = ExtResource( 5 )
 
 [node name="Bay1" type="ColorRect" parent="."]
-margin_left = 84.0
-margin_top = 63.0
-margin_right = 393.0
-margin_bottom = 202.0
+margin_left = 82.0
+margin_top = 11.0
+margin_right = 407.0
+margin_bottom = 171.0
 rect_pivot_offset = Vector2( -402, 199 )
 color = Color( 0.258824, 0.227451, 0.227451, 1 )
 script = ExtResource( 9 )
 
 [node name="Bay2" type="ColorRect" parent="."]
-margin_left = 84.0
-margin_top = 202.0
-margin_right = 393.0
-margin_bottom = 341.0
+margin_left = 82.0
+margin_top = 171.0
+margin_right = 407.0
+margin_bottom = 331.0
 rect_pivot_offset = Vector2( -402, 199 )
 color = Color( 0.258824, 0.227451, 0.227451, 1 )
 script = ExtResource( 9 )
 
 [node name="Bay3" type="ColorRect" parent="."]
-margin_left = 84.0
-margin_top = 341.0
-margin_right = 393.0
-margin_bottom = 480.0
+margin_left = 82.0
+margin_top = 331.0
+margin_right = 407.0
+margin_bottom = 491.0
 rect_pivot_offset = Vector2( -402, 199 )
 color = Color( 0.258824, 0.227451, 0.227451, 1 )
 script = ExtResource( 9 )
 
 [node name="Bay4" type="ColorRect" parent="."]
-margin_left = 84.0
-margin_top = 480.0
-margin_right = 393.0
-margin_bottom = 619.0
+margin_left = 82.0
+margin_top = 491.0
+margin_right = 407.0
+margin_bottom = 651.0
 rect_pivot_offset = Vector2( -402, 199 )
 color = Color( 0.258824, 0.227451, 0.227451, 1 )
 script = ExtResource( 9 )
 
 [node name="Bay5" type="ColorRect" parent="."]
-margin_left = 84.0
-margin_top = 619.0
-margin_right = 393.0
-margin_bottom = 758.0
+margin_left = 82.0
+margin_top = 651.0
+margin_right = 407.0
+margin_bottom = 811.0
 rect_pivot_offset = Vector2( -402, 199 )
 color = Color( 0.258824, 0.227451, 0.227451, 1 )
 script = ExtResource( 9 )
@@ -144,6 +146,11 @@ script = ExtResource( 9 )
 [connection signal="pressed" from="ItemList/Button3" to="Bay3" method="on3Pressed"]
 [connection signal="pressed" from="ItemList/Button3" to="Bay4" method="on3Pressed"]
 [connection signal="pressed" from="ItemList/Button3" to="Bay5" method="on3Pressed"]
+[connection signal="pressed" from="ItemList/Button4" to="Bay1" method="on4Pressed"]
+[connection signal="pressed" from="ItemList/Button4" to="Bay2" method="on4Pressed"]
+[connection signal="pressed" from="ItemList/Button4" to="Bay3" method="on4Pressed"]
+[connection signal="pressed" from="ItemList/Button4" to="Bay4" method="on4Pressed"]
+[connection signal="pressed" from="ItemList/Button4" to="Bay5" method="on4Pressed"]
 [connection signal="pressed" from="ItemList/Button5" to="Bay1" method="on5Pressed"]
 [connection signal="pressed" from="ItemList/Button5" to="Bay2" method="on5Pressed"]
 [connection signal="pressed" from="ItemList/Button5" to="Bay3" method="on5Pressed"]
