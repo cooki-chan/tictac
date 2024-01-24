@@ -11,7 +11,7 @@ public class Bay : ColorRect{
    }
    public Bay(){
       String name = Name;
-      bayNum = Convert.ToInt32(Name.Substring(Name.Length));
+      //bayNum = Convert.ToInt32(Name.Substring(Name.Length));
       GD.Print(RectPosition.y);
    }
    public override void _Ready(){
