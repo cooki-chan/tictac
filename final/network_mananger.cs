@@ -84,9 +84,9 @@ public class network_mananger : Node{
     }
 
 //Dave Things -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    void _dave_died(int xPos, int type){
+    void _dave_died(int yPos, int type){
         Debug.Print("Dave has been sent to the enemy");
-        Rpc("summonDave", xPos, type);
+        Rpc("summonDave", yPos, type);
     }
 
 //RPC Functions -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -97,9 +97,17 @@ public class network_mananger : Node{
     }   
 
     [Remote]
-    void summonDave(int xPos, int type){
-        debug("New Dave Summoned @ y=" + xPos + " with type: " + type);
-        EmitSignal("summon_evad", (float)xPos);
+    void summonDave(int yPos, int type){
+        debug("New Dave Summoned @ y=" + yPos + " with type: " + type);
+        Control control = GetNode<Control>("/root/Control");
+        Ship ship = new Ship(type,null);
+        ulong objID = ship.GetInstanceId();
+        ship = (Ship) GD.InstanceFromId(objID);
+        Ship newship = (Ship)ship.Clone();
+        newship.Position = new Vector2(0,yPos);
+        control.AddChild(newship); 
+        GD.Print("Ship hasth been sumoned");
+        // EmitSignal("summon_evad", (float)yPos);
     }
 //Helper Functions ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
     void debug(String msg){

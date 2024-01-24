@@ -12,7 +12,7 @@ public class Plane : Sprite
 
     public int speed;
     int type;
-    bool fromOp;
+    bool fromOp;    
 
     public override void _Ready()
     {

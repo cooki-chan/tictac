@@ -2,7 +2,8 @@ using System;
 using System.Linq.Expressions;
 using Godot;
 public class Ship : Sprite, ICloneable{
-    [Signal] public delegate void died(int xPos, int type);
+    //connects to dave died
+    [Signal] public delegate void died(int yPos, int type);
     private int Type;
     private LambdaExpression Method;
     private int speed;
@@ -54,7 +55,7 @@ public class Ship : Sprite, ICloneable{
     public override void _Process(float delta){
         MoveLocalX(speed); 
         if(Position.x > OS.WindowSize.x){
-            if(FromOpponent){
+            if(!FromOpponent){
                 EmitSignal("died", Position.y, Type);
             }
            QueueFree();
