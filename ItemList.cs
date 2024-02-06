@@ -1,15 +1,14 @@
 using Godot;
 using System;
 
-public class Button : Godot.Button
+public class ItemList : Godot.ItemList
 {
     // Declare member variables here. Examples:
     // private int a = 2;
-    private bool test = false;
+    // private string b = "text";
 
     // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
-    {
+    public override void _Ready(){
         
     }
 
@@ -18,10 +17,4 @@ public class Button : Godot.Button
 //  {
 //      
 //  }
-
-    public void _on_Button_pressed(){
-        GD.Print("SSSSSSSSSSSA");
-    }
-
-    
 }
