@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/boaerd.png-de65c2741b78a7e933f05b1b2c597cbf.stex"
+path="res://.import/dave.png-19efd6ca998ec5afe1c979bb68d3fe4b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://boaerd.png"
-dest_files=[ "res://.import/boaerd.png-de65c2741b78a7e933f05b1b2c597cbf.stex" ]
+source_file="res://dave.png"
+dest_files=[ "res://.import/dave.png-19efd6ca998ec5afe1c979bb68d3fe4b.stex" ]
 
 [params]
 

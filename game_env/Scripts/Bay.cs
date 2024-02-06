@@ -18,23 +18,23 @@ public class Bay : ColorRect{
       control = GetNode<Control>("/root/Control");
    }
    public void onButtonPressed(){
-      temp = new Sprite{Texture = GD.Load<Texture>("res://Ship1.png")};
+      temp = new Sprite{Texture = GD.Load<Texture>("res://game_env/Ships/Ship1.png")};
       ship = new Ship(1, bayNum, null);
    }
    public void on2Pressed(){
-      temp = new Sprite{Texture = GD.Load<Texture>("res://Ship2.png")};
+      temp = new Sprite{Texture = GD.Load<Texture>("res://game_env/Ships/Ship2.png")};
       ship = new Ship(2, bayNum, null);
    }
    public void on3Pressed(){
-      temp = new Sprite{Texture = GD.Load<Texture>("res://Ship3.png")};
+      temp = new Sprite{Texture = GD.Load<Texture>("res://game_env/Ships/Ship3.png")};
       ship = new Ship(3, bayNum, null);
    }
    public void on4Pressed(){
-      temp = new Sprite{Texture = GD.Load<Texture>("res://Ship4.png")};
+      temp = new Sprite{Texture = GD.Load<Texture>("res://game_env/Ships/Ship4.png")};
       ship = new Ship(4, bayNum, null);
    }
    public void on5Pressed(){
-      temp = new Sprite{Texture = GD.Load<Texture>("res://Ship5.png")};
+      temp = new Sprite{Texture = GD.Load<Texture>("res://game_env/Ships/Ship5.png")};
       ship = new Ship(5, bayNum, null);
    }
    public void onMouseEnter(){

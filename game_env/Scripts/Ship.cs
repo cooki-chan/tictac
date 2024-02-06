@@ -53,7 +53,7 @@ public class Ship : Sprite, ICloneable{
         }
     }
     public override void _Ready(){
-        Texture = GD.Load<Texture>("res://Ship" + Type + ".png");
+        Texture = GD.Load<Texture>("res://game_env/Ships/Ship" + Type + ".png");
         Connect("died", GetNode<Node>("../network_manager"), "_dave_died");
     }
 //variable movement add
