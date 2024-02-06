@@ -5,7 +5,7 @@ public class Generate : Button{
     private Generator generator;
     private Texture circ;
     public void onGeneratePressed(){
-        circ = GD.Load<Texture>("res://circl.png");
+        circ = GD.Load<Texture>("res://icon.png");
         generator = new Generator(); 
         generator.Texture = circ;
         AddChild(generator);
