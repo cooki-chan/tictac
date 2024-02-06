@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/highlight.png-9cb9e45021c07c84090fde948fc963e7.stex"
+path="res://.import/Ship2.png-2fd179c0d58db19fac5d5b83d55f784a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://highlight.png"
-dest_files=[ "res://.import/highlight.png-9cb9e45021c07c84090fde948fc963e7.stex" ]
+source_file="res://game_env/Ships/Ship2.png"
+dest_files=[ "res://.import/Ship2.png-2fd179c0d58db19fac5d5b83d55f784a.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/circl.png-fc74fbd65632616923ae2a6e8fdb1404.stex"
+path="res://.import/Ship1.png-5f6266d2e527f7598fd93a0b295cc30d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://circl.png"
-dest_files=[ "res://.import/circl.png-fc74fbd65632616923ae2a6e8fdb1404.stex" ]
+source_file="res://game_env/Ships/Ship1.png"
+dest_files=[ "res://.import/Ship1.png-5f6266d2e527f7598fd93a0b295cc30d.stex" ]
 
 [params]
 

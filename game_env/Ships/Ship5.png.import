@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/cros.png-69ebc66e8c177ab99889e6b3d1e997df.stex"
+path="res://.import/Ship5.png-696c1cb508b52c9d3534546fa8a1fa92.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://cros.png"
-dest_files=[ "res://.import/cros.png-69ebc66e8c177ab99889e6b3d1e997df.stex" ]
+source_file="res://game_env/Ships/Ship5.png"
+dest_files=[ "res://.import/Ship5.png-696c1cb508b52c9d3534546fa8a1fa92.stex" ]
 
 [params]
 
