@@ -8,9 +8,12 @@ public class Ship : Sprite, ICloneable{
     private LambdaExpression Method;
     private int speed;
     private bool FromOpponent = false;
-    public Ship(int type, LambdaExpression method){
+    private int lane;
+    public Ship(int type, int Lane, LambdaExpression method){
         Type = type;
         Method = method;
+        lane = Lane;
+        GD.Print(lane);
         switch (type){
             case 1:
                 speed = 10;
@@ -20,6 +23,9 @@ public class Ship : Sprite, ICloneable{
                 break;
             case 3:
                 speed = 8;
+                break;
+            case 4:
+                speed = 10;
                 break;
             case 5:
                 speed = 5;
@@ -66,6 +72,6 @@ public class Ship : Sprite, ICloneable{
     }
 
     public object Clone(){
-        return new Ship(Type, Method);
+        return new Ship(Type, lane, Method);
     }
 }

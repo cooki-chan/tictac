@@ -3,8 +3,6 @@ using Godot;
 public class Generator : Sprite{
     private static int matsCount = 0;
     private int FrameCnt = 0;
-    [Signal]
-    public delegate void MySignal();
 
     public override void _Ready(){
 
