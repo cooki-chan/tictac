@@ -53,13 +53,21 @@ public class Ship : Sprite, ICloneable{
         }
     }
     public override void _Ready(){
-        Texture = GD.Load<Texture>("res://game_env/Ships/Ship" + Type + ".png");
+        if(Global.IsServer){
+            Texture = GD.Load<Texture>("res://game_env/RightFacingShips/Ship" + Type + ".png");
+        } else {
+            Texture = GD.Load<Texture>("res://game_env/LeftFacingShips/Ship" + Type + ".png");
+        }
         Connect("died", GetNode<Node>("../network_manager"), "_dave_died");
     }
 //variable movement add
  // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta){
-        MoveLocalX(speed); 
+        if(Global.IsServer){
+            MoveLocalX(speed);
+        } else {
+            MoveLocalX(speed * -1);
+        } 
         if(Position.x > OS.WindowSize.x){
             if(!FromOpponent){
                 EmitSignal("died", Position.y, Type);
