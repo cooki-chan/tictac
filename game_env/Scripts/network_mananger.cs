@@ -21,7 +21,6 @@ public class network_mananger : Node{
         name_input = GetNode<TextEdit>("name_input");
         join_code_label = GetNode<Label>("host/join_label");
         join_code_in = GetNode<TextEdit>("join/join_in");
-
         GD.Randomize();
     }
 
