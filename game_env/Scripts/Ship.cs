@@ -68,7 +68,7 @@ public class Ship : Sprite, ICloneable{
         } else {
             MoveLocalX(speed * -1);
         } 
-        if(Position.x > OS.WindowSize.x){
+        if(Position.x > OS.WindowSize.x || Position.x < 0){
             if(!FromOpponent){
                 EmitSignal("died", Position.y, Type);
             }
