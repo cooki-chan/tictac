@@ -22,6 +22,12 @@ public class network_mananger : Node{
         join_code_label = GetNode<Label>("host/join_label");
         join_code_in = GetNode<TextEdit>("join/join_in");
 
+        GetTree().Connect("network_peer_connected", this, "_player_connected");
+        GetTree().Connect("network_peer_disconnected", this, "_player_disconnected");
+        GetTree().Connect("connected_to_server", this, "_connected_ok");
+        GetTree().Connect("connection_failed", this, "_connected_fail");
+        GetTree().Connect("server_disconnected", this, "_server_disconnected");
+
         GD.Randomize();
     }
 
@@ -41,11 +47,6 @@ public class network_mananger : Node{
         peer.CreateServer(port, 1);
         GetTree().NetworkPeer = peer;
 
-        GetTree().Connect("network_peer_connected", this, "_player_connected");
-        GetTree().Connect("network_peer_disconnected", this, "_player_disconnected");
-        GetTree().Connect("connected_to_server", this, "_connected_ok");
-        GetTree().Connect("connection_failed", this, "_connected_fail");
-        GetTree().Connect("server_disconnected", this, "_server_disconnected");
     }
 
     public void _on_join_button_down(){
@@ -56,11 +57,6 @@ public class network_mananger : Node{
         peer.CreateClient(ip, port);
         GetTree().NetworkPeer = peer;
 
-        GetTree().Connect("network_peer_connected", this, "_player_connected");
-        GetTree().Connect("network_peer_disconnected", this, "_player_disconnected");
-        GetTree().Connect("connected_to_server", this, "_connected_ok");
-        GetTree().Connect("connection_failed", this, "_connected_fail");
-        GetTree().Connect("server_disconnected", this, "_server_disconnected");
     }
 
     public void _on_copy_button_pressed(){
@@ -105,7 +101,11 @@ public class network_mananger : Node{
         ulong objID = ship.GetInstanceId();
         ship = (Ship) GD.InstanceFromId(objID);
         Ship newship = (Ship)ship.Clone();
-        newship.Position = new Vector2(0,yPos);
+        if(Global.IsServer){
+            newship.Position = new Vector2(0,yPos);
+        } else {
+            newship.Position = new Vector2(1000,yPos); //TODO: CHANGE THESE X VALUES
+        }
         control.AddChild(newship); 
         GD.Print("Ship hasth been sumoned");
         // EmitSignal("summon_evad", (float)yPos);
