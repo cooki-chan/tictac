@@ -2,7 +2,6 @@
 
 [ext_resource path="res://game_env/Fonts/FRABKIT.TTF" type="DynamicFontData" id=1]
 
-
 [resource]
 size = 40
 font_data = ExtResource( 1 )

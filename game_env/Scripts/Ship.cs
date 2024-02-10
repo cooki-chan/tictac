@@ -72,7 +72,9 @@ public class Ship : Sprite, ICloneable{
             if(!FromOpponent){
                 EmitSignal("died", Position.y, Type);
             }
-           QueueFree();
+        }
+        if(Position.x >= OS.WindowSize.x + this.Scale.x * Texture.GetWidth()/2 || Position.x <= -1 * this.Scale.x * Texture.GetWidth()/2){
+            QueueFree();
         }
     }
     public int getType(){

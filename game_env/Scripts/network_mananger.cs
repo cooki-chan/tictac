@@ -46,6 +46,7 @@ public class network_mananger : Node{
         printLabel(join_code_label, encodeIp(ip, port));
         peer.CreateServer(port, 1);
         GetTree().NetworkPeer = peer;
+        Global.IsServer = true;
 
     }
 
@@ -56,7 +57,7 @@ public class network_mananger : Node{
         debug("ATTEMPTING TO CONNECT TO:" + ip+ ":" + port);
         peer.CreateClient(ip, port);
         GetTree().NetworkPeer = peer;
-
+        Global.IsServer = false;
     }
 
     public void _on_copy_button_pressed(){
@@ -102,9 +103,9 @@ public class network_mananger : Node{
         ship = (Ship) GD.InstanceFromId(objID);
         Ship newship = (Ship)ship.Clone();
         if(Global.IsServer){
-            newship.Position = new Vector2(0,yPos);
+            newship.Position = new Vector2(OS.WindowSize.x + ship.Scale.x * ship.Texture.GetWidth()/2,yPos); //On server, enemy needs to spawn on the right
         } else {
-            newship.Position = new Vector2(1000,yPos); //TODO: CHANGE THESE X VALUES
+            newship.Position = new Vector2(0,yPos); //On client, enemy needs to spawn on the left
         }
         control.AddChild(newship); 
         GD.Print("Ship hasth been sumoned");
