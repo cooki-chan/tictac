@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Diagnostics;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 
 public class network_mananger : Node{
@@ -44,6 +45,7 @@ public class network_mananger : Node{
         int port = (int)GD.RandRange(1025, 65536);
         GD.Print(port);
         printLabel(join_code_label, encodeIp(ip, port));
+        peer = new NetworkedMultiplayerENet();
         peer.CreateServer(port, 1);
         GetTree().NetworkPeer = peer;
         Global.IsServer = true;
@@ -55,6 +57,7 @@ public class network_mananger : Node{
         string ip = ipRaw.Split(":")[0];
         int port = Convert.ToInt32(ipRaw.Split(":")[1]);
         debug("ATTEMPTING TO CONNECT TO:" + ip+ ":" + port);
+        peer = new NetworkedMultiplayerENet();
         peer.CreateClient(ip, port);
         GetTree().NetworkPeer = peer;
         Global.IsServer = false;
@@ -69,7 +72,7 @@ public class network_mananger : Node{
         RpcId(id, "greetings", name_input.Text);
     }
 
-    void connected_to_server(int id){
+    void _connected_to_server(int id){
         RpcId(id, "greetings", name_input.Text);
     }
 
@@ -77,8 +80,16 @@ public class network_mananger : Node{
         Debug.Print("Opponent Disconnect: " + id);
     }
 
+    void _connected_ok(int id){
+        RpcId(id, "greetings", name_input.Text);
+    }
+
     void _on_disconnect_button_down(){
         GetTree().NetworkPeer = null;
+    }
+
+    void _server_disconnected(){
+        debug("oop the server died lmaoooooooo");
     }
 
 //Dave Things -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -98,16 +109,16 @@ public class network_mananger : Node{
     void summonDave(int yPos, int type){
         debug("New Dave Summoned @ y=" + yPos + " with type: " + type);
         Control control = GetNode<Control>("/root/Control");
-        Ship ship = new Ship(type,0,null);
+        Ship ship = new Ship(type,0,null, true);
         ulong objID = ship.GetInstanceId();
         ship = (Ship) GD.InstanceFromId(objID);
         Ship newship = (Ship)ship.Clone();
+        control.AddChild(newship); 
         if(Global.IsServer){
-            newship.Position = new Vector2(OS.WindowSize.x + ship.Scale.x * ship.Texture.GetWidth()/2,yPos); //On server, enemy needs to spawn on the right
+            newship.Position = new Vector2(OS.WindowSize.x + newship.Scale.x * GD.Load<Texture>("res://game_env/RightFacingShips/Ship" + newship.getType() + ".png").GetWidth()/2,yPos); //On server, enemy needs to spawn on the right
         } else {
             newship.Position = new Vector2(0,yPos); //On client, enemy needs to spawn on the left
         }
-        control.AddChild(newship); 
         GD.Print("Ship hasth been sumoned");
         // EmitSignal("summon_evad", (float)yPos);
     }

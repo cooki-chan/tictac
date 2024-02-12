@@ -9,7 +9,7 @@ public class Ship : Sprite, ICloneable{
     private int speed;
     private bool FromOpponent = false;
     private int lane;
-    public Ship(int type, int Lane, LambdaExpression method){
+    public Ship(int type, int Lane, LambdaExpression method, bool fromOp){
         Type = type;
         Method = method;
         lane = Lane;
@@ -33,25 +33,7 @@ public class Ship : Sprite, ICloneable{
         }
     }
 
-    public Ship(int type, LambdaExpression method, bool fromOpponent){
-        FromOpponent = fromOpponent;
-        Type = type;
-        Method = method;
-        switch (type){
-            case 1:
-                speed = 10;
-                break;
-            case 2:
-                speed = 15;
-                break;
-            case 3:
-                speed = 8;
-                break;
-            case 5:
-                speed = 5;
-                break;
-        }
-    }
+
     public override void _Ready(){
         if(Global.IsServer){
             Texture = GD.Load<Texture>("res://game_env/RightFacingShips/Ship" + Type + ".png");
@@ -65,9 +47,11 @@ public class Ship : Sprite, ICloneable{
     public override void _Process(float delta){
         if(Global.IsServer){
             MoveLocalX(speed);
+            
         } else {
             MoveLocalX(speed * -1);
         } 
+
         if(Position.x > OS.WindowSize.x || Position.x < 0){
             if(!FromOpponent){
                 EmitSignal("died", Position.y, Type);
@@ -82,6 +66,6 @@ public class Ship : Sprite, ICloneable{
     }
 
     public object Clone(){
-        return new Ship(Type, lane, Method);
+        return new Ship(Type, lane, Method, FromOpponent);
     }
 }
