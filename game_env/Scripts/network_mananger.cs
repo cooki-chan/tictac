@@ -94,7 +94,6 @@ public class network_mananger : Node{
 
 //Dave Things -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     void _dave_died(int yPos, int type){
-        Debug.Print("Dave has been sent to the enemy");
         Rpc("summonDave", yPos, type);
     }
 

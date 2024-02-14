@@ -1,6 +1,9 @@
 using System;
 using System.Linq.Expressions;
 using Godot;
+using System.Diagnostics;
+using System.Runtime.ConstrainedExecution;
+using System.Text;
 public class Ship : Sprite, ICloneable{
     //connects to dave died
     [Signal] public delegate void died(int yPos, int type);
@@ -13,6 +16,7 @@ public class Ship : Sprite, ICloneable{
         Type = type;
         Method = method;
         lane = Lane;
+        FromOpponent = fromOp;
         GD.Print(lane);
         switch (type){
             case 1:
@@ -36,9 +40,11 @@ public class Ship : Sprite, ICloneable{
 
     public override void _Ready(){
         if(Global.IsServer){
-            Texture = GD.Load<Texture>("res://game_env/RightFacingShips/Ship" + Type + ".png");
+            if(!FromOpponent)Texture = GD.Load<Texture>("res://game_env/RightFacingShips/Ship" + Type + ".png");
+            if(FromOpponent)Texture = GD.Load<Texture>("res://game_env/LeftFacingShips/Ship" + Type + ".png");
         } else {
-            Texture = GD.Load<Texture>("res://game_env/LeftFacingShips/Ship" + Type + ".png");
+           if(!FromOpponent)Texture = GD.Load<Texture>("res://game_env/LeftFacingShips/Ship" + Type + ".png");
+           if(FromOpponent)Texture = GD.Load<Texture>("res://game_env/RightFacingShips/Ship" + Type + ".png");
         }
         Connect("died", GetNode<Node>("../network_manager"), "_dave_died");
     }
@@ -46,20 +52,25 @@ public class Ship : Sprite, ICloneable{
  // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta){
         if(Global.IsServer){
-            MoveLocalX(speed);
+            if(FromOpponent)MoveLocalX(speed * -1);
+            if(!FromOpponent)MoveLocalX(speed);
             
         } else {
-            MoveLocalX(speed * -1);
+            if(FromOpponent)MoveLocalX(speed);
+            if(!FromOpponent)MoveLocalX(speed * -1);
         } 
 
         if(Position.x > OS.WindowSize.x || Position.x < 0){
             if(!FromOpponent){
                 EmitSignal("died", Position.y, Type);
+                Debug.Print("ship has been sent");
+                QueueFree();
             }
+            Debug.Print("ship is OOB");
         }
-        if(Position.x >= OS.WindowSize.x + this.Scale.x * Texture.GetWidth()/2 || Position.x <= -1 * this.Scale.x * Texture.GetWidth()/2){
-            QueueFree();
-        }
+        // if(Position.x >= OS.WindowSize.x + this.Scale.x * Texture.GetWidth()/2 || Position.x <= -1 * this.Scale.x * Texture.GetWidth()/2){
+        //     QueueFree();
+        // }
     }
     public int getType(){
         return Type;
