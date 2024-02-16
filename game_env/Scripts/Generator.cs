@@ -4,11 +4,8 @@ public class Generator : Sprite{
     private static int matsCount = 0;
     private int FrameCnt = 0;
 
-    public override void _Ready(){
-
-    }
-//variable movement add
- // Called every frame. 'delta' is the elapsed time since the previous frame.
+    //variable movement add
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta){
         FrameCnt++;
 	   if(FrameCnt%60 == 0){

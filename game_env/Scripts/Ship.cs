@@ -1,6 +1,9 @@
 using System;
 using System.Linq.Expressions;
 using Godot;
+using System.Diagnostics;
+using System.Runtime.ConstrainedExecution;
+using System.Text;
 public class Ship : Sprite, ICloneable{
     //connects to dave died
     [Signal] public delegate void died(int yPos, int type);
@@ -9,10 +12,12 @@ public class Ship : Sprite, ICloneable{
     private int speed;
     private bool FromOpponent = false;
     private int lane;
-    public Ship(int type, int Lane, LambdaExpression method){
+    private bool sentToOpponent = false;
+    public Ship(int type, int Lane, LambdaExpression method, bool fromOp){
         Type = type;
         Method = method;
         lane = Lane;
+        FromOpponent = fromOp;
         GD.Print(lane);
         switch (type){
             case 1:
@@ -33,38 +38,39 @@ public class Ship : Sprite, ICloneable{
         }
     }
 
-    public Ship(int type, LambdaExpression method, bool fromOpponent){
-        FromOpponent = fromOpponent;
-        Type = type;
-        Method = method;
-        switch (type){
-            case 1:
-                speed = 10;
-                break;
-            case 2:
-                speed = 15;
-                break;
-            case 3:
-                speed = 8;
-                break;
-            case 5:
-                speed = 5;
-                break;
-        }
-    }
+
     public override void _Ready(){
-        Texture = GD.Load<Texture>("res://game_env/Ships/Ship" + Type + ".png");
+        if(Global.IsServer){
+            if(!FromOpponent)Texture = GD.Load<Texture>("res://game_env/RightFacingShips/Ship" + Type + ".png");
+            if(FromOpponent)Texture = GD.Load<Texture>("res://game_env/LeftFacingShips/Ship" + Type + ".png");
+        } else {
+           if(!FromOpponent)Texture = GD.Load<Texture>("res://game_env/LeftFacingShips/Ship" + Type + ".png");
+           if(FromOpponent)Texture = GD.Load<Texture>("res://game_env/RightFacingShips/Ship" + Type + ".png");
+        }
         Connect("died", GetNode<Node>("../network_manager"), "_dave_died");
     }
 //variable movement add
  // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta){
-        MoveLocalX(speed); 
-        if(Position.x > OS.WindowSize.x){
-            if(!FromOpponent){
+        if(Global.IsServer){
+            if(FromOpponent)MoveLocalX(speed * -1);
+            if(!FromOpponent)MoveLocalX(speed);
+            
+        } else {
+            if(FromOpponent)MoveLocalX(speed);
+            if(!FromOpponent)MoveLocalX(speed * -1);
+        } 
+
+        // if(Position.x > OS.WindowSize.x || Position.x < 0){
+        if(Position.x >= OS.WindowSize.x - this.Scale.x * Texture.GetWidth()/2 || Position.x <= this.Scale.x * Texture.GetWidth()/2){
+            if(!FromOpponent && !sentToOpponent){
                 EmitSignal("died", Position.y, Type);
+                Debug.Print("ship has been sent");
+                sentToOpponent = true;
             }
-           QueueFree();
+        }
+        if(Position.x >= OS.WindowSize.x + this.Scale.x * Texture.GetWidth()/2 || Position.x <= -1 * this.Scale.x * Texture.GetWidth()/2){
+            QueueFree();
         }
     }
     public int getType(){
@@ -72,6 +78,6 @@ public class Ship : Sprite, ICloneable{
     }
 
     public object Clone(){
-        return new Ship(Type, lane, Method);
+        return new Ship(Type, lane, Method, FromOpponent);
     }
 }

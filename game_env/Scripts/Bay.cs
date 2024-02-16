@@ -6,6 +6,7 @@ public class Bay : ColorRect{
    private static Ship ship;
    private int bayNum;
    private Control control;
+   private String SpritePath;
    public bool inBounds(int x1, int y1){
       return RectPosition.x<=x1 && x1<=(RectPosition.x + RectSize.x) && RectPosition.y<=y1 && y1<=(RectPosition.y + RectSize.y);
    }
@@ -13,29 +14,35 @@ public class Bay : ColorRect{
       String name = Name;
       //bayNum = Convert.ToInt32(Name.Substring(Name.Length));
       GD.Print(RectPosition.y);
+      
    }
    public override void _Ready(){
       control = GetNode<Control>("/root/Control");
+      if(Global.IsServer){
+            SpritePath = "res://game_env/RightFacingShips/";
+        } else {
+            SpritePath = "res://game_env/LeftFacingShips/";
+        }
    }
    public void onButtonPressed(){
-      temp = new Sprite{Texture = GD.Load<Texture>("res://game_env/Ships/Ship1.png")};
-      ship = new Ship(1, bayNum, null);
+      temp = new Sprite{Texture = GD.Load<Texture>(SpritePath + "Ship1.png")};
+      ship = new Ship(1, bayNum, null, false);
    }
    public void on2Pressed(){
-      temp = new Sprite{Texture = GD.Load<Texture>("res://game_env/Ships/Ship2.png")};
-      ship = new Ship(2, bayNum, null);
+      temp = new Sprite{Texture = GD.Load<Texture>(SpritePath + "Ship2.png")};
+      ship = new Ship(2, bayNum, null, false);
    }
    public void on3Pressed(){
-      temp = new Sprite{Texture = GD.Load<Texture>("res://game_env/Ships/Ship3.png")};
-      ship = new Ship(3, bayNum, null);
+      temp = new Sprite{Texture = GD.Load<Texture>(SpritePath + "Ship3.png")};
+      ship = new Ship(3, bayNum, null, false);
    }
    public void on4Pressed(){
-      temp = new Sprite{Texture = GD.Load<Texture>("res://game_env/Ships/Ship4.png")};
-      ship = new Ship(4, bayNum, null);
+      temp = new Sprite{Texture = GD.Load<Texture>(SpritePath + "Ship4.png")};
+      ship = new Ship(4, bayNum, null, false);
    }
    public void on5Pressed(){
-      temp = new Sprite{Texture = GD.Load<Texture>("res://game_env/Ships/Ship5.png")};
-      ship = new Ship(5, bayNum, null);
+      temp = new Sprite{Texture = GD.Load<Texture>(SpritePath + "Ship5.png")};
+      ship = new Ship(5, bayNum, null, false);
    }
    public void onMouseEnter(){
       if(temp != null){
