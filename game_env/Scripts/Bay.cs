@@ -18,11 +18,6 @@ public class Bay : ColorRect{
    }
    public override void _Ready(){
       control = GetNode<Control>("/root/Control");
-      if(Global.IsServer){
-            SpritePath = "res://game_env/RightFacingShips/";
-        } else {
-            SpritePath = "res://game_env/LeftFacingShips/";
-        }
    }
    public void onButtonPressed(){
       temp = new Sprite{Texture = GD.Load<Texture>(SpritePath + "Ship1.png")};
@@ -57,6 +52,12 @@ public class Bay : ColorRect{
       }
    }
     public override void _Process(float delta){
+      if(Global.IsServer){
+            SpritePath = "res://game_env/RightFacingShips/";
+        } else {
+            SpritePath = "res://game_env/LeftFacingShips/";
+        }
+
       Generate gen = GetNode<Generate>("/root/Control/Generate");
       if(Input.IsActionJustPressed("click") && ship != null){
          temp.Texture = null;

@@ -5,10 +5,6 @@ using System.Runtime.ConstrainedExecution;
 using System.Text;
 
 public class network_mananger : Node{
- // Declare member variables here. Examples:
-    // private int a = 2;
-    // private string b = "text";
-    // Called when the node enters the scene tree for the first time.
     private Label debugOut;
     private TextEdit name_input;
     private Label join_code_label;
@@ -111,6 +107,7 @@ public class network_mananger : Node{
         ulong objID = ship.GetInstanceId();
         ship = (Ship) GD.InstanceFromId(objID);
         Ship newship = (Ship)ship.Clone();
+        newship.Position = new Vector2(1000, 2000000);
         control.AddChild(newship); 
         if(Global.IsServer){
             newship.Position = new Vector2(OS.WindowSize.x + newship.Scale.x * GD.Load<Texture>("res://game_env/RightFacingShips/Ship" + newship.getType() + ".png").GetWidth()/2,yPos); //On server, enemy needs to spawn on the right

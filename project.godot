@@ -29,10 +29,16 @@ config/windows_native_icon="res://dave.ico"
 
 Global="*res://game_env/Scripts/Global.cs"
 
+[debug]
+
+settings/stdout/verbose_stdout=true
+settings/physics_interpolation/enable_warnings=false
+
 [display]
 
 window/size/width=1920
 window/size/height=1080
+window/size/resizable=false
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
 

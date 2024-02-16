@@ -4,9 +4,11 @@ using Godot;
 using System.Diagnostics;
 using System.Runtime.ConstrainedExecution;
 using System.Text;
+using System.Collections;
 public class Ship : Sprite, ICloneable{
     //connects to dave died
     [Signal] public delegate void died(int yPos, int type);
+    [Signal] public delegate void _core_damaged(int damage);
     private int Type;
     private LambdaExpression Method;
     private int speed;
@@ -71,6 +73,26 @@ public class Ship : Sprite, ICloneable{
         }
         if(Position.x >= OS.WindowSize.x + this.Scale.x * Texture.GetWidth()/2 || Position.x <= -1 * this.Scale.x * Texture.GetWidth()/2){
             QueueFree();
+        }
+
+
+        if(Global.IsServer){
+            if(Position.x - this.Scale.x * Texture.GetWidth()/2 <= 500){
+                if(FromOpponent){
+                    Debug.Print("Taken Damage OMG :OOOOOOOO!!!!");
+                    Global.Health -= 500;
+                    QueueFree();
+                }
+            }
+        } else {
+            if(Position.x + this.Scale.x * Texture.GetWidth()/2 >= 1420){
+                if(FromOpponent){
+                    Debug.Print("Taken Damage OMG :OOOOOOOO!!!!");
+                    Global.Health -= 500;
+                    QueueFree();
+
+                }
+            }
         }
     }
     public int getType(){
