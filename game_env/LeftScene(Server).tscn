@@ -243,4 +243,4 @@ text = "debug:
 [connection signal="mouse_exited" from="Bay5" to="Bay5" method="onMouseExit"]
 [connection signal="button_down" from="network_manager/host" to="network_manager" method="_on_host_button_down"]
 [connection signal="button_down" from="network_manager/join" to="network_manager" method="_on_join_button_down"]
-[connection signal="button_down" from="network_manager/copy_button" to="network_manager" method="_on_copy_button_button_down"]
+[connection signal="pressed" from="network_manager/copy_button" to="network_manager" method="_on_copy_button_pressed"]

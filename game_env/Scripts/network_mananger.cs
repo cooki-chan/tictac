@@ -14,8 +14,7 @@ public class network_mananger : Node{
     private Label join_code_label;
     private TextEdit join_code_in;
     NetworkedMultiplayerENet peer = new NetworkedMultiplayerENet();
-    [Signal] public delegate void summon_dave(int yPos);
-    [Signal] public delegate void summon_evad(int yPos);
+
 
     public override void _Ready(){
         debugOut = GetNode<Label>("debug");
@@ -119,7 +118,6 @@ public class network_mananger : Node{
             newship.Position = new Vector2(0,yPos); //On client, enemy needs to spawn on the left
         }
         GD.Print("Ship hasth been sumoned");
-        // EmitSignal("summon_evad", (float)yPos);
     }
 //Helper Functions ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
     void debug(String msg){

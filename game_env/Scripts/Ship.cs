@@ -12,6 +12,7 @@ public class Ship : Sprite, ICloneable{
     private int speed;
     private bool FromOpponent = false;
     private int lane;
+    private bool sentToOpponent = false;
     public Ship(int type, int Lane, LambdaExpression method, bool fromOp){
         Type = type;
         Method = method;
@@ -60,17 +61,17 @@ public class Ship : Sprite, ICloneable{
             if(!FromOpponent)MoveLocalX(speed * -1);
         } 
 
-        if(Position.x > OS.WindowSize.x || Position.x < 0){
-            if(!FromOpponent){
+        // if(Position.x > OS.WindowSize.x || Position.x < 0){
+        if(Position.x >= OS.WindowSize.x - this.Scale.x * Texture.GetWidth()/2 || Position.x <= this.Scale.x * Texture.GetWidth()/2){
+            if(!FromOpponent && !sentToOpponent){
                 EmitSignal("died", Position.y, Type);
                 Debug.Print("ship has been sent");
-                QueueFree();
+                sentToOpponent = true;
             }
-            Debug.Print("ship is OOB");
         }
-        // if(Position.x >= OS.WindowSize.x + this.Scale.x * Texture.GetWidth()/2 || Position.x <= -1 * this.Scale.x * Texture.GetWidth()/2){
-        //     QueueFree();
-        // }
+        if(Position.x >= OS.WindowSize.x + this.Scale.x * Texture.GetWidth()/2 || Position.x <= -1 * this.Scale.x * Texture.GetWidth()/2){
+            QueueFree();
+        }
     }
     public int getType(){
         return Type;
