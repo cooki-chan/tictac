@@ -13,7 +13,7 @@ public class Ship : Sprite, ICloneable{
         Type = type;
         Method = method;
         lane = Lane;
-        GD.Print(lane);
+        //GD.Print(lane);
         switch (type){
             case 1:
                 speed = 10;

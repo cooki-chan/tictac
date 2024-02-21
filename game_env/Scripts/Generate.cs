@@ -6,7 +6,7 @@ public class Generate : Button{
     private Texture circ;
     public void onGeneratePressed(){
         circ = GD.Load<Texture>("res://icon.png");
-        generator = new Generator(); 
+        generator = new Generator("elec"); 
         generator.Texture = circ;
         AddChild(generator);
         generator.MoveLocalY(300);
@@ -14,9 +14,9 @@ public class Generate : Button{
     }
     public override void _Process(float delta){}  
 
-    public bool build(int sub){
+    public bool build(int [] sub){
         if(generator is Generator)
-            return generator.subtract(sub);
+            return Generator.subtract(sub);
         return false;
     }  
 }
