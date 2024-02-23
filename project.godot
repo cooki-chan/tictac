@@ -21,7 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="sped-tic-tac-toe"
-run/main_scene="res://game_env/omg_a_menu.tscn"
+run/main_scene="res://game_env/Scenes/MainMenu.tscn"
 config/icon="res://dave.png"
 config/windows_native_icon="res://dave.ico"
 

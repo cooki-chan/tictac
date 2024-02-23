@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://game_env/Fonts/Font1.tres" type="DynamicFont" id=1]
+[ext_resource path="res://dave.png" type="Texture" id=2]
+[ext_resource path="res://game_env/Scripts/MainMenu.cs" type="Script" id=3]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+
+[node name="Dave" type="Sprite" parent="."]
+position = Vector2( 1936.17, -14.7546 )
+scale = Vector2( 1.955, 1.122 )
+texture = ExtResource( 2 )
+offset = Vector2( -500.085, 499.781 )
+
+[node name="TitleLabel" type="Label" parent="."]
+margin_left = 1172.0
+margin_top = 123.0
+margin_right = 1821.0
+margin_bottom = 255.0
+custom_fonts/font = ExtResource( 1 )
+text = "GAMER TIME :FIRE:"
+
+[node name="StartLocal" type="Button" parent="."]
+margin_left = 249.0
+margin_top = 452.0
+margin_right = 995.0
+margin_bottom = 744.0
+custom_fonts/font = ExtResource( 1 )
+text = "START LOCAL GAME"
+
+[node name="JoinLocal" type="Button" parent="."]
+margin_left = 39.0
+margin_top = 773.0
+margin_right = 1904.0
+margin_bottom = 1065.0
+custom_fonts/font = ExtResource( 1 )
+text = "LEAVE D:"
+
+[node name="Leave" type="Button" parent="."]
+margin_left = 1014.0
+margin_top = 452.0
+margin_right = 1760.0
+margin_bottom = 744.0
+custom_fonts/font = ExtResource( 1 )
+text = "JOIN LOCAL GAME"
