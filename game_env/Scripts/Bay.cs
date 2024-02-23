@@ -49,7 +49,7 @@ public class Bay : ColorRect{
       }
    }
     public override void _Process(float delta){
-      Generate gen = GetNode<Generate>("/root/Control/Generate");
+      Generate gen = GetNode<Generate>("/root/Control/Ships/Generate");
       if(Input.IsActionJustPressed("click") && ship != null){
          temp.Texture = null;
          if(inBounds((int)GetViewport().GetMousePosition().x, (int)GetViewport().GetMousePosition().y)){
