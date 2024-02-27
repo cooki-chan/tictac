@@ -32,6 +32,14 @@ custom_fonts/font = ExtResource( 1 )
 text = "START LOCAL GAME"
 
 [node name="JoinLocal" type="Button" parent="."]
+margin_left = 1014.0
+margin_top = 452.0
+margin_right = 1760.0
+margin_bottom = 744.0
+custom_fonts/font = ExtResource( 1 )
+text = "JOIN LOCAL GAME"
+
+[node name="Leave" type="Button" parent="."]
 margin_left = 39.0
 margin_top = 773.0
 margin_right = 1904.0
@@ -39,10 +47,6 @@ margin_bottom = 1065.0
 custom_fonts/font = ExtResource( 1 )
 text = "LEAVE D:"
 
-[node name="Leave" type="Button" parent="."]
-margin_left = 1014.0
-margin_top = 452.0
-margin_right = 1760.0
-margin_bottom = 744.0
-custom_fonts/font = ExtResource( 1 )
-text = "JOIN LOCAL GAME"
+[connection signal="pressed" from="StartLocal" to="." method="_on_StartLocal_pressed"]
+[connection signal="pressed" from="JoinLocal" to="." method="_on_JoinLocal_pressed"]
+[connection signal="pressed" from="Leave" to="." method="_on_Leave_pressed"]
