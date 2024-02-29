@@ -6,15 +6,15 @@ public class Field : ColorRect{
         //SparseMatrix<string> sparseMatrix = new SparseMatrix<string>(8,8);
     }
     public void EPressed(){
-        GetNode<Control>("/root/Control/Village").AddChild(new Generator("elec"));
+        GetNode<ColorRect>("/root/Control/Village").AddChild(new Generator("elec"));
     }
     public void CFPressed(){
-        GetNode<Control>("/root/Control/Village").AddChild(new Generator("carbs"));
+        GetNode<ColorRect>("/root/Control/Village").AddChild(new Generator("carbs"));
     }
     public void SPressed(){
-        GetNode<Control>("/root/Control/Village").AddChild(new Generator("mill"));
+        GetNode<ColorRect>("/root/Control/Village").AddChild(new Generator("mill"));
     }
     public void DDPressed(){
-        GetNode<Control>("/root/Control/Village").AddChild(new Generator("cobble minion"));
+        GetNode<ColorRect>("/root/Control/Village").AddChild(new Generator("cobble minion"));
     }
 }

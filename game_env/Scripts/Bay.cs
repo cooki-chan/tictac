@@ -49,29 +49,28 @@ public class Bay : ColorRect{
       }
    }
     public override void _Process(float delta){
-      Generate gen = GetNode<Generate>("/root/Control/Ships/Generate");
       if(Input.IsActionJustPressed("click") && ship != null){
          temp.Texture = null;
          if(inBounds((int)GetViewport().GetMousePosition().x, (int)GetViewport().GetMousePosition().y)){
             switch (ship.getType()){
                case 1: 
-                  if(gen.build(new int [] {0,0,0,0})) // order is Electronics, Carbon Fiber, Steel, DaveDollarsTM
+                  if(Generator.build(new int [] {0,0,0,0})) // order is Electronics, Carbon Fiber, Steel, DaveDollarsTM
                      genShip();
                   break;
                case 2:
-                  if(gen.build(new int [] {0,0,0,0}))
+                  if(Generator.build(new int [] {0,0,0,0}))
                      genShip();
                   break;
                case 3:
-                  if(gen.build(new int [] {0,0,0,0}))
+                  if(Generator.build(new int [] {0,0,0,0}))
                      genShip();
                   break;
                case 4:
-                  if(gen.build(new int [] {0,0,0,0}))
+                  if(Generator.build(new int [] {0,0,0,0}))
                      genShip();
                   break;
                case 5:
-                  if(gen.build(new int [] {0,0,0,0}))
+                  if(Generator.build(new int [] {0,0,0,0}))
                      genShip();
                   break;
             }
