@@ -58,6 +58,10 @@ public class network_mananger : Node{
         Global.IsServer = false;
     }
 
+    public void _on_testtt_pressed(){
+        GD.Print(GetTree().NetworkPeer.GetConnectionStatus());
+    }
+
     public void _on_copy_button_pressed(){
         OS.SetClipboard(join_code_label.Text);
     }

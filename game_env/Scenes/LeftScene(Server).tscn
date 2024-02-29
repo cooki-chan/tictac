@@ -131,22 +131,29 @@ rect_pivot_offset = Vector2( -402, 199 )
 color = Color( 0.258824, 0.227451, 0.227451, 1 )
 script = ExtResource( 2 )
 
+[node name="testtt" type="Button" parent="."]
+margin_left = 640.0
+margin_top = 188.0
+margin_right = 1687.0
+margin_bottom = 809.0
+text = "TESTINGGGGGGGGGGG"
+
 [node name="network_manager" type="Node" parent="."]
 script = ExtResource( 3 )
-
-[node name="debug" type="Label" parent="network_manager"]
-margin_left = 902.0
-margin_top = 49.0
-margin_right = 1733.0
-margin_bottom = 246.0
-text = "debug:
-"
 
 [node name="Dave" type="Sprite" parent="."]
 scale = Vector2( 0.5, 1 )
 z_index = -2712
 texture = ExtResource( 9 )
 centered = false
+
+[node name="debug" type="Label" parent="."]
+margin_left = 952.0
+margin_top = 43.0
+margin_right = 1783.0
+margin_bottom = 240.0
+text = "debug:
+"
 
 [connection signal="pressed" from="ItemList/Button" to="Bay1" method="onButtonPressed"]
 [connection signal="pressed" from="ItemList/Button" to="Bay2" method="onButtonPressed"]
@@ -185,3 +192,4 @@ centered = false
 [connection signal="mouse_exited" from="Bay4" to="Bay4" method="onMouseExit"]
 [connection signal="mouse_entered" from="Bay5" to="Bay5" method="onMouseEnter"]
 [connection signal="mouse_exited" from="Bay5" to="Bay5" method="onMouseExit"]
+[connection signal="pressed" from="testtt" to="network_manager" method="_on_testtt_pressed"]
