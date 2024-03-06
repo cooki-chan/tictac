@@ -11,11 +11,7 @@ public class Generator : Sprite{
     private int type;
     private float adjX, adjY;
     public Generator(string t){
-        ColorRect rect = GD.Load<ColorRect>("Field");
         for(int i = 0; i < 4; i++) mats[i] = new Point(0,1);
-        for(int i = 0; i< fields.Length; i++)
-            for(int j = 0; j < fields.Length; j++)
-                fields[i,j] = new RectClickField(rect.RectPosition.x * (i / 5 * rect.getWidth()), rect.RectPosition.y,);
         switch (t){
             case "elec":{
                 type = 0;
@@ -45,7 +41,13 @@ public class Generator : Sprite{
 
     }
     public override void _Ready(){
-
+        ColorRect rect = GetNode<ColorRect>("/root/Control/Village");
+        for(int i = 0; i < 5; i++){
+            for(int j = 0; j < 5; j++){
+                fields[i,j] = new RectClickField((int)(rect.RectPosition.x * (i / 5 * rect.RectSize.x)) + (int)rect.RectPosition.x, (int)(rect.RectPosition.y * (j / 5 * rect.RectSize.y)) + (int)rect.RectPosition.y, (int) (0.2 * rect.RectSize.x),(int) (0.2 * rect.RectSize.y));
+                //GD.Print(rect.RectPosition.x);
+            }
+        }
     }
 //variable movement add
  // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -62,34 +64,23 @@ public class Generator : Sprite{
         } 
         if(!placed){
             ColorRect field = GetNode<ColorRect>("/root/Control/Village");
-            bool check = false;
             Vector2 mouse = GetViewport().GetMousePosition();
-            //Debug.Print("mouse:" + mouse.ToString());
-            //Debug.Print("field:" + field.RectPosition.ToString());+            
-            // if(mouse.x < field.RectPosition.x){
-            //     Position = new Vector2(field.RectPosition.x, Position.y);
-            //     check = true;
-            // }
-            // if(mouse.x > field.RectPosition.x){
-            //     Position = new Vector2(field.RectPosition.x + field.RectSize.x, Position.y);
-            //     check = true;
-            // }
-            // if(mouse.y < field.RectPosition.y){
-            //     Position = new Vector2(Position.x, field.RectPosition.y);
-            //     check = true;
-            // }
-            // if(mouse.y > field.RectPosition.y){
-            //     Position = new Vector2(Position.x, field.RectPosition.y + field.RectSize.y);
-            //     check = true;
-            // }
-            // if(!check)
+            for(int i = 0; i < 5; i++)
+                for(int j = 0; j < 5; j++){
+                    if(fields[i,j].isInField((int)mouse.x, (int)mouse.y)){
+                        Position = new Vector2(fields[i,j].posX,fields[i,j].posY);
+                        placed = true;
+                        GD.Print("test");
+                    }
+                    //GD.Print("PosX: " + fields[i,j].posX + ", PosY: " + fields[i,j].posY);
+                }
             Position = new Vector2(mouse.x - (float)(Texture.GetWidth() * 0.49) ,(float)(mouse.y * 0.9));
         }
     }
     public static bool build(int [] nums){
         for(int i = 0; i < 4; i++)
             if(nums[i]>mats[i].X) return false;
-        for(int i = 0; i < 4; i++)
+        for(int i = 0; i < 4; i++) 
             mats[i].X -= nums[i];
         return true;
     }

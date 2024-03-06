@@ -1,6 +1,8 @@
+using System;
+
 public class RectClickField {
-    private int posX;
-    private int posY;
+    public int posX;
+    public int posY;
     private int width;
     private int height;
     private int centerX;
@@ -12,8 +14,10 @@ public class RectClickField {
         width = w;
         height = h;
     }
-
     public bool isInField(int mouseX, int mouseY){
         return mouseX > posX && mouseX < posX + width && mouseY > posY && mouseY < posY + height;
+    }
+    public String toString(){
+        return "PosX: " + posX + ", PosY: " + posY;
     }
 }
