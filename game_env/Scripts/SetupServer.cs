@@ -4,16 +4,13 @@ using System;
 public class SetupServer : Control
 {
 
+    private Label join_code_label;
+    NetworkedMultiplayerENet peer = new NetworkedMultiplayerENet();
     public override void _Ready(){
+        GD.Randomize();
+        join_code_label = GetNode<Label>("CodeLabel");
         GetTree().Connect("network_peer_connected", this, "_player_connected");
-    }
-    public void _on_Leave_pressed(){
-        GetTree().NetworkPeer = null;
-        GetTree().ChangeScene("res://game_env/Scenes/MainMenu.tscn");
-    }
 
-    public void _on_TESTING_BUTTON_pressed(){
-        NetworkedMultiplayerENet peer = new NetworkedMultiplayerENet();
         string ip = ""; 
         foreach(String i in IP.GetLocalAddresses()){
             String temp = i.Substring(0,3);
@@ -29,6 +26,35 @@ public class SetupServer : Control
         GetTree().NetworkPeer = peer;
         Global.IsServer = true;
 
+        join_code_label.Text = encodeIp(ip, port);
+    }
+    public void _on_Copy_Code_pressed(){
+        OS.SetClipboard(join_code_label.Text);
+    }
+    public void _on_Leave_pressed(){
+        GetTree().NetworkPeer = null;
+        GetTree().ChangeScene("res://game_env/Scenes/MainMenu.tscn");
+    }
+
+    public void network_peer_connected(){
         GetTree().ChangeScene("res://game_env/Scenes/LeftScene(Server).tscn");
     }
+
+    string encodeIp(String ip, int port){
+        string output = "";
+        string Chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        String[] strings = ip.Split(".");
+        for(int i = 0; i < strings.Length; i++){
+            strings[i] = String.Format("{0:000}", Convert.ToInt32(strings[i]));
+        }
+        string base10 = string.Join("", strings) + String.Format("{0:00000}", port); //TODO: CHANGE BACK TO PORT!!!!!
+        long value = Convert.ToInt64(base10);
+        while (value > 0){
+            output = Chars[(int)(value % 62)] + output; 
+            value /= 62;
+        }
+        return output;
+    }
+
+
 }

@@ -8,11 +8,6 @@ public class Global : Node
     public static int Health = 300000; //TODO: CHANGE THIS!!!
     public static String IP;
     public static String Port;
+    public static String Name;
 
-    public override void _Notification(int what)
-{
-    if (what == MainLoop.NotificationWmQuitRequest)
-        GetTree().NetworkPeer = null;
-        GetTree().Quit(); // default behavior
-}
 }

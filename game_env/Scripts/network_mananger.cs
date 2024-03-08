@@ -51,7 +51,7 @@ public class network_mananger : Node{
         string ipRaw = decodeIp(join_code_in.Text);
         string ip = ipRaw.Split(":")[0];
         int port = Convert.ToInt32(ipRaw.Split(":")[1]);
-        debug("ATTEMPTING TO CONNECT TO:" + ip+ ":" + port);
+        debug("ATTEMPTING TO CONNECT TO:" + ip+ ":" + port); 
         peer = new NetworkedMultiplayerENet();
         peer.CreateClient(ip, port);
         GetTree().NetworkPeer = peer;
