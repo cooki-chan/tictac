@@ -32,6 +32,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -1.0
 margin_right = 2.0
+__meta__ = {
+"_edit_horizontal_guides_": [  ]
+}
 
 [node name="Ships" type="ItemList" parent="."]
 margin_left = -1.0

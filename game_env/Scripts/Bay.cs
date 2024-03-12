@@ -84,7 +84,6 @@ public class Bay : ColorRect{
       newship.MoveLocalY(RectPosition.y+71);
       newship.MoveLocalX(RectPosition.x+125);
       control.AddChild(newship); 
-      // GD.Print("Ship hasth been sumoned");
       ship = null;
       temp.Texture = null;
    }
