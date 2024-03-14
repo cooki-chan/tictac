@@ -107,4 +107,5 @@ margin_bottom = 437.0
 custom_fonts/font = ExtResource( 2 )
 text = "Paste Code"
 
+[connection signal="pressed" from="join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="Leave" to="." method="_on_Leave_pressed"]

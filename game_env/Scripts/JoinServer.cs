@@ -1,14 +1,38 @@
 using Godot;
 using System;
+using System.Diagnostics;
+using System.Runtime.ConstrainedExecution;
+using System.Text;
 
 public class JoinServer : Control
 {
+    NetworkedMultiplayerENet peer = new NetworkedMultiplayerENet();
+    private TextEdit join_code_in;
+    public override void _Ready(){
+        join_code_in = GetNode<TextEdit>("join_in");
+
+    }
     public void _on_Leave_pressed(){
         GetTree().ChangeScene("res://game_env/Scenes/MainMenu.tscn");
     }
 
     public void _connected_ok(int id){
         GetTree().ChangeScene("res://game_env/Scenes/RightScene(Client).tscn");
+    }
+
+    public void _on_join_pressed(){
+        string test= join_code_in.Text;
+        string ipRaw = decodeIp(test);
+        string ip = ipRaw.Split(":")[0];
+        int port = Convert.ToInt32(ipRaw.Split(":")[1]);
+        try{
+            peer = new NetworkedMultiplayerENet();
+            peer.CreateClient(ip, port);
+            GetTree().NetworkPeer = peer;
+            Global.IsServer = false;
+        } catch(Exception e){
+            Debug.Print(e.ToString());
+        }
     }
 
     string decodeIp(String code){
