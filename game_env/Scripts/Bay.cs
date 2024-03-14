@@ -1,9 +1,11 @@
 using Godot;
 using System;
+using System.Collections;
 using System.Numerics;
 public class Bay : ColorRect{
    private static Sprite temp;
    private static Ship ship;
+   public static ArrayList activeShips = new ArrayList();
    private int bayNum;
    private Control control;
    public bool inBounds(int x1, int y1){
@@ -84,6 +86,7 @@ public class Bay : ColorRect{
       newship.MoveLocalY(RectPosition.y+71);
       newship.MoveLocalX(RectPosition.x+125);
       control.AddChild(newship); 
+      activeShips.Add(newship);
       ship = null;
       temp.Texture = null;
    }

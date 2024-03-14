@@ -106,6 +106,10 @@ public class network_mananger : Node{
         Ship newship = (Ship)ship.Clone();
         newship.Position = new Vector2(0,yPos);
         control.AddChild(newship); 
+        foreach(Ship Ship in Bay.activeShips){
+            ship.sleep(10);
+        }
+        Bay.activeShips.Add(newship);
         GD.Print("Ship hasth been sumoned");
         // EmitSignal("summon_evad", (float)yPos);
     }

@@ -4,7 +4,6 @@ using System.Collections;
 using System.Diagnostics;
 using System.Drawing;
 public class Generator : Sprite{
-    private static int matsCount = 0;
     private bool placed = false;
     private int FrameCnt = 0;
     public static Point [] mats = new Point[4];
@@ -49,7 +48,6 @@ public class Generator : Sprite{
         FrameCnt++;
 	    if(FrameCnt%60 == 0 && placed){
             mats[type].X += mats[type].Y;
-            Node control = GetNode<Control>("/root/Control");
             GetNode<Label>("/root/Control/Resources/Electronics/ECount").Text = "" + mats[0].X;
             GetNode<Label>("/root/Control/Resources/CarbonFiber/CFCount").Text = "" + mats[1].X;
             GetNode<Label>("/root/Control/Resources/Steel/SCount").Text = "" + mats[2].X;
