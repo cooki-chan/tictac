@@ -9,6 +9,7 @@ public class SetupServer : Control
     public override void _Ready(){
         GD.Randomize();
         join_code_label = GetNode<Label>("CodeLabel");
+        peer = new NetworkedMultiplayerENet();
         GetTree().Connect("network_peer_connected", this, "_player_connected");
 
         string ip = ""; 
@@ -36,9 +37,18 @@ public class SetupServer : Control
         GetTree().ChangeScene("res://game_env/Scenes/MainMenu.tscn");
     }
 
-    public void network_peer_connected(){
+    public void network_peer_connected(int id){
         GetTree().ChangeScene("res://game_env/Scenes/LeftScene(Server).tscn");
+        RpcId(id, "greetings");
     }
+     public void _connected_ok(int id){
+        GetTree().ChangeScene("res://game_env/Scenes/LeftScene(Server).tscn");
+        RpcId(id, "greetings");
+    }
+    [Remote]
+    void greetings(){
+        GetTree().ChangeScene("res://game_env/Scenes/RightScene(Client).tscn");
+    }  
 
     string encodeIp(String ip, int port){
         string output = "";
