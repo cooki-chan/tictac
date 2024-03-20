@@ -39,15 +39,13 @@ public class SetupServer : Control
 
     public void network_peer_connected(int id){
         GetTree().ChangeScene("res://game_env/Scenes/LeftScene(Server).tscn");
-        RpcId(id, "greetings");
     }
-     public void _connected_ok(int id){
+     public void _player_connected(int id){
         GetTree().ChangeScene("res://game_env/Scenes/LeftScene(Server).tscn");
-        RpcId(id, "greetings");
     }
     [Remote]
     void greetings(){
-        GetTree().ChangeScene("res://game_env/Scenes/RightScene(Client).tscn");
+        GetTree().ChangeScene("res://game_env/Scenes/LeftScene(Server).tscn");
     }  
 
     string encodeIp(String ip, int port){

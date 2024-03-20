@@ -13,10 +13,7 @@ public class network_mananger : Node{
 
 
     public override void _Ready(){
-        debugOut = GetNode<Label>("debug");
-        name_input = GetNode<TextEdit>("name_input");
-        join_code_label = GetNode<Label>("host/join_label");
-        join_code_in = GetNode<TextEdit>("join/join_in");
+
 
         GetTree().Connect("network_peer_connected", this, "_player_connected");
         GetTree().Connect("network_peer_disconnected", this, "_player_disconnected");
@@ -66,22 +63,12 @@ public class network_mananger : Node{
         OS.SetClipboard(join_code_label.Text);
     }
 
-    void _player_connected(int id){
-        debug("Opponent Connect: " + id);
-        RpcId(id, "greetings", name_input.Text);
-    }
 
-    void _connected_to_server(int id){
-        RpcId(id, "greetings", name_input.Text);
-    }
 
     void _player_disconnected(int id){
         Debug.Print("Opponent Disconnect: " + id);
     }
 
-    void _connected_ok(int id){
-        RpcId(id, "greetings", name_input.Text);
-    }
 
     void _on_disconnect_button_down(){
         GetTree().NetworkPeer = null;
@@ -97,16 +84,11 @@ public class network_mananger : Node{
     }
 
 //RPC Functions -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    [Remote]
-    void greetings(String name){
-        debug("Opponent Name: " + name);
-        debug("Opponent RPC ID: " + GetTree().GetRpcSenderId().ToString());
-    }   
 
     [Remote]
     void summonDave(int yPos, int type){
         debug("New Dave Summoned @ y=" + yPos + " with type: " + type);
-        Control control = GetNode<Control>("/root/Control");
+        Control control = GetNode<Control>("..");
         Ship ship = new Ship(type,0,null, true);
         ulong objID = ship.GetInstanceId();
         ship = (Ship) GD.InstanceFromId(objID);
@@ -122,7 +104,7 @@ public class network_mananger : Node{
     }
 //Helper Functions ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
     void debug(String msg){
-        debugOut.Text += "\n" + msg;
+        Debug.Print(msg);
     }
 
     void printLabel(Label outp, String msg){

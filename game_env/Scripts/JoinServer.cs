@@ -28,6 +28,10 @@ public class JoinServer : Control
         GetTree().ChangeScene("res://game_env/Scenes/RightScene(Client).tscn");
     }   
 
+        void _player_connected(int id){
+        RpcId(id, "greetings");
+    }
+
     public void _on_join_pressed(){
         string test= join_code_in.Text;
         string ipRaw = decodeIp(test);
@@ -40,6 +44,7 @@ public class JoinServer : Control
             GetTree().NetworkPeer = peer;
             Global.IsServer = false;
             Debug.Print("Connected");
+            GetTree().ChangeScene("res://game_env/Scenes/RightScene(Client).tscn");
         } catch(Exception e){
             Debug.Print(e.ToString());
         }
