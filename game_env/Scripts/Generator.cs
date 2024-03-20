@@ -22,17 +22,17 @@ public class Generator : Sprite{
             }
             case "carbs":{
                 type = 1;
-                Texture = GD.Load<Texture>("res://dave.png");
+                Texture = GD.Load<Texture>("res://TempGen.png");
                 break;
             }
             case "mill":{
                 type = 2;
-                Texture = GD.Load<Texture>("res://dave.png");
+                Texture = GD.Load<Texture>("res://TempGen.png");
                 break;
             }
             case "cobble minion":{
                 type = 3;
-                Texture = GD.Load<Texture>("res://dave.png");
+                Texture = GD.Load<Texture>("res://TempGen.png");
                 break;
             }
         }
@@ -65,7 +65,7 @@ public class Generator : Sprite{
             for(int i = 0; i < 5; i++)
                 for(int j = 0; j < 5; j++){
                     if(fields[i,j].isInField((int)mouse.x, (int)mouse.y)){
-                        Position = new Vector2((int)(fields[i,j].posX + fields[i,j].width/2/*(adjX * 0.184)*/), (int)(fields[i,j].posY + fields[i,j].width/2 /*(adjY * 0.184)*/));
+                        Position = new Vector2((int)(fields[i,j].posX + fields[i,j].width/2/*(adjX * 0.184)*/), (int)(fields[i,j].posY + fields[i,j].height /2 /*(adjY * 0.184)*/));
                         inField = true;
                     }
                 }
