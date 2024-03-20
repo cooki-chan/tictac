@@ -17,7 +17,7 @@ public class Generator : Sprite{
         switch (t){
             case "elec":{
                 type = 0;
-                Texture = GD.Load<Texture>("res://dave.png");
+                Texture = GD.Load<Texture>("res://TempGen.png");
                 break;
             }
             case "carbs":{
@@ -36,7 +36,7 @@ public class Generator : Sprite{
                 break;
             }
         }
-        this.Scale = new Vector2((float)0.18, (float)0.18);
+        //this.Scale = new Vector2((float)0.18, (float)0.18);
         
         adjX = (float)(Texture.GetWidth() * 0.49);
         adjY = (float)(Texture.GetHeight() * 0.49);
@@ -65,7 +65,7 @@ public class Generator : Sprite{
             for(int i = 0; i < 5; i++)
                 for(int j = 0; j < 5; j++){
                     if(fields[i,j].isInField((int)mouse.x, (int)mouse.y)){
-                        Position = new Vector2((int)(fields[i,j].posX + (adjX * 0.184)), (int)(fields[i,j].posY + (adjY * 0.184)));
+                        Position = new Vector2((int)(fields[i,j].posX + fields[i,j].width/2/*(adjX * 0.184)*/), (int)(fields[i,j].posY + fields[i,j].width/2 /*(adjY * 0.184)*/));
                         inField = true;
                     }
                 }
