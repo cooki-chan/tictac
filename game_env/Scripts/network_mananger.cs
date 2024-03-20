@@ -5,16 +5,12 @@ using System.Runtime.ConstrainedExecution;
 using System.Text;
 
 public class network_mananger : Node{
-    private Label debugOut;
-    private TextEdit name_input;
     private Label join_code_label;
     private TextEdit join_code_in;
     NetworkedMultiplayerENet peer = new NetworkedMultiplayerENet();
 
 
     public override void _Ready(){
-
-
         GetTree().Connect("network_peer_connected", this, "_player_connected");
         GetTree().Connect("network_peer_disconnected", this, "_player_disconnected");
         GetTree().Connect("connected_to_server", this, "_connected_ok");
@@ -55,9 +51,6 @@ public class network_mananger : Node{
         Global.IsServer = false;
     }
 
-    public void _on_testtt_pressed(){
-        GD.Print(GetTree().NetworkPeer.GetConnectionStatus());
-    }
 
     public void _on_copy_button_pressed(){
         OS.SetClipboard(join_code_label.Text);

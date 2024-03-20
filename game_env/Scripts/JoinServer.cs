@@ -20,7 +20,7 @@ public class JoinServer : Control
         GetTree().ChangeScene("res://game_env/Scenes/RightScene(Client).tscn");
         RpcId(id, "greetings");
     }
-        public void network_peer_connected(int id){
+    public void network_peer_connected(int id){
         RpcId(id, "greetings");
     }
     [Remote]
@@ -28,7 +28,7 @@ public class JoinServer : Control
         GetTree().ChangeScene("res://game_env/Scenes/RightScene(Client).tscn");
     }   
 
-        void _player_connected(int id){
+    void _player_connected(int id){
         RpcId(id, "greetings");
     }
 
