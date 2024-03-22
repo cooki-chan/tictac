@@ -1,22 +1,8 @@
 using Godot;
 using System;
-//generate button
 public class Generate : Button{
-    private Generator generator;
-    private Texture circ;
     public void onGeneratePressed(){
-        circ = GD.Load<Texture>("res://icon.png");
-        generator = new Generator(); 
-        generator.Texture = circ;
-        AddChild(generator);
-        generator.MoveLocalY(300);
-        generator.MoveLocalX(200);
+        GetNode<ItemList>("/root/Control/Ships").Visible = false;
+        GetNode<ItemList>("/root/Control/Generators").Visible = true;
     }
-    public override void _Process(float delta){}  
-
-    public bool build(int sub){
-        if(generator is Generator)
-            return generator.subtract(sub);
-        return false;
-    }  
 }

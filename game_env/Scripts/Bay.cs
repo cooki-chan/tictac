@@ -1,9 +1,11 @@
 using Godot;
 using System;
+using System.Collections;
 using System.Numerics;
 public class Bay : ColorRect{
    private static Sprite temp;
    private static Ship ship;
+   public static ArrayList activeShips = new ArrayList();
    private int bayNum;
    private Control control;
    private String SpritePath;
@@ -13,7 +15,6 @@ public class Bay : ColorRect{
    public Bay(){
       String name = Name;
       //bayNum = Convert.ToInt32(Name.Substring(Name.Length));
-      GD.Print(RectPosition.y);
       
    }
    public override void _Ready(){
@@ -62,26 +63,25 @@ public class Bay : ColorRect{
       if(Input.IsActionJustPressed("click") && ship != null){
          temp.Texture = null;
          if(inBounds((int)GetViewport().GetMousePosition().x, (int)GetViewport().GetMousePosition().y)){
-            GD.Print(RectPosition.y);
             switch (ship.getType()){
                case 1: 
-                  if(gen.build(1))//attempts to build a ship for cost of 1
+                  if(Generator.build(new int [] {0,0,0,0})) // order is Electronics, Carbon Fiber, Steel, DaveDollarsTM
                      genShip();
                   break;
                case 2:
-                  if(gen.build(15))//attempts to build a ship for cost of 15
+                  if(Generator.build(new int [] {0,0,0,0}))
                      genShip();
                   break;
                case 3:
-                  if(gen.build(12))//attempts to build a ship for cost of 15
+                  if(Generator.build(new int [] {0,0,0,0}))
                      genShip();
                   break;
                case 4:
-                  if(gen.build(25))//attempts to build a ship for cost of 25
+                  if(Generator.build(new int [] {0,0,0,0}))
                      genShip();
                   break;
                case 5:
-                  if(gen.build(20))//attempts to build a ship for cost of 20
+                  if(Generator.build(new int [] {0,0,0,0}))
                      genShip();
                   break;
             }
@@ -95,7 +95,7 @@ public class Bay : ColorRect{
       newship.MoveLocalY(RectPosition.y+71);
       newship.MoveLocalX(RectPosition.x+125);
       control.AddChild(newship); 
-      GD.Print("Ship hasth been sumoned");
+      activeShips.Add(newship);
       ship = null;
       temp.Texture = null;
    }
