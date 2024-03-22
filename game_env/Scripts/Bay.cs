@@ -8,35 +8,37 @@ public class Bay : ColorRect{
    public static ArrayList activeShips = new ArrayList();
    private int bayNum;
    private Control control;
+   private String SpritePath;
    public bool inBounds(int x1, int y1){
       return RectPosition.x<=x1 && x1<=(RectPosition.x + RectSize.x) && RectPosition.y<=y1 && y1<=(RectPosition.y + RectSize.y);
    }
    public Bay(){
       String name = Name;
       //bayNum = Convert.ToInt32(Name.Substring(Name.Length));
+      
    }
    public override void _Ready(){
       control = GetNode<Control>("/root/Control");
    }
    public void onButtonPressed(){
-      temp = new Sprite{Texture = GD.Load<Texture>("res://game_env/Ships/Ship1.png")};
-      ship = new Ship(1, bayNum, null);
+      temp = new Sprite{Texture = GD.Load<Texture>(SpritePath + "Ship1.png")};
+      ship = new Ship(1, bayNum, null, false);
    }
    public void on2Pressed(){
-      temp = new Sprite{Texture = GD.Load<Texture>("res://game_env/Ships/Ship2.png")};
-      ship = new Ship(2, bayNum, null);
+      temp = new Sprite{Texture = GD.Load<Texture>(SpritePath + "Ship2.png")};
+      ship = new Ship(2, bayNum, null, false);
    }
    public void on3Pressed(){
-      temp = new Sprite{Texture = GD.Load<Texture>("res://game_env/Ships/Ship3.png")};
-      ship = new Ship(3, bayNum, null);
+      temp = new Sprite{Texture = GD.Load<Texture>(SpritePath + "Ship3.png")};
+      ship = new Ship(3, bayNum, null, false);
    }
    public void on4Pressed(){
-      temp = new Sprite{Texture = GD.Load<Texture>("res://game_env/Ships/Ship4.png")};
-      ship = new Ship(4, bayNum, null);
+      temp = new Sprite{Texture = GD.Load<Texture>(SpritePath + "Ship4.png")};
+      ship = new Ship(4, bayNum, null, false);
    }
    public void on5Pressed(){
-      temp = new Sprite{Texture = GD.Load<Texture>("res://game_env/Ships/Ship5.png")};
-      ship = new Ship(5, bayNum, null);
+      temp = new Sprite{Texture = GD.Load<Texture>(SpritePath + "Ship5.png")};
+      ship = new Ship(5, bayNum, null, false);
    }
    public void onMouseEnter(){
       if(temp != null){
@@ -51,6 +53,13 @@ public class Bay : ColorRect{
       }
    }
     public override void _Process(float delta){
+      if(Global.IsServer){
+            SpritePath = "res://game_env/RightFacingShips/";
+        } else {
+            SpritePath = "res://game_env/LeftFacingShips/";
+        }
+
+      Generate gen = GetNode<Generate>("/root/Control/Generate");
       if(Input.IsActionJustPressed("click") && ship != null){
          temp.Texture = null;
          if(inBounds((int)GetViewport().GetMousePosition().x, (int)GetViewport().GetMousePosition().y)){
