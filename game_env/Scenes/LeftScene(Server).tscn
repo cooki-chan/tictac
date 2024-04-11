@@ -140,14 +140,6 @@ z_index = -2712
 texture = ExtResource( 9 )
 centered = false
 
-[node name="debug" type="Label" parent="."]
-margin_left = 952.0
-margin_top = 43.0
-margin_right = 1783.0
-margin_bottom = 240.0
-text = "debug:
-"
-
 [connection signal="pressed" from="ItemList/Button" to="Bay1" method="onButtonPressed"]
 [connection signal="pressed" from="ItemList/Button" to="Bay2" method="onButtonPressed"]
 [connection signal="pressed" from="ItemList/Button" to="Bay3" method="onButtonPressed"]

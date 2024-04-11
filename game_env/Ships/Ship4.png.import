@@ -2,24 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-<<<<<<<< HEAD:game_env/Ships/Ship4.png.import
 path="res://.import/Ship4.png-ad0e7ce0a211389134f968ba90bee463.stex"
-========
-path="res://.import/evad.jpg-9b1846d206f86903d3a6d916667dc899.stex"
->>>>>>>> master:evad.jpg.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<<< HEAD:game_env/Ships/Ship4.png.import
 source_file="res://game_env/Ships/Ship4.png"
 dest_files=[ "res://.import/Ship4.png-ad0e7ce0a211389134f968ba90bee463.stex" ]
-========
-source_file="res://evad.jpg"
-dest_files=[ "res://.import/evad.jpg-9b1846d206f86903d3a6d916667dc899.stex" ]
->>>>>>>> master:evad.jpg.import
 
 [params]
 
