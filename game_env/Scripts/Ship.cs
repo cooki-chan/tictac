@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Collections;
+using System.Threading;
 public class Ship : Sprite, ICloneable{
     //connects to dave died
     [Signal] public delegate void died(int yPos, int type);
@@ -64,7 +65,7 @@ public class Ship : Sprite, ICloneable{
     public override void _Ready(){
         Texture = GD.Load<Texture>("res://game_env/Ships/Ship" + Type + ".png");
         Connect("died", GetNode<Node>("../network_manager"), "_dave_died");
-        Connect("crashed", this, "crashedShip");\
+        Connect("crashed", this, "crashedShip");
         if(Global.IsServer){
             if(!FromOpponent)Texture = GD.Load<Texture>("res://game_env/RightFacingShips/Ship" + Type + ".png");
             if(FromOpponent)Texture = GD.Load<Texture>("res://game_env/LeftFacingShips/Ship" + Type + ".png");

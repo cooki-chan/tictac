@@ -2,24 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-<<<<<<<< HEAD:TempGen.png.import
 path="res://.import/TempGen.png-ba58a2cccd90ce97235b51226dd154d6.stex"
-========
-path="res://.import/Ship1.png-8fbc13d8cefe4d56d46d025a40aa0ba3.stex"
->>>>>>>> master:game_env/LeftFacingShips/Ship1.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<<< HEAD:TempGen.png.import
 source_file="res://TempGen.png"
 dest_files=[ "res://.import/TempGen.png-ba58a2cccd90ce97235b51226dd154d6.stex" ]
-========
-source_file="res://game_env/LeftFacingShips/Ship1.png"
-dest_files=[ "res://.import/Ship1.png-8fbc13d8cefe4d56d46d025a40aa0ba3.stex" ]
->>>>>>>> master:game_env/LeftFacingShips/Ship1.png.import
 
 [params]
 
