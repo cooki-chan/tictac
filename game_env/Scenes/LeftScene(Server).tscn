@@ -216,6 +216,7 @@ script = ExtResource( 2 )
 [node name="network_manager" type="Node" parent="."]
 script = ExtResource( 3 )
 
+
 [node name="debug" type="Label" parent="network_manager"]
 anchor_left = -0.171354
 anchor_right = -0.171354
@@ -355,14 +356,36 @@ script = ExtResource( 4 )
 [connection signal="pressed" from="Generators/1920s childcare" to="Village" method="SPressed"]
 [connection signal="pressed" from="Generators/Evad Culling Field" to="Village" method="DDPressed"]
 [connection signal="pressed" from="Generators/Ship" to="Generators/Ship" method="onPressed"]
-[connection signal="focus_entered" from="Bay1" to="Bay1" method="Bay1FocusEnter"]
-[connection signal="mouse_entered" from="Bay1" to="Bay1" method="onMouseEnter"]
-[connection signal="mouse_exited" from="Bay1" to="Bay1" method="onMouseExit"]
-[connection signal="mouse_entered" from="Bay2" to="Bay2" method="onMouseEnter"]
-[connection signal="mouse_exited" from="Bay2" to="Bay2" method="onMouseExit"]
-[connection signal="mouse_entered" from="Bay3" to="Bay3" method="onMouseEnter"]
-[connection signal="mouse_exited" from="Bay3" to="Bay3" method="onMouseExit"]
-[connection signal="mouse_entered" from="Bay4" to="Bay4" method="onMouseEnter"]
-[connection signal="mouse_exited" from="Bay4" to="Bay4" method="onMouseExit"]
-[connection signal="mouse_entered" from="Bay5" to="Bay5" method="onMouseEnter"]
-[connection signal="mouse_exited" from="Bay5" to="Bay5" method="onMouseExit"]
+=======
+[node name="Dave" type="Sprite" parent="."]
+scale = Vector2( 0.5, 1 )
+z_index = -2712
+texture = ExtResource( 9 )
+centered = false
+
+[connection signal="pressed" from="ItemList/Button" to="Bay1" method="onButtonPressed"]
+[connection signal="pressed" from="ItemList/Button" to="Bay2" method="onButtonPressed"]
+[connection signal="pressed" from="ItemList/Button" to="Bay3" method="onButtonPressed"]
+[connection signal="pressed" from="ItemList/Button" to="Bay4" method="onButtonPressed"]
+[connection signal="pressed" from="ItemList/Button" to="Bay5" method="onButtonPressed"]
+[connection signal="pressed" from="ItemList/Button2" to="Bay1" method="on2Pressed"]
+[connection signal="pressed" from="ItemList/Button2" to="Bay2" method="on2Pressed"]
+[connection signal="pressed" from="ItemList/Button2" to="Bay3" method="on2Pressed"]
+[connection signal="pressed" from="ItemList/Button2" to="Bay4" method="on2Pressed"]
+[connection signal="pressed" from="ItemList/Button2" to="Bay5" method="on2Pressed"]
+[connection signal="pressed" from="ItemList/Button3" to="Bay1" method="on3Pressed"]
+[connection signal="pressed" from="ItemList/Button3" to="Bay2" method="on3Pressed"]
+[connection signal="pressed" from="ItemList/Button3" to="Bay3" method="on3Pressed"]
+[connection signal="pressed" from="ItemList/Button3" to="Bay4" method="on3Pressed"]
+[connection signal="pressed" from="ItemList/Button3" to="Bay5" method="on3Pressed"]
+[connection signal="pressed" from="ItemList/Button4" to="Bay1" method="on4Pressed"]
+[connection signal="pressed" from="ItemList/Button4" to="Bay2" method="on4Pressed"]
+[connection signal="pressed" from="ItemList/Button4" to="Bay3" method="on4Pressed"]
+[connection signal="pressed" from="ItemList/Button4" to="Bay4" method="on4Pressed"]
+[connection signal="pressed" from="ItemList/Button4" to="Bay5" method="on4Pressed"]
+[connection signal="pressed" from="ItemList/Button5" to="Bay1" method="on5Pressed"]
+[connection signal="pressed" from="ItemList/Button5" to="Bay2" method="on5Pressed"]
+[connection signal="pressed" from="ItemList/Button5" to="Bay3" method="on5Pressed"]
+[connection signal="pressed" from="ItemList/Button5" to="Bay4" method="on5Pressed"]
+[connection signal="pressed" from="ItemList/Button5" to="Bay5" method="on5Pressed"]
+[connection signal="pressed" from="Generate" to="Generate" method="onGeneratePressed"]
