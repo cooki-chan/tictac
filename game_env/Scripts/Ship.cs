@@ -84,7 +84,7 @@ public class Ship : Sprite, ICloneable{
         if(Type == 5){
             Sprite shield = new Sprite();
             shield.Texture = GD.Load<Texture>("res://game_env/shield.png");
-            shield.Position = Global.IsServer?new Vector2(0, 0):new Vector2(0, 0);
+            shield.Position = Global.IsServer?new Vector2(this.Texture.GetWidth(), 0):new Vector2(-this.Texture.GetWidth(), 0);
             this.AddChild(shield);
         }
     }
@@ -107,7 +107,7 @@ public class Ship : Sprite, ICloneable{
                 Bay.activeShips.Remove(this);
                 sentToOpponent = true;
             }
-        }
+        } 
         if(Position.x >= OS.WindowSize.x + this.Scale.x * Texture.GetWidth()/2 || Position.x <= -1 * this.Scale.x * Texture.GetWidth()/2){
             QueueFree();
         }
