@@ -216,7 +216,6 @@ script = ExtResource( 2 )
 [node name="network_manager" type="Node" parent="."]
 script = ExtResource( 3 )
 
-
 [node name="debug" type="Label" parent="network_manager"]
 anchor_left = -0.171354
 anchor_right = -0.171354
@@ -325,6 +324,12 @@ margin_bottom = 780.0
 color = Color( 0.811765, 0.811765, 0.8, 1 )
 script = ExtResource( 4 )
 
+[node name="Dave" type="Sprite" parent="."]
+scale = Vector2( 0.5, 1 )
+z_index = -2712
+texture = ExtResource( 9 )
+centered = false
+
 [connection signal="pressed" from="Ships/Button" to="Bay1" method="onButtonPressed"]
 [connection signal="pressed" from="Ships/Button" to="Bay2" method="onButtonPressed"]
 [connection signal="pressed" from="Ships/Button" to="Bay3" method="onButtonPressed"]
@@ -356,4 +361,3 @@ script = ExtResource( 4 )
 [connection signal="pressed" from="Generators/1920s childcare" to="Village" method="SPressed"]
 [connection signal="pressed" from="Generators/Evad Culling Field" to="Village" method="DDPressed"]
 [connection signal="pressed" from="Generators/Ship" to="Generators/Ship" method="onPressed"]
-

@@ -17,6 +17,12 @@ public class Ship : Sprite, ICloneable{
     private bool FromOpponent = false;
     private int lane;
     private bool sentToOpponent = false;
+    static public int speed1 = 10;
+    static public int speed2 = 15;
+    static public int speed3 = 8;
+    static public int speed4 = 10;
+    static public int speed5 = 5;
+
     public Ship(int type, int Lane, LambdaExpression method, bool fromOp){
         Type = type;
         Method = method;
@@ -25,19 +31,19 @@ public class Ship : Sprite, ICloneable{
         GD.Print(lane);
         switch (type){
             case 1:
-                speed = 10;
+                speed = speed1;
                 break;
             case 2:
-                speed = 15;
+                speed = speed2;
                 break;
             case 3:
-                speed = 8;
+                speed = speed3;
                 break;
             case 4:
-                speed = 10;
+                speed = speed4;
                 break;
             case 5:
-                speed = 5;
+                speed = speed5;
                 break;
         }
     }
@@ -48,16 +54,19 @@ public class Ship : Sprite, ICloneable{
         Method = method;
         switch (type){
             case 1:
-                speed = 10;
+                speed = speed1;
                 break;
             case 2:
-                speed = 15;
+                speed = speed2;
                 break;
             case 3:
-                speed = 8;
+                speed = speed3;
+                break;
+            case 4:
+                speed = speed4;
                 break;
             case 5:
-                speed = 5;
+                speed = speed5;
                 break;
         }
     }
@@ -72,6 +81,12 @@ public class Ship : Sprite, ICloneable{
            if(!FromOpponent)Texture = GD.Load<Texture>("res://game_env/LeftFacingShips/Ship" + Type + ".png");
            if(FromOpponent)Texture = GD.Load<Texture>("res://game_env/RightFacingShips/Ship" + Type + ".png");
         }
+        if(Type == 5){
+            Sprite shield = new Sprite();
+            shield.Texture = GD.Load<Texture>("res://game_env/shield.png");
+            shield.Position = Global.IsServer?new Vector2(0, 0):new Vector2(0, 0);
+            this.AddChild(shield);
+        }
     }
 
 
@@ -79,12 +94,10 @@ public class Ship : Sprite, ICloneable{
  // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta){
         if(Global.IsServer){
-            if(FromOpponent)MoveLocalX(speed * -1);
-            if(!FromOpponent)MoveLocalX(speed);
+            MoveLocalX(speed * (FromOpponent?-1:1));
             
         } else {
-            if(FromOpponent)MoveLocalX(speed);
-            if(!FromOpponent)MoveLocalX(speed * -1);
+            MoveLocalX(speed * (FromOpponent?1:-1));
         } 
         checkCollision(this);
         if(Position.x >= OS.WindowSize.x - this.Scale.x * Texture.GetWidth()/2 || Position.x <= this.Scale.x * Texture.GetWidth()/2){
@@ -98,8 +111,6 @@ public class Ship : Sprite, ICloneable{
         if(Position.x >= OS.WindowSize.x + this.Scale.x * Texture.GetWidth()/2 || Position.x <= -1 * this.Scale.x * Texture.GetWidth()/2){
             QueueFree();
         }
-
-
         if(Global.IsServer){
             if(Position.x - this.Scale.x * Texture.GetWidth()/2 <= 500){
                 if(FromOpponent){
@@ -144,9 +155,5 @@ public class Ship : Sprite, ICloneable{
         GD.Print("crashed");
         QueueFree();
         Bay.activeShips.Remove(this);
-    }
-    public void sleep(int i){
-        System.Threading.Thread.Sleep(i);
-        
     }
 }
