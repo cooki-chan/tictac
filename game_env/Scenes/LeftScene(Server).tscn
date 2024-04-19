@@ -361,7 +361,3 @@ centered = false
 [connection signal="pressed" from="Generators/1920s childcare" to="Village" method="SPressed"]
 [connection signal="pressed" from="Generators/Evad Culling Field" to="Village" method="DDPressed"]
 [connection signal="pressed" from="Generators/Ship" to="Generators/Ship" method="onPressed"]
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes

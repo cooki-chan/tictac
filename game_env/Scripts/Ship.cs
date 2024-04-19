@@ -88,7 +88,7 @@ public class Ship : Sprite, ICloneable{
         if(Type == 5){
             Sprite shield = new Sprite();
             shield.Texture = GD.Load<Texture>("res://game_env/shield.png");
-            shield.Position = new Vector2(this.Texture.GetWidth(), this.Texture.GetHeight());
+            shield.Position = Global.IsServer?new Vector2(0, 0):new Vector2(0, 0);
             this.AddChild(shield);
             
 
