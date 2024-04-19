@@ -58,8 +58,6 @@ public class Bay : ColorRect{
         } else {
             SpritePath = "res://game_env/LeftFacingShips/";
         }
-
-      Generate gen = GetNode<Generate>("/root/Control/Generate");
       if(Input.IsActionJustPressed("click") && ship != null){
          temp.Texture = null;
          if(inBounds((int)GetViewport().GetMousePosition().x, (int)GetViewport().GetMousePosition().y)){
