@@ -10,14 +10,13 @@ public class Ship : Sprite, ICloneable{
     //connects to dave died
     [Signal] public delegate void died(int yPos, int type);
     [Signal] public delegate void _core_damaged(int damage);
+    [Signal] public delegate void crashed(int damage);
     private int Type;
     private LambdaExpression Method;
     private int speed;
     private bool FromOpponent = false;
     private int lane;
     private bool sentToOpponent = false;
-    public System.Threading.Thread thread;
-
     static public int speed1 = 10;
     static public int speed2 = 15;
     static public int speed3 = 8;
@@ -47,7 +46,6 @@ public class Ship : Sprite, ICloneable{
                 speed = speed5;
                 break;
         }
-        thread = new System.Threading.Thread(new ThreadStart(() => checkCollision(this)));
     }
 
     public Ship(int type, LambdaExpression method, bool fromOpponent){
@@ -83,15 +81,11 @@ public class Ship : Sprite, ICloneable{
            if(!FromOpponent)Texture = GD.Load<Texture>("res://game_env/LeftFacingShips/Ship" + Type + ".png");
            if(FromOpponent)Texture = GD.Load<Texture>("res://game_env/RightFacingShips/Ship" + Type + ".png");
         }
-        thread.Start();
-
         if(Type == 5){
             Sprite shield = new Sprite();
             shield.Texture = GD.Load<Texture>("res://game_env/shield.png");
             shield.Position = Global.IsServer?new Vector2(0, 0):new Vector2(0, 0);
             this.AddChild(shield);
-            
-
         }
     }
 
@@ -105,20 +99,18 @@ public class Ship : Sprite, ICloneable{
         } else {
             MoveLocalX(speed * (FromOpponent?1:-1));
         } 
-
-        // if(Position.x > OS.WindowSize.x || Position.x < 0){
+        checkCollision(this);
         if(Position.x >= OS.WindowSize.x - this.Scale.x * Texture.GetWidth()/2 || Position.x <= this.Scale.x * Texture.GetWidth()/2){
             if(!FromOpponent && !sentToOpponent){
                 EmitSignal("died", Position.y, Type);
                 Debug.Print("ship has been sent");
+                Bay.activeShips.Remove(this);
                 sentToOpponent = true;
             }
         }
         if(Position.x >= OS.WindowSize.x + this.Scale.x * Texture.GetWidth()/2 || Position.x <= -1 * this.Scale.x * Texture.GetWidth()/2){
             QueueFree();
         }
-
-
         if(Global.IsServer){
             if(Position.x - this.Scale.x * Texture.GetWidth()/2 <= 500){
                 if(FromOpponent){
@@ -147,22 +139,21 @@ public class Ship : Sprite, ICloneable{
     }
     private static void checkCollision(Ship local){
         ArrayList list = Bay.activeShips;
-        foreach(Ship ship in list){
-            if(ship.GetInstanceId() != local.GetInstanceId()){
-                if(ship.Position.y == local.Position.y && ship.Position.x < (local.Position.x + local.Texture.GetWidth()) && ship.Position.x > local.Position.x){
-                    ship.EmitSignal("crashed",ship.Position.x, ship.Position.y);
-                    local.EmitSignal("crahsed",local.Position.x, local.Position.y);
-
+        try{
+            foreach(Ship ship in list){
+                if(ship.GetInstanceId() != local.GetInstanceId()){
+                    float dist = local.Position.x + local.Texture.GetWidth() - ship.Position.x;
+                    if(dist <= local.Texture.GetWidth() && dist >= 0){
+                        ship.EmitSignal("crashed",ship.Position.x, ship.Position.y);
+                        local.EmitSignal("crashed",local.Position.x, local.Position.y);
+                    }
                 }
             }
-        }
+        }catch(Exception){}
     }
     private void crashedShip(int x, int y){
         GD.Print("crashed");
+        QueueFree();
         Bay.activeShips.Remove(this);
-    }
-    public void sleep(int i){
-        System.Threading.Thread.Sleep(i);
-        
     }
 }
