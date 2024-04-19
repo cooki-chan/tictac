@@ -132,7 +132,7 @@ public class Ship : Sprite, ICloneable{
             foreach(Ship ship in list){
                 if(ship.GetInstanceId() != local.GetInstanceId()){
                     float dist = local.Position.x + local.Texture.GetWidth() - ship.Position.x;
-                    if(dist <= local.Texture.GetWidth() && dist >= 0){
+                    if(((dist <= local.Texture.GetWidth() && dist >= 0) || ((local.Position.x - ship.Position.x) < local.Texture.GetWidth() && (local.Position.x - ship.Position.x) > 0)) && Math.Abs(local.Position.y - ship.Position.y) <= 20){
                         ship.EmitSignal("crashed",ship.Position.x, ship.Position.y);
                         local.EmitSignal("crashed",local.Position.x, local.Position.y);
                     }
