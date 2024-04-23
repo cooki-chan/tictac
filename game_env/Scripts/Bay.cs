@@ -22,23 +22,23 @@ public class Bay : ColorRect{
    }
    public void onButtonPressed(){
       temp = new Sprite{Texture = GD.Load<Texture>(SpritePath + "Ship1.png")};
-      ship = new Ship(1, bayNum, null, false);
+      ship = new Ship(1, false);
    }
    public void on2Pressed(){
       temp = new Sprite{Texture = GD.Load<Texture>(SpritePath + "Ship2.png")};
-      ship = new Ship(2, bayNum, null, false);
+      ship = new Ship(2, false);
    }
    public void on3Pressed(){
       temp = new Sprite{Texture = GD.Load<Texture>(SpritePath + "Ship3.png")};
-      ship = new Ship(3, bayNum, null, false);
+      ship = new Ship(3, false);
    }
    public void on4Pressed(){
       temp = new Sprite{Texture = GD.Load<Texture>(SpritePath + "Ship4.png")};
-      ship = new Ship(4, bayNum, null, false);
+      ship = new Ship(4, false);
    }
    public void on5Pressed(){
       temp = new Sprite{Texture = GD.Load<Texture>(SpritePath + "Ship5.png")};
-      ship = new Ship(5, bayNum, null, false);
+      ship = new Ship(5, false);
    }
    public void onMouseEnter(){
       if(temp != null){

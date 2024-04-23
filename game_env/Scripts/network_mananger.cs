@@ -41,7 +41,7 @@ public class network_mananger : Node{
     [Remote]
     void summonDave(int yPos, int type){
         Control control = GetNode<Control>("..");
-        Ship ship = new Ship(type,0,null, true);
+        Ship ship = new Ship(type,true);
         ulong objID = ship.GetInstanceId();
         ship = (Ship) GD.InstanceFromId(objID);
         Ship newship = (Ship)ship.Clone();
