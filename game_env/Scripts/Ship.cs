@@ -6,6 +6,7 @@ using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Collections;
 using System.Threading;
+using System.CodeDom;
 public class Ship : Sprite, ICloneable{
     //connects to dave died
     [Signal] public delegate void died(int yPos, int type);
@@ -45,6 +46,9 @@ public class Ship : Sprite, ICloneable{
             case 5:
                 speed = speed5;
                 break;
+            default:
+                speed = speed5;
+                break;
         }
     }
 
@@ -68,24 +72,35 @@ public class Ship : Sprite, ICloneable{
             case 5:
                 speed = speed5;
                 break;
+            default:
+                speed = speed5;
+                break;
         }
     }
     public override void _Ready(){
-        Texture = GD.Load<Texture>("res://game_env/Ships/Ship" + Type + ".png");
         Connect("died", GetNode<Node>("../network_manager"), "_dave_died");
         Connect("crashed", this, "crashedShip");
-        if(Global.IsServer){
-            if(!FromOpponent)Texture = GD.Load<Texture>("res://game_env/RightFacingShips/Ship" + Type + ".png");
-            if(FromOpponent)Texture = GD.Load<Texture>("res://game_env/LeftFacingShips/Ship" + Type + ".png");
-        } else {
-           if(!FromOpponent)Texture = GD.Load<Texture>("res://game_env/LeftFacingShips/Ship" + Type + ".png");
-           if(FromOpponent)Texture = GD.Load<Texture>("res://game_env/RightFacingShips/Ship" + Type + ".png");
+        if(!(Type == 6)){
+            Texture = GD.Load<Texture>("res://game_env/Ships/Ship" + Type + ".png");
+            if(Global.IsServer){
+                if(!FromOpponent)Texture = GD.Load<Texture>("res://game_env/RightFacingShips/Ship" + Type + ".png");
+                if(FromOpponent)Texture = GD.Load<Texture>("res://game_env/LeftFacingShips/Ship" + Type + ".png");
+            } else {
+            if(!FromOpponent)Texture = GD.Load<Texture>("res://game_env/LeftFacingShips/Ship" + Type + ".png");
+            if(FromOpponent)Texture = GD.Load<Texture>("res://game_env/RightFacingShips/Ship" + Type + ".png");
+            }
         }
-        if(Type == 5){
-            Sprite shield = new Sprite();
+        if(Type == 5 && FromOpponent != true){
+            Ship shield = new Ship(6, lane, null, false);
             shield.Texture = GD.Load<Texture>("res://game_env/shield.png");
-            shield.Position = Global.IsServer?new Vector2(this.Texture.GetWidth(), 0):new Vector2(-this.Texture.GetWidth(), 0);
-            this.AddChild(shield);
+            if(Global.IsServer){
+                shield.Position = Global.IsServer?new Vector2(Position.x-Texture.GetWidth()-6, Position.y):new Vector2(Position.x+Texture.GetWidth()+6, Position.y);
+            
+            } else {
+                shield.Position = Global.IsServer?new Vector2(Position.x+Texture.GetWidth()+6, Position.y):new Vector2(Position.x-Texture.GetWidth()-6, Position.y);
+            } 
+            GetNode<Bay>("../Bay1").addShield(shield);
+            this.GetParent().AddChild(shield);
         }
     }
 
@@ -101,7 +116,7 @@ public class Ship : Sprite, ICloneable{
         } 
         checkCollision(this);
         if(Position.x >= OS.WindowSize.x - this.Scale.x * Texture.GetWidth()/2 || Position.x <= this.Scale.x * Texture.GetWidth()/2){
-            if(!FromOpponent && !sentToOpponent){
+            if(Type != 6 && !FromOpponent && !sentToOpponent){
                 EmitSignal("died", Position.y, Type);
                 Debug.Print("ship has been sent");
                 Bay.activeShips.Remove(this);

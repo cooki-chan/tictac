@@ -97,4 +97,7 @@ public class Bay : ColorRect{
       ship = null;
       temp.Texture = null;
    }
+   public void addShield(Ship shield){
+      activeShips.Add((Ship) shield);
+   }
 }
