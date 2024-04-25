@@ -1,12 +1,7 @@
 using System;
-using System.Linq.Expressions;
 using Godot;
 using System.Diagnostics;
-using System.Runtime.ConstrainedExecution;
-using System.Text;
 using System.Collections;
-using System.Threading;
-using System.Reflection;
 public class Ship : Sprite, ICloneable{
     //connects to dave died
     [Signal] public delegate void died(int yPos, int type);
@@ -15,7 +10,6 @@ public class Ship : Sprite, ICloneable{
     private int Type;
     private int speed;
     private bool FromOpponent = false;
-    private int lane;
     private bool sentToOpponent = false;
     static public int speed1 = 10;
     static public int speed2 = 15;
@@ -23,7 +17,7 @@ public class Ship : Sprite, ICloneable{
     static public int speed4 = 10;
     static public int speed5 = 5;
     private string method;
-    private Godot.Timer speedtimer;
+    private Timer speedtimer;
     public Ship(int type, bool fromOpponent){
         FromOpponent = fromOpponent;
         Type = type;
@@ -54,7 +48,7 @@ public class Ship : Sprite, ICloneable{
         Texture = GD.Load<Texture>("res://game_env/Ships/Ship" + Type + ".png");
         Connect("died", GetNode<Node>("../network_manager"), "_dave_died");
         Connect("crashed", this, "crashedShip");
-        typeof(string).GetMethod(method).Invoke(this, null);
+        typeof(Ship).GetMethod(method).Invoke(this, null);
         if(Global.IsServer){
             if(!FromOpponent)Texture = GD.Load<Texture>("res://game_env/RightFacingShips/Ship" + Type + ".png");
             if(FromOpponent)Texture = GD.Load<Texture>("res://game_env/LeftFacingShips/Ship" + Type + ".png");
@@ -63,10 +57,11 @@ public class Ship : Sprite, ICloneable{
            if(FromOpponent)Texture = GD.Load<Texture>("res://game_env/RightFacingShips/Ship" + Type + ".png");
         }
         if(Type == 5){
-            Sprite shield = new Sprite();
-            shield.Texture = GD.Load<Texture>("res://game_env/shield.png");
-            shield.Position = Global.IsServer?new Vector2(0, 0):new Vector2(0, 0);
-            this.AddChild(shield);
+            Sprite shield = new Sprite{
+                Texture = GD.Load<Texture>("res://game_env/shield.png"),
+                Position = Global.IsServer ? new Vector2(0, 0) : new Vector2(0, 0)
+            };
+            AddChild(shield);
         }
     }
 
@@ -81,7 +76,8 @@ public class Ship : Sprite, ICloneable{
             MoveLocalX(speed * (FromOpponent?1:-1));
         } 
         checkCollision(this);
-        if(speedtimer != null && speedtimer.IsStopped())speed = speed2;
+        if(speedtimer != null && speedtimer.TimeLeft == 0)
+            speed = speed2;
         if(Position.x >= OS.WindowSize.x - this.Scale.x * Texture.GetWidth()/2 || Position.x <= this.Scale.x * Texture.GetWidth()/2){
             if(!FromOpponent && !sentToOpponent){
                 EmitSignal("died", Position.y, Type);
@@ -140,8 +136,16 @@ public class Ship : Sprite, ICloneable{
     }
     public void boost(){
         if(FromOpponent){
-            speedtimer = new Godot.Timer{WaitTime = 1};
+            GD.Print(speed);
+            speedtimer = new Timer{
+                WaitTime = 1,
+                Autostart = true,
+                OneShot = true
+            };
+            AddChild(speedtimer);
+            speedtimer.Start();
             speed = (int)(speed * 1.5);
+            GD.Print(speed);
         }
     }
 }
