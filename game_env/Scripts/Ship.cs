@@ -11,13 +11,15 @@ public class Ship : Sprite, ICloneable{
     private int speed;
     private bool FromOpponent = false;
     private bool sentToOpponent = false;
-    static public int speed1 = 10;
-    static public int speed2 = 15;
-    static public int speed3 = 8;
-    static public int speed4 = 10;
-    static public int speed5 = 5;
+    static public int speed1 = 5;
+    static public int speed2 = 7;
+    static public int speed3 = 4;
+    static public int speed4 = 5;
+    static public int speed5 = 2;
     private string method;
+    private int rocketCooldown = 1;
     private Timer speedtimer;
+    private System.Timers.Timer rocketTimer;
     public Ship(int type, bool fromOpponent){
         FromOpponent = fromOpponent;
         Type = type;
@@ -136,7 +138,6 @@ public class Ship : Sprite, ICloneable{
     }
     public void boost(){
         if(FromOpponent){
-            GD.Print(speed);
             speedtimer = new Timer{
                 WaitTime = 1,
                 Autostart = true,
@@ -145,7 +146,16 @@ public class Ship : Sprite, ICloneable{
             AddChild(speedtimer);
             speedtimer.Start();
             speed = (int)(speed * 1.5);
-            GD.Print(speed);
         }
+    }
+    public void rockets(){
+        rocketTimer = new System.Timers.Timer(2000);
+        rocketTimer.Elapsed += FireRockets;
+        rocketTimer.Start();
+    }
+
+    private void FireRockets(object sender, System.Timers.ElapsedEventArgs e){
+        Rocket rocket = new Rocket(FromOpponent, Position.x + 20, Position.y);
+        GetParent().AddChild(rocket);
     }
 }
