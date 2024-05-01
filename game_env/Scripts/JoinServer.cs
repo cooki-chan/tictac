@@ -50,6 +50,10 @@ public class JoinServer : Control
         }
     }
 
+    public void _on_pasteCode_pressed(){
+        join_code_in.Text = OS.GetClipboard();
+    }
+
     string decodeIp(String code){
         long outputInt = 0;
         string Chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";

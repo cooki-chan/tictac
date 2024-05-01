@@ -164,7 +164,7 @@ public class Ship : Sprite, ICloneable{
                     }
                 }
             }
-        }catch(Exception){}
+        }catch(Exception e){Debug.Print(e.ToString());}
     }
     private void crashedShip(int x, int y){
         GD.Print("crashed");
