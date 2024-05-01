@@ -94,10 +94,10 @@ public class Ship : Sprite, ICloneable{
             Ship shield = new Ship(6, lane, null, false);
             shield.Texture = GD.Load<Texture>("res://game_env/shield.png");
             if(Global.IsServer){
-                shield.Position = Global.IsServer?new Vector2(Position.x-Texture.GetWidth()-6, Position.y):new Vector2(Position.x+Texture.GetWidth()+6, Position.y);
+                shield.Position = FromOpponent?new Vector2(Position.x-Texture.GetWidth()-6, Position.y):new Vector2(Position.x+Texture.GetWidth()+6, Position.y);
             
             } else {
-                shield.Position = Global.IsServer?new Vector2(Position.x+Texture.GetWidth()+6, Position.y):new Vector2(Position.x-Texture.GetWidth()-6, Position.y);
+                shield.Position = FromOpponent?new Vector2(Position.x+Texture.GetWidth()+6, Position.y):new Vector2(Position.x-Texture.GetWidth()-6, Position.y);
             } 
             GetNode<Bay>("../Bay1").addShield(shield);
             this.GetParent().AddChild(shield);
@@ -116,7 +116,7 @@ public class Ship : Sprite, ICloneable{
         } 
         checkCollision(this);
         if(Position.x >= OS.WindowSize.x - this.Scale.x * Texture.GetWidth()/2 || Position.x <= this.Scale.x * Texture.GetWidth()/2){
-            if(Type != 6 && !FromOpponent && !sentToOpponent){
+            if(Type < 5 && !FromOpponent && !sentToOpponent){
                 EmitSignal("died", Position.y, Type);
                 Debug.Print("ship has been sent");
                 Bay.activeShips.Remove(this);
