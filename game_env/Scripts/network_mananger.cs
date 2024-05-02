@@ -54,4 +54,13 @@ public class network_mananger : Node{
         }
         GD.Print("Ship hasth been sumoned");
     }
+    void rocketTransport(int yPos, bool IsServer){
+        Rpc("summonRocket", yPos, IsServer);
+    }
+    [Remote]
+    void summonRocket(int yPos, bool isServer){
+        Control control = GetNode<Control>("..");
+        Rocket newRocket = new Rocket(true, isServer? 0:OS.WindowSize.x, yPos);
+        control.AddChild(newRocket);
+    }
 }

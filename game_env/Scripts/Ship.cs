@@ -50,7 +50,7 @@ public class Ship : Sprite, ICloneable{
         Texture = GD.Load<Texture>("res://game_env/Ships/Ship" + Type + ".png");
         Connect("died", GetNode<Node>("../network_manager"), "_dave_died");
         Connect("crashed", this, "crashedShip");
-        typeof(Ship).GetMethod(method).Invoke(this, null);
+        if(Type != 1) typeof(Ship).GetMethod(method).Invoke(this, null);
         if(Global.IsServer){
             if(!FromOpponent)Texture = GD.Load<Texture>("res://game_env/RightFacingShips/Ship" + Type + ".png");
             if(FromOpponent)Texture = GD.Load<Texture>("res://game_env/LeftFacingShips/Ship" + Type + ".png");
@@ -105,7 +105,6 @@ public class Ship : Sprite, ICloneable{
                     Debug.Print("Taken Damage OMG :OOOOOOOO!!!!");
                     Global.Health -= 500;
                     QueueFree();
-
                 }
             }
         }
@@ -155,7 +154,7 @@ public class Ship : Sprite, ICloneable{
     }
 
     private void FireRockets(object sender, System.Timers.ElapsedEventArgs e){
-        Rocket rocket = new Rocket(FromOpponent, Position.x + 20, Position.y);
+        Rocket rocket = new Rocket(FromOpponent, Position.x + (50 * (Global.IsServer?1:-1)), Position.y);
         GetParent().AddChild(rocket);
     }
 }
