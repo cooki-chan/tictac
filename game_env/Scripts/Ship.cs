@@ -22,6 +22,61 @@ public class Ship : Sprite, ICloneable{
     private Timer speedtimer;
     private System.Timers.Timer rocketTimer, laserResizeTimer;
     public Ship(int type, bool fromOpponent){
+        Type = type;
+        FromOpponent = fromOpponent;
+        GD.Print(lane);
+        switch (type){
+            case 1:
+                speed = speed1;
+                break;
+            case 2:
+                speed = speed2;
+                break;
+            case 3:
+                speed = speed3;
+                break;
+            case 4:
+                speed = speed4;
+                break;
+            case 5:
+                speed = speed5;
+                break;
+            default:
+                speed = speed5;
+                break;
+        }
+    }
+
+
+    public Ship(int type, int Lane, LambdaExpression method, bool fromOp){
+        Type = type;
+        Method = method;
+        lane = Lane;
+        FromOpponent = fromOp;
+        GD.Print(lane);
+        switch (type){
+            case 1:
+                speed = speed1;
+                break;
+            case 2:
+                speed = speed2;
+                break;
+            case 3:
+                speed = speed3;
+                break;
+            case 4:
+                speed = speed4;
+                break;
+            case 5:
+                speed = speed5;
+                break;
+            default:
+                speed = speed5;
+                break;
+        }
+    }
+
+    public Ship(int type, LambdaExpression method, bool fromOpponent){
         FromOpponent = fromOpponent;
         Type = type;
         switch (type){
@@ -45,26 +100,39 @@ public class Ship : Sprite, ICloneable{
                 speed = speed5;
                 method = "shield";
                 break;
+            default:
+                speed = speed5;
+                break;
         }
     }
     public override void _Ready(){
-        Texture = GD.Load<Texture>("res://game_env/Ships/Ship" + Type + ".png");
         Connect("died", GetNode<Node>("../network_manager"), "_dave_died");
         Connect("crashed", this, "crashedShip");
         if(Type != 1) typeof(Ship).GetMethod(method).Invoke(this, null);
-        if(Global.IsServer){
-            if(!FromOpponent)Texture = GD.Load<Texture>("res://game_env/RightFacingShips/Ship" + Type + ".png");
-            if(FromOpponent)Texture = GD.Load<Texture>("res://game_env/LeftFacingShips/Ship" + Type + ".png");
-        } else {
-           if(!FromOpponent)Texture = GD.Load<Texture>("res://game_env/LeftFacingShips/Ship" + Type + ".png");
-           if(FromOpponent)Texture = GD.Load<Texture>("res://game_env/RightFacingShips/Ship" + Type + ".png");
+        if(!(Type == 6)){
+            Texture = GD.Load<Texture>("res://game_env/Ships/Ship" + Type + ".png");
+            if(Global.IsServer){
+                if(!FromOpponent)Texture = GD.Load<Texture>("res://game_env/RightFacingShips/Ship" + Type + ".png");
+                if(FromOpponent)Texture = GD.Load<Texture>("res://game_env/LeftFacingShips/Ship" + Type + ".png");
+            } else {
+            if(!FromOpponent)Texture = GD.Load<Texture>("res://game_env/LeftFacingShips/Ship" + Type + ".png");
+            if(FromOpponent)Texture = GD.Load<Texture>("res://game_env/RightFacingShips/Ship" + Type + ".png");
+            }
         }
-        if(Type == 5){
-            Sprite shield = new Sprite{
-                Texture = GD.Load<Texture>("res://game_env/shield.png"),
-                Position = Global.IsServer ? new Vector2(0, 0) : new Vector2(0, 0)
-            };
-            AddChild(shield);
+        if(Type == 5 && FromOpponent != true){
+            Ship shield = new Ship(6, lane, null, false);
+            shield.Texture = GD.Load<Texture>("res://game_env/shield.png");
+            if(Global.IsServer){
+                shield.Position = FromOpponent?new Vector2(Position.x-Texture.GetWidth()-6, Position.y):new Vector2(Position.x+Texture.GetWidth()+6, Position.y);
+            
+            } else {
+                shield.Position = FromOpponent?new Vector2(Position.x+Texture.GetWidth()+6, Position.y):new Vector2(Position.x-Texture.GetWidth()-6, Position.y);
+            } 
+            GetNode<Bay>("../Bay1").addShield(shield);
+            this.GetParent().AddChild(shield);
+        }
+        if(FromOpponent == true){
+            GetNode<Bay>("../Bay1").addShip(this);
         }
     }
 
@@ -82,15 +150,15 @@ public class Ship : Sprite, ICloneable{
         if(speedtimer != null && speedtimer.TimeLeft == 0)
             speed = speed2;
         if(Position.x >= OS.WindowSize.x - this.Scale.x * Texture.GetWidth()/2 || Position.x <= this.Scale.x * Texture.GetWidth()/2){
-            if(!FromOpponent && !sentToOpponent){
+            if(Type < 5 && !FromOpponent && !sentToOpponent){
                 EmitSignal("died", Position.y, Type);
                 Debug.Print("ship has been sent");
-                Bay.activeShips.Remove(this);
                 sentToOpponent = true;
             }
-        }
+        } 
         if(Position.x >= OS.WindowSize.x + this.Scale.x * Texture.GetWidth()/2 || Position.x <= -1 * this.Scale.x * Texture.GetWidth()/2){
             QueueFree();
+            Bay.activeShips.Remove(this);
         }
         if(Global.IsServer){
             if(Position.x - this.Scale.x * Texture.GetWidth()/2 <= 500){
@@ -98,6 +166,7 @@ public class Ship : Sprite, ICloneable{
                     Debug.Print("Taken Damage OMG :OOOOOOOO!!!!");
                     Global.Health -= 500;
                     QueueFree();
+                    Bay.activeShips.Remove(this);
                 }
             }
         } else {
@@ -106,6 +175,7 @@ public class Ship : Sprite, ICloneable{
                     Debug.Print("Taken Damage OMG :OOOOOOOO!!!!");
                     Global.Health -= 500;
                     QueueFree();
+                    Bay.activeShips.Remove(this);
                 }
             }
         }
@@ -129,7 +199,7 @@ public class Ship : Sprite, ICloneable{
                     }
                 }
             }
-        }catch(Exception){}
+        }catch(Exception e){Debug.Print(e.ToString());}
     }
     private void crashedShip(int x, int y){
         GD.Print("crashed");
