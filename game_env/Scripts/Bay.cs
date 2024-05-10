@@ -100,4 +100,8 @@ public class Bay : ColorRect{
    public void addShield(Ship shield){
       activeShips.Add((Ship) shield);
    }
+
+   public void addShip(Ship shield){
+      activeShips.Add((Ship) shield);
+   }
 }

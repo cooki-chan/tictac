@@ -102,6 +102,9 @@ public class Ship : Sprite, ICloneable{
             GetNode<Bay>("../Bay1").addShield(shield);
             this.GetParent().AddChild(shield);
         }
+        if(FromOpponent == true){
+            GetNode<Bay>("../Bay1").addShip(this);
+        }
     }
 
 
@@ -119,12 +122,12 @@ public class Ship : Sprite, ICloneable{
             if(Type < 5 && !FromOpponent && !sentToOpponent){
                 EmitSignal("died", Position.y, Type);
                 Debug.Print("ship has been sent");
-                Bay.activeShips.Remove(this);
                 sentToOpponent = true;
             }
         } 
         if(Position.x >= OS.WindowSize.x + this.Scale.x * Texture.GetWidth()/2 || Position.x <= -1 * this.Scale.x * Texture.GetWidth()/2){
             QueueFree();
+            Bay.activeShips.Remove(this);
         }
         if(Global.IsServer){
             if(Position.x - this.Scale.x * Texture.GetWidth()/2 <= 500){
@@ -132,6 +135,7 @@ public class Ship : Sprite, ICloneable{
                     Debug.Print("Taken Damage OMG :OOOOOOOO!!!!");
                     Global.Health -= 500;
                     QueueFree();
+                    Bay.activeShips.Remove(this);
                 }
             }
         } else {
@@ -140,7 +144,7 @@ public class Ship : Sprite, ICloneable{
                     Debug.Print("Taken Damage OMG :OOOOOOOO!!!!");
                     Global.Health -= 500;
                     QueueFree();
-
+                    Bay.activeShips.Remove(this);
                 }
             }
         }
