@@ -41,7 +41,7 @@ public class network_mananger : Node{
     [Remote]
     void summonDave(int yPos, int type){
         Control control = GetNode<Control>("..");
-        Ship ship = new Ship(type,0,null, true);
+        Ship ship = new Ship(type,true);
         ulong objID = ship.GetInstanceId();
         ship = (Ship) GD.InstanceFromId(objID);
         Ship newship = (Ship)ship.Clone();
@@ -53,5 +53,14 @@ public class network_mananger : Node{
             newship.Position = new Vector2(0,yPos); //On client, enemy needs to spawn on the left
         }
         GD.Print("Ship hasth been sumoned");
+    }
+    void rocketTransport(int yPos, bool IsServer){
+        Rpc("summonRocket", yPos, IsServer);
+    }
+    [Remote]
+    void summonRocket(int yPos, bool isServer){
+        Control control = GetNode<Control>("..");
+        Rocket newRocket = new Rocket(true, isServer? 0:OS.WindowSize.x, yPos);
+        control.AddChild(newRocket);
     }
 }

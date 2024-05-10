@@ -8,11 +8,11 @@
 [ext_resource path="res://dave.png" type="Texture" id=6]
 [ext_resource path="res://game_env/Fonts/Font1.tres" type="DynamicFont" id=7]
 [ext_resource path="res://Font2.tres" type="DynamicFont" id=8]
-[ext_resource path="res://game_env/Ships/Ship1.png" type="Texture" id=9]
-[ext_resource path="res://game_env/Ships/Ship2.png" type="Texture" id=10]
-[ext_resource path="res://game_env/Ships/Ship4.png" type="Texture" id=11]
-[ext_resource path="res://game_env/Ships/Ship3.png" type="Texture" id=12]
-[ext_resource path="res://game_env/Ships/Ship5.png" type="Texture" id=13]
+[ext_resource path="res://game_env/LeftFacingShips/Ship5.png" type="Texture" id=9]
+[ext_resource path="res://game_env/LeftFacingShips/Ship1.png" type="Texture" id=10]
+[ext_resource path="res://game_env/LeftFacingShips/Ship2.png" type="Texture" id=11]
+[ext_resource path="res://game_env/LeftFacingShips/Ship3.png" type="Texture" id=12]
+[ext_resource path="res://game_env/LeftFacingShips/Ship4.png" type="Texture" id=13]
 [ext_resource path="res://game_env/Fonts/FRABK.TTF" type="DynamicFontData" id=14]
 [ext_resource path="res://SmallEvad.png" type="Texture" id=15]
 [ext_resource path="res://game_env/Scripts/Health.cs" type="Script" id=16]
@@ -66,7 +66,7 @@ margin_top = 25.0
 margin_right = 829.0
 margin_bottom = 205.0
 rect_pivot_offset = Vector2( 94, 119 )
-icon = ExtResource( 9 )
+icon = ExtResource( 10 )
 icon_align = 1
 
 [node name="Button2" type="Button" parent="Ships"]
@@ -75,7 +75,7 @@ margin_top = 24.0
 margin_right = 1099.0
 margin_bottom = 206.0
 rect_pivot_offset = Vector2( 94, 119 )
-icon = ExtResource( 10 )
+icon = ExtResource( 11 )
 icon_align = 1
 
 [node name="Button3" type="Button" parent="Ships"]
@@ -93,7 +93,7 @@ margin_top = 23.0
 margin_right = 1636.0
 margin_bottom = 205.0
 rect_pivot_offset = Vector2( 94, 119 )
-icon = ExtResource( 11 )
+icon = ExtResource( 13 )
 icon_align = 1
 
 [node name="Button5" type="Button" parent="Ships"]
@@ -102,7 +102,7 @@ margin_top = 23.0
 margin_right = 1903.0
 margin_bottom = 204.0
 rect_pivot_offset = Vector2( 94, 119 )
-icon = ExtResource( 13 )
+icon = ExtResource( 9 )
 icon_align = 1
 
 [node name="Generate" type="Button" parent="Ships"]

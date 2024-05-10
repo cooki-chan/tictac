@@ -1,28 +1,51 @@
 using System;
-using System.Linq.Expressions;
 using Godot;
 using System.Diagnostics;
-using System.Runtime.ConstrainedExecution;
-using System.Text;
 using System.Collections;
-using System.Threading;
-using System.CodeDom;
 public class Ship : Sprite, ICloneable{
     //connects to dave died
     [Signal] public delegate void died(int yPos, int type);
     [Signal] public delegate void _core_damaged(int damage);
     [Signal] public delegate void crashed(int damage);
     private int Type;
-    private LambdaExpression Method;
     private int speed;
     private bool FromOpponent = false;
-    private int lane;
     private bool sentToOpponent = false;
-    static public int speed1 = 10;
-    static public int speed2 = 15;
-    static public int speed3 = 8;
-    static public int speed4 = 10;
-    static public int speed5 = 5;
+    static public int speed1 = 5;
+    static public int speed2 = 7;
+    static public int speed3 = 4;
+    static public int speed4 = 5;
+    static public int speed5 = 2;
+    private string method;
+    private int rocketCooldown = 1;
+    private Timer speedtimer;
+    private System.Timers.Timer rocketTimer;
+    public Ship(int type, bool fromOpponent){
+        Type = type;
+        FromOpponent = fromOpponent;
+        GD.Print(lane);
+        switch (type){
+            case 1:
+                speed = speed1;
+                break;
+            case 2:
+                speed = speed2;
+                break;
+            case 3:
+                speed = speed3;
+                break;
+            case 4:
+                speed = speed4;
+                break;
+            case 5:
+                speed = speed5;
+                break;
+            default:
+                speed = speed5;
+                break;
+        }
+    }
+
 
     public Ship(int type, int Lane, LambdaExpression method, bool fromOp){
         Type = type;
@@ -55,22 +78,26 @@ public class Ship : Sprite, ICloneable{
     public Ship(int type, LambdaExpression method, bool fromOpponent){
         FromOpponent = fromOpponent;
         Type = type;
-        Method = method;
         switch (type){
             case 1:
                 speed = speed1;
+                method = null;
                 break;
             case 2:
                 speed = speed2;
+                method = "boost";
                 break;
             case 3:
                 speed = speed3;
+                method = "rockets";
                 break;
             case 4:
                 speed = speed4;
+                method = "laser";
                 break;
             case 5:
                 speed = speed5;
+                method = "shield";
                 break;
             default:
                 speed = speed5;
@@ -80,6 +107,7 @@ public class Ship : Sprite, ICloneable{
     public override void _Ready(){
         Connect("died", GetNode<Node>("../network_manager"), "_dave_died");
         Connect("crashed", this, "crashedShip");
+        if(Type != 1) typeof(Ship).GetMethod(method).Invoke(this, null);
         if(!(Type == 6)){
             Texture = GD.Load<Texture>("res://game_env/Ships/Ship" + Type + ".png");
             if(Global.IsServer){
@@ -118,6 +146,8 @@ public class Ship : Sprite, ICloneable{
             MoveLocalX(speed * (FromOpponent?1:-1));
         } 
         checkCollision(this);
+        if(speedtimer != null && speedtimer.TimeLeft == 0)
+            speed = speed2;
         if(Position.x >= OS.WindowSize.x - this.Scale.x * Texture.GetWidth()/2 || Position.x <= this.Scale.x * Texture.GetWidth()/2){
             if(Type < 5 && !FromOpponent && !sentToOpponent){
                 EmitSignal("died", Position.y, Type);
@@ -154,7 +184,7 @@ public class Ship : Sprite, ICloneable{
     }
 
     public object Clone(){
-        return new Ship(Type, lane, Method, FromOpponent);
+        return new Ship(Type, FromOpponent);
     }
     private static void checkCollision(Ship local){
         ArrayList list = Bay.activeShips;
@@ -174,5 +204,27 @@ public class Ship : Sprite, ICloneable{
         GD.Print("crashed");
         QueueFree();
         Bay.activeShips.Remove(this);
+    }
+    public void boost(){
+        if(FromOpponent){
+            speedtimer = new Timer{
+                WaitTime = 1,
+                Autostart = true,
+                OneShot = true
+            };
+            AddChild(speedtimer);
+            speedtimer.Start();
+            speed = (int)(speed * 1.5);
+        }
+    }
+    public void rockets(){
+        rocketTimer = new System.Timers.Timer(2000);
+        rocketTimer.Elapsed += FireRockets;
+        rocketTimer.Start();
+    }
+
+    private void FireRockets(object sender, System.Timers.ElapsedEventArgs e){
+        Rocket rocket = new Rocket(FromOpponent, Position.x + (50 * (Global.IsServer?1:-1)), Position.y);
+        GetParent().AddChild(rocket);
     }
 }

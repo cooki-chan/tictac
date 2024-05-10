@@ -3,7 +3,9 @@ using System;
 
 public class MainMenu : Node
 {
-
+    public override void _Ready(){
+      //GetTree().ChangeScene("res://game_env/Scenes/LeftScene(Server).tscn");
+    }
     public void _on_StartLocal_pressed(){
         GetTree().ChangeScene("res://game_env/Scenes/SetupServer.tscn");
     }
