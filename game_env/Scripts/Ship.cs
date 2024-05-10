@@ -21,61 +21,6 @@ public class Ship : Sprite, ICloneable{
     private Timer speedtimer;
     private System.Timers.Timer rocketTimer;
     public Ship(int type, bool fromOpponent){
-        Type = type;
-        FromOpponent = fromOpponent;
-        GD.Print(lane);
-        switch (type){
-            case 1:
-                speed = speed1;
-                break;
-            case 2:
-                speed = speed2;
-                break;
-            case 3:
-                speed = speed3;
-                break;
-            case 4:
-                speed = speed4;
-                break;
-            case 5:
-                speed = speed5;
-                break;
-            default:
-                speed = speed5;
-                break;
-        }
-    }
-
-
-    public Ship(int type, int Lane, LambdaExpression method, bool fromOp){
-        Type = type;
-        Method = method;
-        lane = Lane;
-        FromOpponent = fromOp;
-        GD.Print(lane);
-        switch (type){
-            case 1:
-                speed = speed1;
-                break;
-            case 2:
-                speed = speed2;
-                break;
-            case 3:
-                speed = speed3;
-                break;
-            case 4:
-                speed = speed4;
-                break;
-            case 5:
-                speed = speed5;
-                break;
-            default:
-                speed = speed5;
-                break;
-        }
-    }
-
-    public Ship(int type, LambdaExpression method, bool fromOpponent){
         FromOpponent = fromOpponent;
         Type = type;
         switch (type){
@@ -101,13 +46,14 @@ public class Ship : Sprite, ICloneable{
                 break;
             default:
                 speed = speed5;
+                method = null;
                 break;
         }
     }
+
     public override void _Ready(){
         Connect("died", GetNode<Node>("../network_manager"), "_dave_died");
         Connect("crashed", this, "crashedShip");
-        if(Type != 1) typeof(Ship).GetMethod(method).Invoke(this, null);
         if(!(Type == 6)){
             Texture = GD.Load<Texture>("res://game_env/Ships/Ship" + Type + ".png");
             if(Global.IsServer){
@@ -118,21 +64,10 @@ public class Ship : Sprite, ICloneable{
             if(FromOpponent)Texture = GD.Load<Texture>("res://game_env/RightFacingShips/Ship" + Type + ".png");
             }
         }
-        if(Type == 5 && FromOpponent != true){
-            Ship shield = new Ship(6, lane, null, false);
-            shield.Texture = GD.Load<Texture>("res://game_env/shield.png");
-            if(Global.IsServer){
-                shield.Position = FromOpponent?new Vector2(Position.x-Texture.GetWidth()-6, Position.y):new Vector2(Position.x+Texture.GetWidth()+6, Position.y);
-            
-            } else {
-                shield.Position = FromOpponent?new Vector2(Position.x+Texture.GetWidth()+6, Position.y):new Vector2(Position.x-Texture.GetWidth()-6, Position.y);
-            } 
-            GetNode<Bay>("../Bay1").addShield(shield);
-            this.GetParent().AddChild(shield);
-        }
         if(FromOpponent == true){
             GetNode<Bay>("../Bay1").addShip(this);
         }
+        if(method != null) typeof(Ship).GetMethod(method).Invoke(this, null);
     }
 
 
@@ -221,6 +156,20 @@ public class Ship : Sprite, ICloneable{
         rocketTimer = new System.Timers.Timer(2000);
         rocketTimer.Elapsed += FireRockets;
         rocketTimer.Start();
+    }
+
+    public void shield(){
+        if(Type == 5 && FromOpponent != true){
+            Ship shield = new Ship(6, false);
+            shield.Texture = GD.Load<Texture>("res://game_env/shield.png");
+            if(Global.IsServer){
+                shield.Position = FromOpponent?new Vector2(Position.x-Texture.GetWidth()-6, Position.y):new Vector2(Position.x+Texture.GetWidth()+6, Position.y);
+            } else {
+                shield.Position = FromOpponent?new Vector2(Position.x+Texture.GetWidth()+6, Position.y):new Vector2(Position.x-Texture.GetWidth()-6, Position.y);
+            } 
+            GetNode<Bay>("../Bay1").addShield(shield);
+            this.GetParent().AddChild(shield);
+        }
     }
 
     private void FireRockets(object sender, System.Timers.ElapsedEventArgs e){
