@@ -14,12 +14,13 @@ public class Ship : Sprite, ICloneable{
     static public int speed1 = 5;
     static public int speed2 = 7;
     static public int speed3 = 4;
-    static public int speed4 = 5;
+    static public int speed4 = 2;
     static public int speed5 = 2;
     private string method;
+    private Sprite lazer;
     private int rocketCooldown = 1;
     private Timer speedtimer;
-    private System.Timers.Timer rocketTimer;
+    private System.Timers.Timer rocketTimer, laserResizeTimer;
     public Ship(int type, bool fromOpponent){
         FromOpponent = fromOpponent;
         Type = type;
@@ -156,5 +157,30 @@ public class Ship : Sprite, ICloneable{
     private void FireRockets(object sender, System.Timers.ElapsedEventArgs e){
         Rocket rocket = new Rocket(FromOpponent, Position.x + (50 * (Global.IsServer?1:-1)), Position.y);
         GetParent().AddChild(rocket);
+    }
+    public void laser(){
+        lazer = new Sprite{
+            Position = new Vector2(Position.x + (2 * Texture.GetWidth() / 3), Position.y),
+            Texture = GD.Load<Texture>("res://Lazer.png"),
+        };
+        laserResizeTimer = new System.Timers.Timer(10);
+        laserResizeTimer.Elapsed += resizeLaser;
+        laserResizeTimer.Start();
+        GetParent().AddChild(lazer);
+    }
+    public void resizeLaser(object sender, System.Timers.ElapsedEventArgs e){
+        lazer.Position = new Vector2(Position.x + (2 * Texture.GetWidth() / 3), Position.y);
+        ArrayList shipsInLine = new ArrayList();
+        foreach(Ship ship in Bay.activeShips)
+            if((ship.Position.y + ship.Texture.GetHeight()) > (lazer.Position.y + lazer.Texture.GetHeight()) && ship.Position.y < lazer.Position.y) shipsInLine.Add(ship);
+        Ship nearest = (Ship)shipsInLine[0];
+        if(nearest != null){
+            foreach(Ship ship in shipsInLine)
+                if(ship.Position.x < nearest.Position.x) nearest = ship;
+            lazer.Scale = new Vector2((nearest.Position.x - lazer.Position.x)/500,lazer.Scale.y);
+        }
+        else
+            lazer.Scale = new Vector2((OS.WindowSize.x - lazer.Position.x)/500,lazer.Scale.y);
+        lazer.Scale = new Vector2(20000,lazer.Scale.y);
     }
 }
