@@ -22,61 +22,6 @@ public class Ship : Sprite, ICloneable{
     private Timer speedtimer;
     private System.Timers.Timer rocketTimer, laserResizeTimer;
     public Ship(int type, bool fromOpponent){
-        Type = type;
-        FromOpponent = fromOpponent;
-        GD.Print(lane);
-        switch (type){
-            case 1:
-                speed = speed1;
-                break;
-            case 2:
-                speed = speed2;
-                break;
-            case 3:
-                speed = speed3;
-                break;
-            case 4:
-                speed = speed4;
-                break;
-            case 5:
-                speed = speed5;
-                break;
-            default:
-                speed = speed5;
-                break;
-        }
-    }
-
-
-    public Ship(int type, int Lane, LambdaExpression method, bool fromOp){
-        Type = type;
-        Method = method;
-        lane = Lane;
-        FromOpponent = fromOp;
-        GD.Print(lane);
-        switch (type){
-            case 1:
-                speed = speed1;
-                break;
-            case 2:
-                speed = speed2;
-                break;
-            case 3:
-                speed = speed3;
-                break;
-            case 4:
-                speed = speed4;
-                break;
-            case 5:
-                speed = speed5;
-                break;
-            default:
-                speed = speed5;
-                break;
-        }
-    }
-
-    public Ship(int type, LambdaExpression method, bool fromOpponent){
         FromOpponent = fromOpponent;
         Type = type;
         switch (type){
@@ -98,7 +43,6 @@ public class Ship : Sprite, ICloneable{
                 break;
             case 5:
                 speed = speed5;
-                method = "shield";
                 break;
             default:
                 speed = speed5;
@@ -108,19 +52,19 @@ public class Ship : Sprite, ICloneable{
     public override void _Ready(){
         Connect("died", GetNode<Node>("../network_manager"), "_dave_died");
         Connect("crashed", this, "crashedShip");
-        if(Type != 1) typeof(Ship).GetMethod(method).Invoke(this, null);
         if(!(Type == 6)){
             Texture = GD.Load<Texture>("res://game_env/Ships/Ship" + Type + ".png");
             if(Global.IsServer){
                 if(!FromOpponent)Texture = GD.Load<Texture>("res://game_env/RightFacingShips/Ship" + Type + ".png");
                 if(FromOpponent)Texture = GD.Load<Texture>("res://game_env/LeftFacingShips/Ship" + Type + ".png");
             } else {
-            if(!FromOpponent)Texture = GD.Load<Texture>("res://game_env/LeftFacingShips/Ship" + Type + ".png");
-            if(FromOpponent)Texture = GD.Load<Texture>("res://game_env/RightFacingShips/Ship" + Type + ".png");
+                if(!FromOpponent)Texture = GD.Load<Texture>("res://game_env/LeftFacingShips/Ship" + Type + ".png");
+                if(FromOpponent)Texture = GD.Load<Texture>("res://game_env/RightFacingShips/Ship" + Type + ".png");
             }
         }
+        if(method != null) typeof(Ship).GetMethod(method).Invoke(this, null);
         if(Type == 5 && FromOpponent != true){
-            Ship shield = new Ship(6, lane, null, false);
+            Ship shield = new Ship(6, false);
             shield.Texture = GD.Load<Texture>("res://game_env/shield.png");
             if(Global.IsServer){
                 shield.Position = FromOpponent?new Vector2(Position.x-Texture.GetWidth()-6, Position.y):new Vector2(Position.x+Texture.GetWidth()+6, Position.y);
@@ -129,7 +73,7 @@ public class Ship : Sprite, ICloneable{
                 shield.Position = FromOpponent?new Vector2(Position.x+Texture.GetWidth()+6, Position.y):new Vector2(Position.x-Texture.GetWidth()-6, Position.y);
             } 
             GetNode<Bay>("../Bay1").addShield(shield);
-            this.GetParent().AddChild(shield);
+            GetParent().AddChild(shield);
         }
         if(FromOpponent == true){
             GetNode<Bay>("../Bay1").addShip(this);
@@ -230,8 +174,8 @@ public class Ship : Sprite, ICloneable{
     }
     public void laser(){
         lazer = new Sprite{
-            Position = new Vector2(Position.x + (2 * Texture.GetWidth() / 3), Position.y),
             Texture = GD.Load<Texture>("res://Lazer.png"),
+            Position = new Vector2(Position.x + (2 * Texture.GetWidth() / 3), Position.y)
         };
         laserResizeTimer = new System.Timers.Timer(10);
         laserResizeTimer.Elapsed += resizeLaser;
@@ -239,18 +183,22 @@ public class Ship : Sprite, ICloneable{
         GetParent().AddChild(lazer);
     }
     public void resizeLaser(object sender, System.Timers.ElapsedEventArgs e){
-        lazer.Position = new Vector2(Position.x + (2 * Texture.GetWidth() / 3), Position.y);
+        lazer.Position = new Vector2(Position.x + ((Global.IsServer?1:-1) * (FromOpponent?-1:1) * 4 * Texture.GetWidth() / 3), Position.y);
         ArrayList shipsInLine = new ArrayList();
         foreach(Ship ship in Bay.activeShips)
             if((ship.Position.y + ship.Texture.GetHeight()) > (lazer.Position.y + lazer.Texture.GetHeight()) && ship.Position.y < lazer.Position.y) shipsInLine.Add(ship);
-        Ship nearest = (Ship)shipsInLine[0];
+        Ship nearest = null;
+        
+        Debug.Print(shipsInLine.ToArray()[0].ToString());
+        Debug.Print(lazer.Scale.ToString());   
+        if(shipsInLine.ToArray().Length > 0) 
+            nearest = (Ship)shipsInLine.ToArray()[0]; 
         if(nearest != null){
             foreach(Ship ship in shipsInLine)
                 if(ship.Position.x < nearest.Position.x) nearest = ship;
             lazer.Scale = new Vector2((nearest.Position.x - lazer.Position.x)/500,lazer.Scale.y);
-        }
-        else
+        } else{
             lazer.Scale = new Vector2((OS.WindowSize.x - lazer.Position.x)/500,lazer.Scale.y);
-        lazer.Scale = new Vector2(20000,lazer.Scale.y);
+        }
     }
 }
