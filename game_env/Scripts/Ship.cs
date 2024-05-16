@@ -24,6 +24,7 @@ public class Ship : Sprite, ICloneable{
     public Ship(int type, bool fromOpponent){
         FromOpponent = fromOpponent;
         Type = type;
+        ShowOnTop = true;
         switch (type){
             case 1:
                 speed = speed1;
@@ -184,17 +185,16 @@ public class Ship : Sprite, ICloneable{
         laserResizeTimer = new System.Timers.Timer(10);
         laserResizeTimer.Elapsed += resizeLaser;
         laserResizeTimer.Start();
+        
         GetParent().AddChild(lazer);
     }
     public void resizeLaser(object sender, System.Timers.ElapsedEventArgs e){
-        lazer.Position = new Vector2(Position.x + ((Global.IsServer?1:-1) * (FromOpponent?-1:1) * 4 * Texture.GetWidth() / 3), Position.y);
         ArrayList shipsInLine = new ArrayList();
         foreach(Ship ship in Bay.activeShips)
             if((ship.Position.y + ship.Texture.GetHeight()) > (lazer.Position.y + lazer.Texture.GetHeight()) && ship.Position.y < lazer.Position.y) shipsInLine.Add(ship);
         Ship nearest = null;
-        
-        Debug.Print(shipsInLine.ToArray()[0].ToString());
-        Debug.Print(lazer.Scale.ToString());   
+        Debug.Print(lazer.Scale.ToString());
+        /*   
         if(shipsInLine.ToArray().Length > 0) 
             nearest = (Ship)shipsInLine.ToArray()[0]; 
         if(nearest != null){
@@ -203,6 +203,11 @@ public class Ship : Sprite, ICloneable{
             lazer.Scale = new Vector2((nearest.Position.x - lazer.Position.x)/500,lazer.Scale.y);
         } else{
             lazer.Scale = new Vector2((OS.WindowSize.x - lazer.Position.x)/500,lazer.Scale.y);
-        }
+        }*/
+        lazer.Scale = new Vector2(2,1);
+        float corner = lazer.Position.x - (lazer.Texture.GetWidth() * (lazer.Scale.x - 1));
+        float curPos = lazer.Position.x;
+        lazer.Position = new Vector2(lazer.Position.x + (lazer.Texture.GetWidth() * (lazer.Scale.x - 1)), Position.y);
+        //+ ((Global.IsServer?1:-1) * (FromOpponent?-1:1) * 4 * Texture.GetWidth() / 3)
     }
 }
