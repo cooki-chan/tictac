@@ -29,6 +29,7 @@ public class Rocket : Sprite{
          if(Position.x >= OS.WindowSize.x - Scale.x * Texture.GetWidth()/2 || Position.x <= Scale.x * Texture.GetWidth()/2){
             if(!FromOpponent && !sentToOpponent){
                 EmitSignal("rDied", Position.y, Global.IsServer);
+                QueueFree();
                 sentToOpponent = true;
             }
         }
