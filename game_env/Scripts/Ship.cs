@@ -46,9 +46,11 @@ public class Ship : Sprite, ICloneable{
                 break;
             default:
                 speed = speed5;
+                method = null;
                 break;
         }
     }
+
     public override void _Ready(){
         Connect("died", GetNode<Node>("../network_manager"), "_dave_died");
         Connect("crashed", this, "crashedShip");
@@ -62,22 +64,10 @@ public class Ship : Sprite, ICloneable{
                 if(FromOpponent)Texture = GD.Load<Texture>("res://game_env/RightFacingShips/Ship" + Type + ".png");
             }
         }
-        if(method != null) typeof(Ship).GetMethod(method).Invoke(this, null);
-        if(Type == 5 && FromOpponent != true){
-            Ship shield = new Ship(6, false);
-            shield.Texture = GD.Load<Texture>("res://game_env/shield.png");
-            if(Global.IsServer){
-                shield.Position = FromOpponent?new Vector2(Position.x-Texture.GetWidth()-6, Position.y):new Vector2(Position.x+Texture.GetWidth()+6, Position.y);
-            
-            } else {
-                shield.Position = FromOpponent?new Vector2(Position.x+Texture.GetWidth()+6, Position.y):new Vector2(Position.x-Texture.GetWidth()-6, Position.y);
-            } 
-            GetNode<Bay>("../Bay1").addShield(shield);
-            GetParent().AddChild(shield);
-        }
         if(FromOpponent == true){
             GetNode<Bay>("../Bay1").addShip(this);
         }
+        if(method != null) typeof(Ship).GetMethod(method).Invoke(this, null);
     }
 
 
@@ -166,6 +156,20 @@ public class Ship : Sprite, ICloneable{
         rocketTimer = new System.Timers.Timer(2000);
         rocketTimer.Elapsed += FireRockets;
         rocketTimer.Start();
+    }
+
+    public void shield(){
+        if(Type == 5 && FromOpponent != true){
+            Ship shield = new Ship(6, false);
+            shield.Texture = GD.Load<Texture>("res://game_env/shield.png");
+            if(Global.IsServer){
+                shield.Position = FromOpponent?new Vector2(Position.x-Texture.GetWidth()-6, Position.y):new Vector2(Position.x+Texture.GetWidth()+6, Position.y);
+            } else {
+                shield.Position = FromOpponent?new Vector2(Position.x+Texture.GetWidth()+6, Position.y):new Vector2(Position.x-Texture.GetWidth()-6, Position.y);
+            } 
+            GetNode<Bay>("../Bay1").addShield(shield);
+            this.GetParent().AddChild(shield);
+        }
     }
 
     private void FireRockets(object sender, System.Timers.ElapsedEventArgs e){
