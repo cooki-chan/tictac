@@ -114,6 +114,8 @@ public class Ship : Sprite, ICloneable{
                 }
             }
         }
+        if(Type == 4)
+            resizeLaser();
     }
     public int getType(){
         return Type;
@@ -180,20 +182,16 @@ public class Ship : Sprite, ICloneable{
     public void laser(){
         lazer = new Sprite{
             Texture = GD.Load<Texture>("res://Lazer.png"),
-            Position = new Vector2(Position.x + (2 * Texture.GetWidth() / 3), Position.y)
+            Position = new Vector2(Position.x+(Global.IsServer?200:-200), Position.y)
         };
-        laserResizeTimer = new System.Timers.Timer(10);
-        laserResizeTimer.Elapsed += resizeLaser;
-        laserResizeTimer.Start();
         
         GetParent().AddChild(lazer);
     }
-    public void resizeLaser(object sender, System.Timers.ElapsedEventArgs e){
+    public void resizeLaser(){
         ArrayList shipsInLine = new ArrayList();
         foreach(Ship ship in Bay.activeShips)
             if((ship.Position.y + ship.Texture.GetHeight()) > (lazer.Position.y + lazer.Texture.GetHeight()) && ship.Position.y < lazer.Position.y) shipsInLine.Add(ship);
         Ship nearest = null;
-        Debug.Print(lazer.Scale.ToString());
         /*   
         if(shipsInLine.ToArray().Length > 0) 
             nearest = (Ship)shipsInLine.ToArray()[0]; 
@@ -204,10 +202,11 @@ public class Ship : Sprite, ICloneable{
         } else{
             lazer.Scale = new Vector2((OS.WindowSize.x - lazer.Position.x)/500,lazer.Scale.y);
         }*/
-        lazer.Scale = new Vector2(2,1);
-        float corner = lazer.Position.x - (lazer.Texture.GetWidth() * (lazer.Scale.x - 1));
-        float curPos = lazer.Position.x;
-        lazer.Position = new Vector2(lazer.Position.x + (lazer.Texture.GetWidth() * (lazer.Scale.x - 1)), Position.y);
-        //+ ((Global.IsServer?1:-1) * (FromOpponent?-1:1) * 4 * Texture.GetWidth() / 3)
+
+
+        //0.004 adds 1 pixel to each side. dont ask me how i found it, i probably dont remember. 
+        //If you want to change it, only change in multiples of 0.004
+        lazer.Scale = new Vector2(lazer.Scale.x + (float)0.004,1);
+        lazer.MoveLocalX(speed * (Global.IsServer?1:-1) + (Global.IsServer?1:-1));
     }
 }
