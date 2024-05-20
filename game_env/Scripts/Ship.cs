@@ -140,6 +140,42 @@ public class Ship : Sprite, ICloneable{
         QueueFree();
         Bay.activeShips.Remove(this);
     }
+
+    /// <summary>
+    /// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// </summary>
+    /// Abilities!
+    /// 
+
+    /******************************************************************************
+tree
+red (general use)
+- up speed 		- up speed 		- able to switch lanes in your area
+- up health 		- up base damage 	- up health
+- cost 			- cost 			- cost
+	
+yellow (speed)
+- up general speed 	- up general speed 	- up speed (wow)
+- up health 		- dash 			- dash speed
+- lower cost 		- lower cost 		- lower cost
+
+orange (missl)
+- missl damg 		- missl damage 		- percing 
+- missl spawn speed 	- misll speed speed 	- misl speed speed
+- ship health 		- ship cost 		- ship cost
+
+purpl (lazr)
+- lazar dps		- lazar dps 		- carge cannon
+- ship damage		- ship damage		- wipe all ships in a lane (no base damage)
+- base damage		- base damage 		- shoot through ships (still blocked by shield)
+
+blu  (turtle shel)
+- upgrade shield health - upgrade shield health	- two shields (doubles defensive abilities) (ship can no longer pass through)
+- upgrade ship health   - upgrade speed		- double shield size (halves def abilities)
+- upgrade speed		- upgrade cost 		- upgrade cost
+
+*/
+    //YELLOW ABILITY
     public void boost(){
         if(FromOpponent){
             speedtimer = new Timer{
@@ -152,30 +188,20 @@ public class Ship : Sprite, ICloneable{
             speed = (int)(speed * 1.5);
         }
     }
+
+    //ORANGE ABILITY
     public void rockets(){
         rocketTimer = new System.Timers.Timer(2000);
         rocketTimer.Elapsed += FireRockets;
         rocketTimer.Start();
     }
 
-    public void shield(){
-        if(Type == 5 && FromOpponent != true){
-            Ship shield = new Ship(6, false);
-            shield.Texture = GD.Load<Texture>("res://game_env/shield.png");
-            if(Global.IsServer){
-                shield.Position = FromOpponent?new Vector2(Position.x-Texture.GetWidth()-6, Position.y):new Vector2(Position.x+Texture.GetWidth()+6, Position.y);
-            } else {
-                shield.Position = FromOpponent?new Vector2(Position.x+Texture.GetWidth()+6, Position.y):new Vector2(Position.x-Texture.GetWidth()-6, Position.y);
-            } 
-            GetNode<Bay>("../Bay1").addShield(shield);
-            this.GetParent().AddChild(shield);
-        }
-    }
-
     private void FireRockets(object sender, System.Timers.ElapsedEventArgs e){
         Rocket rocket = new Rocket(FromOpponent, Position.x + (50 * (Global.IsServer?1:-1)), Position.y);
         GetParent().AddChild(rocket);
     }
+
+    //PURPLE ABILITY
     public void laser(){
         lazer = new Sprite{
             Texture = GD.Load<Texture>("res://Lazer.png"),
@@ -205,4 +231,21 @@ public class Ship : Sprite, ICloneable{
             lazer.Scale = new Vector2((OS.WindowSize.x - lazer.Position.x)/500,lazer.Scale.y);
         }
     }
+
+    
+    //BLUE ABILITY
+    public void shield(){
+        if(Type == 5 && FromOpponent != true){
+            Ship shield = new Ship(6, false);
+            shield.Texture = GD.Load<Texture>("res://game_env/shield.png");
+            if(Global.IsServer){
+                shield.Position = FromOpponent?new Vector2(Position.x-Texture.GetWidth()-6, Position.y):new Vector2(Position.x+Texture.GetWidth()+6, Position.y);
+            } else {
+                shield.Position = FromOpponent?new Vector2(Position.x+Texture.GetWidth()+6, Position.y):new Vector2(Position.x-Texture.GetWidth()-6, Position.y);
+            } 
+            GetNode<Bay>("../Bay1").addShield(shield);
+            this.GetParent().AddChild(shield);
+        }
+    }
+
 }
