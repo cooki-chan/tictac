@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://game_env/Fonts/Font1.tres" type="DynamicFont" id=1]
 [ext_resource path="res://TempGen.png" type="Texture" id=2]
@@ -7,7 +7,6 @@
 [ext_resource path="res://game_env/LeftFacingShips/Ship1.png" type="Texture" id=5]
 [ext_resource path="res://game_env/LeftFacingShips/Ship3.png" type="Texture" id=6]
 [ext_resource path="res://game_env/LeftFacingShips/Ship5.png" type="Texture" id=7]
-[ext_resource path="res://game_env/LeftFacingShips/Ship4.png" type="Texture" id=8]
 [ext_resource path="res://game_env/Scripts/UpgradeManager.cs" type="Script" id=9]
 
 [node name="Control" type="Control"]
@@ -93,28 +92,6 @@ margin_right = 151.0
 margin_bottom = 465.0
 
 [node name="3" type="Button" parent="UpgradeManager/Orange"]
-margin_left = -127.0
-margin_top = 489.0
-margin_right = 147.0
-margin_bottom = 654.0
-
-[node name="Purple" type="Sprite" parent="UpgradeManager"]
-position = Vector2( 1283, 275 )
-texture = ExtResource( 8 )
-
-[node name="1" type="Button" parent="UpgradeManager/Purple"]
-margin_left = -123.0
-margin_top = 103.0
-margin_right = 151.0
-margin_bottom = 268.0
-
-[node name="2" type="Button" parent="UpgradeManager/Purple"]
-margin_left = -123.0
-margin_top = 300.0
-margin_right = 151.0
-margin_bottom = 465.0
-
-[node name="3" type="Button" parent="UpgradeManager/Purple"]
 margin_left = -127.0
 margin_top = 489.0
 margin_right = 147.0
