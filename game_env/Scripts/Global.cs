@@ -12,6 +12,7 @@ public class Global : Node
     public static int[] OrangeUpgrades = new int [] {0,0,0};
     public static int[] PurpleUpgrades = new int [] {0,0,0};
     public static int[] BlueUpgrades = new int [] {0,0,0};
+    private Ship this_ship_does_not_exist = new Ship(0, false);
 
 }
 
