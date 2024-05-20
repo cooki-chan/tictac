@@ -25,6 +25,7 @@ public class Ship : Sprite, ICloneable{
         FromOpponent = fromOpponent;
         Type = type;
         ShowOnTop = true;
+        ZIndex = 1;
         switch (type){
             case 1:
                 speed = speed1;
@@ -182,9 +183,9 @@ public class Ship : Sprite, ICloneable{
     public void laser(){
         lazer = new Sprite{
             Texture = GD.Load<Texture>("res://Lazer.png"),
-            Position = new Vector2(Position.x+(Global.IsServer?200:-200), Position.y)
+            Position = new Vector2(Position.x+(Global.IsServer?200:-200), Position.y),
+            ZIndex = 0
         };
-        
         GetParent().AddChild(lazer);
     }
     public void resizeLaser(){
@@ -192,7 +193,7 @@ public class Ship : Sprite, ICloneable{
         foreach(Ship ship in Bay.activeShips)
             if((ship.Position.y + ship.Texture.GetHeight()) > (lazer.Position.y + lazer.Texture.GetHeight()) && ship.Position.y < lazer.Position.y) shipsInLine.Add(ship);
         Ship nearest = null;
-        /*   
+        
         if(shipsInLine.ToArray().Length > 0) 
             nearest = (Ship)shipsInLine.ToArray()[0]; 
         if(nearest != null){
@@ -200,13 +201,11 @@ public class Ship : Sprite, ICloneable{
                 if(ship.Position.x < nearest.Position.x) nearest = ship;
             lazer.Scale = new Vector2((nearest.Position.x - lazer.Position.x)/500,lazer.Scale.y);
         } else{
-            lazer.Scale = new Vector2((OS.WindowSize.x - lazer.Position.x)/500,lazer.Scale.y);
-        }*/
-
-
-        //0.004 adds 1 pixel to each side. dont ask me how i found it, i probably dont remember. 
-        //If you want to change it, only change in multiples of 0.004
-        lazer.Scale = new Vector2(lazer.Scale.x + (float)0.004,1);
-        lazer.MoveLocalX(speed * (Global.IsServer?1:-1) + (Global.IsServer?1:-1));
+            //0.004 adds 1 pixel to each side. dont ask me how i found it, i probably dont remember. 
+            //If you want to change it, only change in multiples of 0.004
+            //also bump up the 2nd turnarary by the same ratio
+            lazer.Scale = new Vector2(lazer.Scale.x + (float)0.016,1);
+            lazer.MoveLocalX(speed * (Global.IsServer?1:-1) + (Global.IsServer?4:-4));
+        }
     }
 }

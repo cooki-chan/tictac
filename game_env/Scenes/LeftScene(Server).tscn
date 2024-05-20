@@ -290,6 +290,7 @@ custom_fonts/font = SubResource( 2 )
 text = "TM"
 
 [node name="Village" type="ColorRect" parent="."]
+show_behind_parent = true
 margin_left = 487.0
 margin_top = 30.0
 margin_right = 1387.0
