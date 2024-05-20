@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://game_env/scripts/Field.cs" type="Script" id=1]
 [ext_resource path="res://game_env/Scripts/Generate.cs" type="Script" id=2]
@@ -12,7 +12,6 @@
 [ext_resource path="res://game_env/LeftFacingShips/Ship1.png" type="Texture" id=10]
 [ext_resource path="res://game_env/LeftFacingShips/Ship2.png" type="Texture" id=11]
 [ext_resource path="res://game_env/LeftFacingShips/Ship3.png" type="Texture" id=12]
-[ext_resource path="res://game_env/LeftFacingShips/Ship4.png" type="Texture" id=13]
 [ext_resource path="res://game_env/Fonts/FRABK.TTF" type="DynamicFontData" id=14]
 [ext_resource path="res://SmallEvad.png" type="Texture" id=15]
 
@@ -70,15 +69,6 @@ margin_right = 1369.0
 margin_bottom = 206.0
 rect_pivot_offset = Vector2( 94, 119 )
 icon = ExtResource( 12 )
-icon_align = 1
-
-[node name="Button4" type="Button" parent="Ships"]
-margin_left = 1385.0
-margin_top = 23.0
-margin_right = 1636.0
-margin_bottom = 205.0
-rect_pivot_offset = Vector2( 94, 119 )
-icon = ExtResource( 13 )
 icon_align = 1
 
 [node name="Button5" type="Button" parent="Ships"]
@@ -330,11 +320,6 @@ centered = false
 [connection signal="pressed" from="Ships/Button3" to="Bay3" method="on3Pressed"]
 [connection signal="pressed" from="Ships/Button3" to="Bay4" method="on3Pressed"]
 [connection signal="pressed" from="Ships/Button3" to="Bay5" method="on3Pressed"]
-[connection signal="pressed" from="Ships/Button4" to="Bay1" method="on4Pressed"]
-[connection signal="pressed" from="Ships/Button4" to="Bay2" method="on4Pressed"]
-[connection signal="pressed" from="Ships/Button4" to="Bay3" method="on4Pressed"]
-[connection signal="pressed" from="Ships/Button4" to="Bay4" method="on4Pressed"]
-[connection signal="pressed" from="Ships/Button4" to="Bay5" method="on4Pressed"]
 [connection signal="pressed" from="Ships/Button5" to="Bay1" method="on5Pressed"]
 [connection signal="pressed" from="Ships/Button5" to="Bay2" method="on5Pressed"]
 [connection signal="pressed" from="Ships/Button5" to="Bay3" method="on5Pressed"]
