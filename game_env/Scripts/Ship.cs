@@ -11,12 +11,12 @@ public class Ship : Sprite, ICloneable{
     private int speed;
     private bool FromOpponent = false;
     private bool sentToOpponent = false;
+    static public int RedSpeed = Global.RedSpeed;
+    static public int YellowSpeed = Global.YellowSpeed;
+    static public int OrangeSpeed = Global.OrangeSpeed;
+    static public int PurpleSpeed = Global.PurpleSpeed;
+    static public int BlueSpeed = Global.BlueSpeed;
     private bool rocketsPierce = false;
-    static public int speed1 = 5;
-    static public int speed2 = 7;
-    static public int speed3 = 4;
-    static public int speed4 = 2;
-    static public int speed5 = 2;
     private string method;
     private Sprite lazer;
     private int rocketCooldown = 1;
@@ -28,34 +28,34 @@ public class Ship : Sprite, ICloneable{
         Type = type;
         ShowOnTop = true;
         ZIndex = 1;
+        method = null;
         switch (type){
             case 1:
-                speed = speed1;
-                method = null;
-                shipHP = 5; //change to global.shipHP or whatever its called
+                speed = RedSpeed;
+                if(Global.transferAbility) method = "switchLane";
                 break;
             case 2:
-                speed = speed2;
-                method = "boost";
+                speed = YellowSpeed;
+                if(Global.dashAbility) method = "boost";
                 shipHP = 5; //change to global.shipHP or whatever its called
                 break;
             case 3:
-                speed = speed3;
+                speed = OrangeSpeed;
                 method = "rockets";
                 if(Global.OrangeUpgrades[0] == 2) rocketsPierce = true;
                 shipHP = 5; //change to global.shipHP or whatever its called
                 break;
             case 4:
-                speed = speed4;
+                speed = PurpleSpeed;
                 method = "laser";
                 shipHP = 5; //change to global.shipHP or whatever its called
                 break;
             case 5:
-                speed = speed5;
+                speed = BlueSpeed;
                 shipHP = 5; //change to global.shipHP or whatever its called
                 break;
             default:
-                speed = speed5;
+                speed = BlueSpeed;
                 method = null;
                 break;
         }
@@ -92,7 +92,7 @@ public class Ship : Sprite, ICloneable{
         } 
         checkCollision(this);
         if(speedtimer != null && speedtimer.TimeLeft == 0)
-            speed = speed2;
+            speed = YellowSpeed;
         if(Position.x >= OS.WindowSize.x - this.Scale.x * Texture.GetWidth()/2 || Position.x <= this.Scale.x * Texture.GetWidth()/2){
             if(Type < 5 && !FromOpponent && !sentToOpponent){
                 EmitSignal("died", Position.y, Type);
