@@ -58,9 +58,9 @@ public class network_mananger : Node{
         Rpc("summonRocket", yPos, IsServer);
     }
     [Remote]
-    void summonRocket(int yPos, bool isServer){
+    void summonRocket(int yPos, bool isServer, bool pierce){
         Control control = GetNode<Control>("..");
-        Rocket newRocket = new Rocket(true, isServer? 0:OS.WindowSize.x, yPos);
+        Rocket newRocket = new Rocket(true, isServer? 0:OS.WindowSize.x, yPos, pierce);
         control.AddChild(newRocket);
     }
 }
