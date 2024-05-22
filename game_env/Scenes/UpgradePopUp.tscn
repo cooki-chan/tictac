@@ -32,7 +32,7 @@ text = "House of Upgradez"
 script = ExtResource( 9 )
 
 [node name="Red" type="Sprite" parent="UpgradeManager"]
-position = Vector2( 190, 267 )
+position = Vector2( 319.5, 271 )
 texture = ExtResource( 5 )
 
 [node name="1" type="Button" parent="UpgradeManager/Red"]
@@ -54,7 +54,7 @@ margin_right = 147.0
 margin_bottom = 654.0
 
 [node name="Yellow" type="Sprite" parent="UpgradeManager"]
-position = Vector2( 536, 269 )
+position = Vector2( 665.5, 273 )
 texture = ExtResource( 4 )
 
 [node name="1" type="Button" parent="UpgradeManager/Yellow"]
@@ -76,7 +76,7 @@ margin_right = 147.0
 margin_bottom = 654.0
 
 [node name="Orange" type="Sprite" parent="UpgradeManager"]
-position = Vector2( 901, 269 )
+position = Vector2( 1030.5, 273 )
 texture = ExtResource( 6 )
 
 [node name="1" type="Button" parent="UpgradeManager/Orange"]
@@ -98,7 +98,7 @@ margin_right = 147.0
 margin_bottom = 654.0
 
 [node name="Blue" type="Sprite" parent="UpgradeManager"]
-position = Vector2( 1670, 279 )
+position = Vector2( 1370, 280 )
 texture = ExtResource( 7 )
 
 [node name="1" type="Button" parent="UpgradeManager/Blue"]

@@ -17,28 +17,7 @@ public class UpgradeManager : Node
         
 
     private void upgradeStat(int color, int path){
-        int[] upgrades = new int [] {0,0,0};
-
-        switch (color)
-        {
-            case RED:
-                upgrades = Global.RedUpgrades;
-                break;
-            case YELLOW:
-                upgrades = Global.YellowUpgrades;
-                break;
-            case ORANGE:
-                upgrades = Global.OrangeUpgrades;
-                break;
-            case PURPLE:
-                upgrades = Global.PurpleUpgrades;
-                break;
-            case BLUE:
-                upgrades = Global.BlueUpgrades;
-                break;
-        }
-
-        upgrades[path]++;
+        Global.upgrade(color, path);    
     }
 
     public override void _Ready()

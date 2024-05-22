@@ -63,15 +63,15 @@ public class Bay : ColorRect{
          if(inBounds((int)GetViewport().GetMousePosition().x, (int)GetViewport().GetMousePosition().y)){
             switch (ship.getType()){
                case 1: 
-                  if(Generator.build(new int [] {0,0,0,0})) // order is Electronics, Carbon Fiber, Steel, DaveDollarsTM
+                  if(Generator.build(new int [] {Global.RedCost,0,0,0})) // order is Electronics, Carbon Fiber, Steel, DaveDollarsTM
                      genShip();
                   break;
                case 2:
-                  if(Generator.build(new int [] {0,0,0,0}))
+                  if(Generator.build(new int [] {0,Global.YellowCost,0,0}))
                      genShip();
                   break;
                case 3:
-                  if(Generator.build(new int [] {0,0,0,0}))
+                  if(Generator.build(new int [] {0,0,Global.OrangeCost,0}))
                      genShip();
                   break;
                case 4:
@@ -79,7 +79,7 @@ public class Bay : ColorRect{
                      genShip();
                   break;
                case 5:
-                  if(Generator.build(new int [] {0,0,0,0}))
+                  if(Generator.build(new int [] {0,0,0,Global.BlueCost}))
                      genShip();
                   break;
             }
