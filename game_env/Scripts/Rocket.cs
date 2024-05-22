@@ -8,8 +8,9 @@ public class Rocket : Sprite{
     private int speed = 10;
     private bool FromOpponent;
     private bool sentToOpponent = false;
+    private bool pierce;
 
-    public Rocket(bool fromOp, float x, float y){
+    public Rocket(bool fromOp, float x, float y, bool pierce){
         FromOpponent = fromOp;
         Position = new Vector2(x,y);
         Texture = GD.Load<Texture>("res://Rocket.png");
@@ -40,8 +41,9 @@ public class Rocket : Sprite{
             foreach(Ship ship in list){
                 float dist = Position.x + Texture.GetWidth() - ship.Position.x;
                 if(((dist <= Texture.GetWidth() && dist >= 0) || ((Position.x - ship.Position.x) < Texture.GetWidth() && (Position.x - ship.Position.x) > 0)) && Math.Abs(Position.y - ship.Position.y) <= 20){
-                    ship.EmitSignal("crashed",ship.Position.x, ship.Position.y);
-                    QueueFree();
+                    ship.EmitSignal("crashed",ship.Position.x, ship.Position.y, 0);
+                    if(!pierce) QueueFree();
+                    else pierce = false;
                 }
             }
         }catch(Exception){}
