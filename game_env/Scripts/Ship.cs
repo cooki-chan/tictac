@@ -11,6 +11,7 @@ public class Ship : Sprite, ICloneable{
     private int speed;
     private bool FromOpponent = false;
     private bool sentToOpponent = false;
+    private bool rocketsPierce = false;
     static public int speed1 = 5;
     static public int speed2 = 7;
     static public int speed3 = 4;
@@ -20,7 +21,8 @@ public class Ship : Sprite, ICloneable{
     private Sprite lazer;
     private int rocketCooldown = 1;
     private Timer speedtimer;
-    private System.Timers.Timer rocketTimer, laserResizeTimer;
+    private System.Timers.Timer rocketTimer, switchTimer;
+    private int shipHP;
     public Ship(int type, bool fromOpponent){
         FromOpponent = fromOpponent;
         Type = type;
@@ -30,21 +32,27 @@ public class Ship : Sprite, ICloneable{
             case 1:
                 speed = speed1;
                 method = null;
+                shipHP = 5; //change to global.shipHP or whatever its called
                 break;
             case 2:
                 speed = speed2;
                 method = "boost";
+                shipHP = 5; //change to global.shipHP or whatever its called
                 break;
             case 3:
                 speed = speed3;
                 method = "rockets";
+                if(Global.OrangeUpgrades[0] == 2) rocketsPierce = true;
+                shipHP = 5; //change to global.shipHP or whatever its called
                 break;
             case 4:
                 speed = speed4;
                 method = "laser";
+                shipHP = 5; //change to global.shipHP or whatever its called
                 break;
             case 5:
                 speed = speed5;
+                shipHP = 5; //change to global.shipHP or whatever its called
                 break;
             default:
                 speed = speed5;
@@ -132,17 +140,41 @@ public class Ship : Sprite, ICloneable{
                 if(ship.GetInstanceId() != local.GetInstanceId()){
                     float dist = local.Position.x + local.Texture.GetWidth() - ship.Position.x;
                     if(((dist <= local.Texture.GetWidth() && dist >= 0) || ((local.Position.x - ship.Position.x) < local.Texture.GetWidth() && (local.Position.x - ship.Position.x) > 0)) && Math.Abs(local.Position.y - ship.Position.y) <= 20){
-                        ship.EmitSignal("crashed",ship.Position.x, ship.Position.y);
-                        local.EmitSignal("crashed",local.Position.x, local.Position.y);
+                        ship.EmitSignal("crashed",ship.Position.x, ship.Position.y, ship.Type);
+                        local.EmitSignal("crashed",local.Position.x, local.Position.y, ship.Type);
                     }
                 }
             }
         }catch(Exception e){Debug.Print(e.ToString());}
     }
-    private void crashedShip(int x, int y){
-        GD.Print("crashed");
-        QueueFree();
-        Bay.activeShips.Remove(this);
+    private void crashedShip(int x, int y, int type){
+        switch(type){
+            case 0:
+                shipHP -= 1; //rocket dmg do not touch
+                break;
+            case 1:
+                shipHP -= 1; //shipdmg from global
+                break;
+            case 2:
+                shipHP -= 1; //shipdmg from global
+                break;
+            case 3: 
+                shipHP -= 1; //shipdmg from global
+                break;
+            case 4:
+                shipHP -= 1; //shipdmg from global
+                break;
+            case 5:
+                shipHP -= 1; //shipdmg from global
+                break;
+            case 6:
+                shipHP -= 1; //shipdmg from global
+                break;
+        }
+        if(shipHP <= 0){
+            QueueFree();
+            Bay.activeShips.Remove(this);
+        }
     }
 
     /// <summary>
@@ -192,6 +224,20 @@ blu  (turtle shel)
             speed = (int)(speed * 1.5);
         }
     }
+    //RED ABILITY
+    public void swapLane(){
+        if(FromOpponent){
+            switchTimer = new System.Timers.Timer(2000);
+            switchTimer.Elapsed += switchLane;
+            switchTimer.Start();
+        }
+    }
+    public void switchLane(object sender, System.Timers.ElapsedEventArgs e){
+        float newY = Position.y + (new Random().Next(-1,1) * 160);
+        while(newY < 11 || newY > 700)
+             newY = Position.y + (new Random().Next(-1,1) * 160);
+        Position = new Vector2(Position.x,newY);
+    }
 
     //ORANGE ABILITY
     public void rockets(){
@@ -201,7 +247,7 @@ blu  (turtle shel)
     }
 
     private void FireRockets(object sender, System.Timers.ElapsedEventArgs e){
-        Rocket rocket = new Rocket(FromOpponent, Position.x + (50 * (Global.IsServer?1:-1)), Position.y);
+        Rocket rocket = new Rocket(FromOpponent, Position.x + (50 * (Global.IsServer?1:-1)), Position.y, rocketsPierce);
         GetParent().AddChild(rocket);
     }
 
@@ -239,15 +285,27 @@ blu  (turtle shel)
     //BLUE ABILITY
     public void shield(){
         if(Type == 5 && FromOpponent != true){
-            Ship shield = new Ship(6, false);
-            shield.Texture = GD.Load<Texture>("res://game_env/shield.png");
-            if(Global.IsServer){
+            Ship shield = new Ship(6, false){
+                Texture = GD.Load<Texture>("res://game_env/shield.png")
+            };
+            if (Global.IsServer){
                 shield.Position = FromOpponent?new Vector2(Position.x-Texture.GetWidth()-6, Position.y):new Vector2(Position.x+Texture.GetWidth()+6, Position.y);
             } else {
                 shield.Position = FromOpponent?new Vector2(Position.x+Texture.GetWidth()+6, Position.y):new Vector2(Position.x-Texture.GetWidth()-6, Position.y);
             } 
             GetNode<Bay>("../Bay1").addShield(shield);
-            this.GetParent().AddChild(shield);
+            GetParent().AddChild(shield);
+            if(Global.BlueUpgrades[0] == 2){
+                Ship shield2 = new Ship(6,false){
+                   Texture = GD.Load<Texture>("res://game_env/shield.png")
+                };
+                if (Global.IsServer){
+                shield2.Position = FromOpponent?new Vector2(shield.Position.x-Texture.GetWidth()-6, Position.y):new Vector2(shield.Position.x+Texture.GetWidth()+6, Position.y);
+                } else {
+                    shield2.Position = FromOpponent?new Vector2(shield.Position.x+Texture.GetWidth()+6, Position.y):new Vector2(shield.Position.x-Texture.GetWidth()-6, Position.y);
+                } 
+                 GetParent().AddChild(shield2);
+            }
         }
     }
 
