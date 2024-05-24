@@ -33,6 +33,7 @@ public class Ship : Sprite, ICloneable{
             case 1:
                 speed = RedSpeed;
                 if(Global.transferAbility) method = "switchLane";
+                shipHP = 5; //change to global.shipHP or whatever its called
                 break;
             case 2:
                 speed = YellowSpeed;
@@ -42,7 +43,7 @@ public class Ship : Sprite, ICloneable{
             case 3:
                 speed = OrangeSpeed;
                 method = "rockets";
-                if(Global.OrangeUpgrades[0] == 2) rocketsPierce = true;
+                if(Global.missilePercing) rocketsPierce = true;
                 shipHP = 5; //change to global.shipHP or whatever its called
                 break;
             case 4:
@@ -79,8 +80,6 @@ public class Ship : Sprite, ICloneable{
         }
         if(method != null) typeof(Ship).GetMethod(method).Invoke(this, null);
     }
-
-
 //variable movement add
  // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta){
@@ -93,19 +92,19 @@ public class Ship : Sprite, ICloneable{
         checkCollision(this);
         if(speedtimer != null && speedtimer.TimeLeft == 0)
             speed = YellowSpeed;
-        if(Position.x >= OS.WindowSize.x - this.Scale.x * Texture.GetWidth()/2 || Position.x <= this.Scale.x * Texture.GetWidth()/2){
+        if(Position.x >= OS.WindowSize.x - Scale.x * Texture.GetWidth()/2 || Position.x <= Scale.x * Texture.GetWidth()/2){
             if(Type < 5 && !FromOpponent && !sentToOpponent){
                 EmitSignal("died", Position.y, Type);
                 Debug.Print("ship has been sent");
                 sentToOpponent = true;
             }
         } 
-        if(Position.x >= OS.WindowSize.x + this.Scale.x * Texture.GetWidth()/2 || Position.x <= -1 * this.Scale.x * Texture.GetWidth()/2){
+        if(Position.x >= OS.WindowSize.x + Scale.x * Texture.GetWidth()/2 || Position.x <= -1 * Scale.x * Texture.GetWidth()/2){
             QueueFree();
             Bay.activeShips.Remove(this);
         }
         if(Global.IsServer){
-            if(Position.x - this.Scale.x * Texture.GetWidth()/2 <= 500){
+            if(Position.x - Scale.x * Texture.GetWidth()/2 <= 500){
                 if(FromOpponent){
                     Debug.Print("Taken Damage OMG :OOOOOOOO!!!!");
                     Global.Health -= 500;
@@ -114,7 +113,7 @@ public class Ship : Sprite, ICloneable{
                 }
             }
         } else {
-            if(Position.x + this.Scale.x * Texture.GetWidth()/2 >= 1420){
+            if(Position.x + Scale.x * Texture.GetWidth()/2 >= 1420){
                 if(FromOpponent){
                     Debug.Print("Taken Damage OMG :OOOOOOOO!!!!");
                     Global.Health -= 500;
@@ -295,7 +294,7 @@ blu  (turtle shel)
             } 
             GetNode<Bay>("../Bay1").addShield(shield);
             GetParent().AddChild(shield);
-            if(Global.BlueUpgrades[0] == 2){
+            if(Global.doubleShieldAbility){
                 Ship shield2 = new Ship(6,false){
                    Texture = GD.Load<Texture>("res://game_env/shield.png")
                 };
