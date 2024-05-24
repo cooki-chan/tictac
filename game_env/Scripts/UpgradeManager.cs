@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections;
 using System.Drawing.Drawing2D;
 using System.Runtime.ConstrainedExecution;
 
@@ -14,7 +15,7 @@ public class UpgradeManager : Node
     private const int TOP_PATH = 0;
     private const int MID_PATH = 1;
     private const int BOT_PATH = 2;
-        
+         
 
     private void upgradeStat(int color, int path){
         Global.upgrade(color, path);    
@@ -22,18 +23,37 @@ public class UpgradeManager : Node
 
     public override void _Ready()
     {
+        GetNode<Global>("../../Global").refreshButtonNames();
         foreach(Godot.Sprite color in this.GetChildren()){
             foreach(Godot.Button button in color.GetChildren()){
                 Godot.Collections.Array array = new Godot.Collections.Array(){button};  
-                
-
                 button.Connect("pressed", this, "PLEASE", array);
             }
         }
     }
 
     public void PLEASE(Godot.Button button){
-        GD.Print(button.GetParent().Name);
+        int color = -1;
+        int path = Convert.ToInt32(button.Name)-1;
+
+        switch(button.GetParent().Name){
+            case "Red":
+                color = RED;
+                break;
+            case "Yellow":
+                color = YELLOW;
+                break;
+            case "Orange":
+                color = ORANGE;
+                break;
+            case "Blue":
+                color = BLUE;
+                break;
+            
+        }
+
+        Global.upgrade(color, path);
+        GetNode<Global>("../../Global").refreshButtonNames();
     }
 /*
 tree
@@ -63,4 +83,6 @@ blu  (turtle shel)
 - upgrade speed	    	- upgrade cost 	    	- upgrade cost
 
 */
+
+
 }
