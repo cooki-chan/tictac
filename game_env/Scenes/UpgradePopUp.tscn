@@ -14,184 +14,160 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="TempGen" type="Sprite" parent="."]
-visible = false
-position = Vector2( 937, 349 )
-scale = Vector2( 15.184, 12.9933 )
+position = Vector2( 946, 501 )
+scale = Vector2( 8.27778, 6.46 )
 texture = ExtResource( 2 )
 
 [node name="Label" type="Label" parent="."]
 margin_left = 790.0
-margin_top = 76.0
+margin_top = 21.0
 margin_right = 1264.0
-margin_bottom = 170.0
+margin_bottom = 115.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 1 )
 text = "House of Upgradez"
+
+[node name="redPointLabel" type="Label" parent="."]
+margin_left = 226.0
+margin_top = 319.0
+margin_right = 700.0
+margin_bottom = 413.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "Red Upgrade Points: 4"
+
+[node name="yellowPointLabel" type="Label" parent="."]
+margin_left = 562.0
+margin_top = 271.0
+margin_right = 1036.0
+margin_bottom = 365.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "Yellow Upgrade Points: 4"
+
+[node name="orangePointLabel" type="Label" parent="."]
+margin_left = 899.0
+margin_top = 322.0
+margin_right = 1373.0
+margin_bottom = 416.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "Orange Upgrade Points: 4"
+
+[node name="bluePointLabel" type="Label" parent="."]
+margin_left = 1265.0
+margin_top = 277.0
+margin_right = 1739.0
+margin_bottom = 371.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "Blue Upgrade Points: 4"
 
 [node name="UpgradeManager" type="Node" parent="."]
 script = ExtResource( 9 )
 
 [node name="Red" type="Sprite" parent="UpgradeManager"]
-position = Vector2( 413.5, 246 )
+position = Vector2( 413.5, 191 )
 texture = ExtResource( 5 )
-
-[node name="redPointLabel" type="Label" parent="UpgradeManager/Red"]
-margin_left = -187.5
-margin_top = 128.0
-margin_right = 286.5
-margin_bottom = 222.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 1 )
-text = "Red Upgrade Points: "
 
 [node name="1" type="Button" parent="UpgradeManager/Red"]
 margin_left = -123.5
 margin_top = 176.0
 margin_right = 150.5
 margin_bottom = 341.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+text = "Speed Upgrade #1"
 
 [node name="2" type="Button" parent="UpgradeManager/Red"]
 margin_left = -123.5
 margin_top = 373.0
 margin_right = 150.5
 margin_bottom = 538.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+text = "Health Upgrade #1\""
 
 [node name="3" type="Button" parent="UpgradeManager/Red"]
 margin_left = -127.5
 margin_top = 562.0
 margin_right = 146.5
 margin_bottom = 727.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+text = "Cost Upgrade #1"
 
 [node name="Yellow" type="Sprite" parent="UpgradeManager"]
-position = Vector2( 759.5, 248 )
+position = Vector2( 759.5, 193 )
 texture = ExtResource( 4 )
-
-[node name="yellowPointLabel" type="Label" parent="UpgradeManager/Yellow"]
-margin_left = -197.5
-margin_top = 78.0
-margin_right = 276.5
-margin_bottom = 172.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 1 )
-text = "Yellow Upgrade Points: "
 
 [node name="1" type="Button" parent="UpgradeManager/Yellow"]
 margin_left = -119.5
 margin_top = 182.0
 margin_right = 154.5
 margin_bottom = 347.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+text = "Speed Upgrade #1"
 
 [node name="2" type="Button" parent="UpgradeManager/Yellow"]
 margin_left = -119.5
 margin_top = 379.0
 margin_right = 154.5
 margin_bottom = 544.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+text = "Health Upgrade #1"
 
 [node name="3" type="Button" parent="UpgradeManager/Yellow"]
 margin_left = -123.5
 margin_top = 568.0
 margin_right = 150.5
 margin_bottom = 733.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+text = "Cost Upgrade #1"
 
 [node name="Orange" type="Sprite" parent="UpgradeManager"]
-position = Vector2( 1124.5, 248 )
+position = Vector2( 1124.5, 193 )
 texture = ExtResource( 6 )
-
-[node name="orangePointLabel" type="Label" parent="UpgradeManager/Orange"]
-margin_left = -225.5
-margin_top = 129.0
-margin_right = 248.5
-margin_bottom = 223.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 1 )
-text = "Orange Upgrade Points: "
 
 [node name="1" type="Button" parent="UpgradeManager/Orange"]
 margin_left = -134.5
 margin_top = 180.0
 margin_right = 139.5
 margin_bottom = 345.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+text = "Speed Upgrade #1"
 
 [node name="2" type="Button" parent="UpgradeManager/Orange"]
 margin_left = -134.5
 margin_top = 377.0
 margin_right = 139.5
 margin_bottom = 542.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+text = "Health Upgrade #1"
 
 [node name="3" type="Button" parent="UpgradeManager/Orange"]
 margin_left = -138.5
 margin_top = 566.0
 margin_right = 135.5
 margin_bottom = 731.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+text = "Cost Upgrade #1"
 
 [node name="Blue" type="Sprite" parent="UpgradeManager"]
-position = Vector2( 1464, 255 )
+position = Vector2( 1464, 200 )
 texture = ExtResource( 7 )
-
-[node name="redPointLabel" type="Label" parent="UpgradeManager/Blue"]
-margin_left = -199.0
-margin_top = 77.0
-margin_right = 275.0
-margin_bottom = 171.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 1 )
-text = "Blue Upgrade Points: "
 
 [node name="1" type="Button" parent="UpgradeManager/Blue"]
 margin_left = -132.0
 margin_top = 176.0
 margin_right = 142.0
 margin_bottom = 341.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+text = "Speed Upgrade #1"
 
 [node name="2" type="Button" parent="UpgradeManager/Blue"]
 margin_left = -132.0
 margin_top = 373.0
 margin_right = 142.0
 margin_bottom = 538.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+text = "Health Upgrade #1"
 
 [node name="3" type="Button" parent="UpgradeManager/Blue"]
 margin_left = -136.0
 margin_top = 562.0
 margin_right = 138.0
 margin_bottom = 727.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
+text = "Cost Upgrade #1"
 
 [node name="Resources" type="ColorRect" parent="."]
+visible = false
 margin_left = 5.0
 margin_top = 1038.0
 margin_right = 1107.0
@@ -269,3 +245,12 @@ custom_fonts/font = ExtResource( 3 )
 text = "0"
 align = 1
 valign = 1
+
+[node name="exit" type="Button" parent="."]
+margin_left = 218.0
+margin_top = 27.0
+margin_right = 562.0
+margin_bottom = 138.0
+text = " EXIT EXIT EXIT EXIT EXITEXITEXITEXITEXITEXIT"
+
+[connection signal="pressed" from="exit" to="UpgradeManager" method="_on_exit_pressed"]

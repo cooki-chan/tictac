@@ -251,9 +251,9 @@ public class Global : Node
     }
 
         public void refreshButtonNames(){ //TODO COPY AND PASTE THIS MOFO
-        Button red1 = GetNode<Button>("../Control/UpgradeManager/Red/1");
-        Button red2 = GetNode<Button>("../Control/UpgradeManager/Red/2");
-        Button red3 = GetNode<Button>("../Control/UpgradeManager/Red/3");
+        Godot.Button red1 = GetNode<Godot.Button>("/root/Control/Control/UpgradeManager/Red/1");
+        Godot.Button red2 = GetNode<Godot.Button>("../Control/Control/UpgradeManager/Red/2");
+        Godot.Button red3 = GetNode<Godot.Button>("../Control/Control/UpgradeManager/Red/3");
         //red
         if(RedUpgrades[TOP_PATH] + RedUpgrades[MID_PATH] + RedUpgrades[BOT_PATH] < 4){
             if(RedUpgrades[TOP_PATH] >= 0){
@@ -267,6 +267,7 @@ public class Global : Node
             }
             if(RedUpgrades[TOP_PATH] >= 3){
                 red1.Text = "Upgrade Path Finished!";
+                red1.Disabled = true;
             }
 
             if(RedUpgrades[MID_PATH] >= 0){
@@ -280,6 +281,7 @@ public class Global : Node
             }
             if(RedUpgrades[MID_PATH] >= 3){
                 red2.Text = "Upgrade Path Finished!";
+                red2.Disabled = true;
             }
 
             if(RedUpgrades[BOT_PATH] >= 0){
@@ -293,6 +295,7 @@ public class Global : Node
             }
             if(RedUpgrades[BOT_PATH] >= 3){
                 red3.Text = "Upgrade Path Finished!";
+                red3.Disabled = true;
             }
         }
         else{
@@ -304,9 +307,9 @@ public class Global : Node
             red3.Text = "Out of Upgrade Points!";
         }
 
-        Button yellow1 = GetNode<Button>("../Control/UpgradeManager/Yellow/1");
-        Button yellow2 = GetNode<Button>("../Control/UpgradeManager/Yellow/2");
-        Button yellow3 = GetNode<Button>("../Control/UpgradeManager/Yellow/3");
+        Godot.Button yellow1 = GetNode<Godot.Button>("../Control/Control/UpgradeManager/Yellow/1");
+        Godot.Button yellow2 = GetNode<Godot.Button>("../Control/Control/UpgradeManager/Yellow/2");
+        Godot.Button yellow3 = GetNode<Godot.Button>("../Control/Control/UpgradeManager/Yellow/3");
 
         //yellow
         if(YellowUpgrades[TOP_PATH] + YellowUpgrades[MID_PATH] + YellowUpgrades[BOT_PATH] < 4){
@@ -321,6 +324,7 @@ public class Global : Node
         }
         if(YellowUpgrades[TOP_PATH] >= 3){
             yellow1.Text = "Upgrade Path Finished!";
+            yellow1.Disabled = true;
         }
 
         if(YellowUpgrades[MID_PATH] >= 0){
@@ -334,6 +338,7 @@ public class Global : Node
         }
         if(YellowUpgrades[MID_PATH] >= 3){
             yellow2.Text = "Upgrade Path Finished!";
+            yellow2.Disabled = true;
         }
 
         if(YellowUpgrades[BOT_PATH] >= 0){
@@ -347,6 +352,7 @@ public class Global : Node
         }
         if(YellowUpgrades[BOT_PATH] >= 3){
             yellow3.Text = "Upgrade Path Finished!";
+            yellow3.Disabled = true;
         }
         }else{
             yellow1.Disabled = true;
@@ -359,9 +365,9 @@ public class Global : Node
 
 
         //orange
-        Button orange1 = GetNode<Button>("../Control/UpgradeManager/Orange/1");
-        Button orange2 = GetNode<Button>("../Control/UpgradeManager/Orange/2");
-        Button orange3 = GetNode<Button>("../Control/UpgradeManager/Orange/3");
+        Godot.Button orange1 = GetNode<Godot.Button>("../Control/Control/UpgradeManager/Orange/1");
+        Godot.Button orange2 = GetNode<Godot.Button>("../Control/Control/UpgradeManager/Orange/2");
+        Godot.Button orange3 = GetNode<Godot.Button>("../Control/Control/UpgradeManager/Orange/3");
 
         //orange
         if(OrangeUpgrades[TOP_PATH] + OrangeUpgrades[MID_PATH] + OrangeUpgrades[BOT_PATH] < 4){
@@ -376,6 +382,7 @@ public class Global : Node
         }
         if(OrangeUpgrades[TOP_PATH] >= 3){
             orange1.Text = "Upgrade Path Finished!";
+            orange1.Disabled = true;
         }
 
         if(OrangeUpgrades[MID_PATH] >= 0){
@@ -389,6 +396,7 @@ public class Global : Node
         }
         if(OrangeUpgrades[MID_PATH] >= 3){
             orange2.Text = "Upgrade Path Finished!";
+            orange2.Disabled = true;
         }
 
         if(OrangeUpgrades[BOT_PATH] >= 0){
@@ -402,6 +410,7 @@ public class Global : Node
         }
         if(OrangeUpgrades[BOT_PATH] >= 3){
             orange3.Text = "Upgrade Path Finished!";
+            orange3.Disabled = true;
         }
         }else{
             orange1.Disabled = true;
@@ -414,9 +423,9 @@ public class Global : Node
 
 
         //Blue
-        Button blue1 = GetNode<Button>("../Control/UpgradeManager/Blue/1");
-        Button blue2 = GetNode<Button>("../Control/UpgradeManager/Blue/2");
-        Button blue3 = GetNode<Button>("../Control/UpgradeManager/Blue/3");
+        Godot.Button blue1 = GetNode<Godot.Button>("../Control/Control/UpgradeManager/Blue/1");
+        Godot.Button blue2 = GetNode<Godot.Button>("../Control/Control/UpgradeManager/Blue/2");
+        Godot.Button blue3 = GetNode<Godot.Button>("../Control/Control/UpgradeManager/Blue/3");
 
         //blue
         if(BlueUpgrades[TOP_PATH] + BlueUpgrades[MID_PATH] + BlueUpgrades[BOT_PATH] < 4){
@@ -431,6 +440,7 @@ public class Global : Node
         }
         if(BlueUpgrades[TOP_PATH] >= 3){
             blue1.Text = "Upgrade Path Finished!";
+            blue1.Disabled = true;
         }
 
         if(BlueUpgrades[MID_PATH] >= 0){
@@ -444,6 +454,7 @@ public class Global : Node
         }
         if(BlueUpgrades[MID_PATH] >= 3){
             blue2.Text = "Upgrade Path Finished!";
+            blue2.Disabled = true;
         }
 
         if(BlueUpgrades[BOT_PATH] >= 0){
@@ -457,6 +468,7 @@ public class Global : Node
         }
         if(BlueUpgrades[BOT_PATH] >= 3){
             blue3.Text = "Upgrade Path Finished!";
+            blue3.Disabled = true;
         }
         }else{
             blue1.Disabled = true;

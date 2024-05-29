@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://game_env/scripts/Field.cs" type="Script" id=1]
 [ext_resource path="res://game_env/Scripts/Generate.cs" type="Script" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://game_env/LeftFacingShips/Ship1.png" type="Texture" id=10]
 [ext_resource path="res://game_env/LeftFacingShips/Ship2.png" type="Texture" id=11]
 [ext_resource path="res://game_env/LeftFacingShips/Ship3.png" type="Texture" id=12]
+[ext_resource path="res://game_env/KRILL_URSELF.cs" type="Script" id=13]
 [ext_resource path="res://game_env/Fonts/FRABK.TTF" type="DynamicFontData" id=14]
 [ext_resource path="res://SmallEvad.png" type="Texture" id=15]
 
@@ -72,10 +73,10 @@ icon = ExtResource( 12 )
 icon_align = 1
 
 [node name="Button5" type="Button" parent="Ships"]
-margin_left = 1652.0
-margin_top = 23.0
-margin_right = 1903.0
-margin_bottom = 204.0
+margin_left = 1387.0
+margin_top = 26.0
+margin_right = 1638.0
+margin_bottom = 207.0
 rect_pivot_offset = Vector2( 94, 119 )
 icon = ExtResource( 9 )
 icon_align = 1
@@ -305,6 +306,14 @@ z_index = -2712
 texture = ExtResource( 6 )
 centered = false
 
+[node name="Button" type="Button" parent="."]
+margin_left = 1674.0
+margin_top = 890.0
+margin_right = 1891.0
+margin_bottom = 1044.0
+text = "Upgrades"
+script = ExtResource( 13 )
+
 [connection signal="pressed" from="Ships/Button" to="Bay1" method="onButtonPressed"]
 [connection signal="pressed" from="Ships/Button" to="Bay2" method="onButtonPressed"]
 [connection signal="pressed" from="Ships/Button" to="Bay3" method="onButtonPressed"]
@@ -342,3 +351,4 @@ centered = false
 [connection signal="mouse_exited" from="Bay4" to="Bay4" method="onMouseExit"]
 [connection signal="mouse_entered" from="Bay5" to="Bay5" method="onMouseEnter"]
 [connection signal="mouse_exited" from="Bay5" to="Bay5" method="onMouseExit"]
+[connection signal="pressed" from="Button" to="Button" method="_on_Button_pressed"]

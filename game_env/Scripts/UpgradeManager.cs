@@ -23,13 +23,13 @@ public class UpgradeManager : Node
 
     public override void _Ready()
     {
-        GetNode<Global>("../../Global").refreshButtonNames();
         foreach(Godot.Sprite color in this.GetChildren()){
             foreach(Godot.Button button in color.GetChildren()){
                 Godot.Collections.Array array = new Godot.Collections.Array(){button};  
                 button.Connect("pressed", this, "PLEASE", array);
             }
         }
+        PLEASE(GetNode<Godot.Button>("/Red/1"));
     }
 
     public void PLEASE(Godot.Button button){
@@ -40,28 +40,32 @@ public class UpgradeManager : Node
             case "Red":
                 color = RED;
                 Global.RedUpgradePoints--;
-                GetNode<Label>("/Red/redPointLabel").Text = "Red Upgrade Points: " + Convert.ToString(Global.RedUpgradePoints); 
+                GetNode<Label>("../redPointLabel").Text = "Red Upgrade Points: " + Convert.ToString(Global.RedUpgradePoints); 
                 break;
             case "Yellow":
                 color = YELLOW;
                 Global.YellowUpgradePoints--;
-                GetNode<Label>("/Yellow/yellowPointLabel").Text = "Yellow Upgrade Points: " + Convert.ToString(Global.YellowUpgradePoints); 
+                GetNode<Label>("../yellowPointLabel").Text = "Yellow Upgrade Points: " + Convert.ToString(Global.YellowUpgradePoints); 
                 break;
             case "Orange":
                 color = ORANGE;
                 Global.OrangeUpgradePoints--;
-                GetNode<Label>("/Orange/orangePointLabel").Text = "Orange Upgrade Points: " + Convert.ToString(Global.OrangeUpgradePoints); 
+                GetNode<Label>("../orangePointLabel").Text = "Orange Upgrade Points: " + Convert.ToString(Global.OrangeUpgradePoints); 
                 break;
             case "Blue":
                 color = BLUE;
                 Global.BlueUpgradePoints--;
-                GetNode<Label>("/Blue/bluePointLabel").Text = "Blue Upgrade Points: " + Convert.ToString(Global.BlueUpgradePoints); 
+                GetNode<Label>("../bluePointLabel").Text = "Blue Upgrade Points: " + Convert.ToString(Global.BlueUpgradePoints); 
                 break;
             
         }
 
         Global.upgrade(color, path);
-        GetNode<Global>("../../Global").refreshButtonNames();
+        GetNode<Global>("../../../Global").refreshButtonNames();
+    }
+
+    public void  _on_exit_pressed(){
+        GetNode<Godot.Control>("..").Visible = false;
     }
 /*
 tree
