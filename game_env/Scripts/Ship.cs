@@ -20,7 +20,6 @@ public class Ship : Sprite, ICloneable{
     private bool rocketsPierce = false;
     private string method;
     private Sprite lazer;
-    private int rocketCooldown = 1;
     private Timer speedtimer;
     private System.Timers.Timer rocketTimer, switchTimer;
     private int shipHP;
@@ -54,7 +53,7 @@ public class Ship : Sprite, ICloneable{
                 break;
             case 5:
                 speed = BlueSpeed;
-                shipHP = 5; //change to global.shipHP or whatever its called
+                shipHP = 500; //change to global.shipHP or whatever its called
                 break;
             default:
                 speed = BlueSpeed;
