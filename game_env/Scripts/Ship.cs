@@ -7,6 +7,7 @@ public class Ship : Sprite, ICloneable{
     [Signal] public delegate void died(int yPos, int type);
     [Signal] public delegate void _core_damaged(int damage);
     [Signal] public delegate void crashed(int damage);
+    [Signal] public delegate void lost();
     private int Type;
     private int speed;
     private bool FromOpponent = false;
@@ -65,6 +66,7 @@ public class Ship : Sprite, ICloneable{
     public override void _Ready(){
         Connect("died", GetNode<Node>("../network_manager"), "_dave_died");
         Connect("crashed", this, "crashedShip");
+        Connect("lost", GetNode<Node>("../network_manager"), "lost");
         if(!(Type == 6)){
             Texture = GD.Load<Texture>("res://game_env/Ships/Ship" + Type + ".png");
             if(Global.IsServer){
@@ -108,6 +110,10 @@ public class Ship : Sprite, ICloneable{
                 if(FromOpponent){
                     Debug.Print("Taken Damage OMG :OOOOOOOO!!!!");
                     Global.Health -= 500;
+                    if(Global.isDefeated()){
+                        GetTree().ChangeScene("res://game_env/Scenes/LoseScene.tscn");
+                        EmitSignal("lost");
+                    }
                     QueueFree();
                     Bay.activeShips.Remove(this);
                 }
@@ -117,6 +123,10 @@ public class Ship : Sprite, ICloneable{
                 if(FromOpponent){
                     Debug.Print("Taken Damage OMG :OOOOOOOO!!!!");
                     Global.Health -= 500;
+                    if(Global.isDefeated()){
+                        GetTree().ChangeScene("res://game_env/Scenes/LoseScene.tscn");
+                        EmitSignal("lost");
+                    }
                     QueueFree();
                     Bay.activeShips.Remove(this);
                 }
