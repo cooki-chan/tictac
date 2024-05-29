@@ -15,7 +15,7 @@ public class UpgradeManager : Node
     private const int TOP_PATH = 0;
     private const int MID_PATH = 1;
     private const int BOT_PATH = 2;
-         
+
 
     private void upgradeStat(int color, int path){
         Global.upgrade(color, path);    
@@ -39,15 +39,23 @@ public class UpgradeManager : Node
         switch(button.GetParent().Name){
             case "Red":
                 color = RED;
+                Global.RedUpgradePoints--;
+                GetNode<Label>("/Red/redPointLabel").Text = "Red Upgrade Points: " + Convert.ToString(Global.RedUpgradePoints); 
                 break;
             case "Yellow":
                 color = YELLOW;
+                Global.YellowUpgradePoints--;
+                GetNode<Label>("/Yellow/yellowPointLabel").Text = "Yellow Upgrade Points: " + Convert.ToString(Global.YellowUpgradePoints); 
                 break;
             case "Orange":
                 color = ORANGE;
+                Global.OrangeUpgradePoints--;
+                GetNode<Label>("/Orange/orangePointLabel").Text = "Orange Upgrade Points: " + Convert.ToString(Global.OrangeUpgradePoints); 
                 break;
             case "Blue":
                 color = BLUE;
+                Global.BlueUpgradePoints--;
+                GetNode<Label>("/Blue/bluePointLabel").Text = "Blue Upgrade Points: " + Convert.ToString(Global.BlueUpgradePoints); 
                 break;
             
         }

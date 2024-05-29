@@ -8,6 +8,12 @@ public class Global : Node
     public static bool IsServer = false;
     public static int Health = 314159265; //TODO: CHANGE THIS!!!
 
+    static public int RedUpgradePoints = 4;
+    static public int YellowUpgradePoints = 4;
+    public static int OrangeUpgradePoints = 4;
+    public static int BlueUpgradePoints = 4;
+    
+
     //Speed Reference
     static public int RedSpeed = 5;
     static public int YellowSpeed = 7;
@@ -291,8 +297,11 @@ public class Global : Node
         }
         else{
             red1.Disabled = true;
+            red1.Text = "Out of Upgrade Points!";
             red2.Disabled = true;
+            red2.Text = "Out of Upgrade Points!";
             red3.Disabled = true;
+            red3.Text = "Out of Upgrade Points!";
         }
 
         Button yellow1 = GetNode<Button>("../Control/UpgradeManager/Yellow/1");
@@ -300,6 +309,7 @@ public class Global : Node
         Button yellow3 = GetNode<Button>("../Control/UpgradeManager/Yellow/3");
 
         //yellow
+        if(YellowUpgrades[TOP_PATH] + YellowUpgrades[MID_PATH] + YellowUpgrades[BOT_PATH] < 4){
         if(YellowUpgrades[TOP_PATH] >= 0){
             yellow1.Text = "Speed Upgrade #1";
         }
@@ -338,6 +348,15 @@ public class Global : Node
         if(YellowUpgrades[BOT_PATH] >= 3){
             yellow3.Text = "Upgrade Path Finished!";
         }
+        }else{
+            yellow1.Disabled = true;
+            yellow1.Text = "Out of Upgrade Points!";
+            yellow2.Disabled = true;
+            yellow2.Text = "Out of Upgrade Points!";
+            yellow3.Disabled = true;
+            yellow3.Text = "Out of Upgrade Points!";
+        }
+
 
         //orange
         Button orange1 = GetNode<Button>("../Control/UpgradeManager/Orange/1");
@@ -345,6 +364,7 @@ public class Global : Node
         Button orange3 = GetNode<Button>("../Control/UpgradeManager/Orange/3");
 
         //orange
+        if(OrangeUpgrades[TOP_PATH] + OrangeUpgrades[MID_PATH] + OrangeUpgrades[BOT_PATH] < 4){
         if(OrangeUpgrades[TOP_PATH] >= 0){
             orange1.Text = "Speed Upgrade #1";
         }
@@ -383,6 +403,15 @@ public class Global : Node
         if(OrangeUpgrades[BOT_PATH] >= 3){
             orange3.Text = "Upgrade Path Finished!";
         }
+        }else{
+            orange1.Disabled = true;
+            orange1.Text = "Out of Upgrade Points!";
+            orange2.Disabled = true;
+            orange2.Text = "Out of Upgrade Points!";
+            orange3.Disabled = true;
+            orange3.Text = "Out of Upgrade Points!";
+        }
+
 
         //Blue
         Button blue1 = GetNode<Button>("../Control/UpgradeManager/Blue/1");
@@ -390,6 +419,7 @@ public class Global : Node
         Button blue3 = GetNode<Button>("../Control/UpgradeManager/Blue/3");
 
         //blue
+        if(BlueUpgrades[TOP_PATH] + BlueUpgrades[MID_PATH] + BlueUpgrades[BOT_PATH] < 4){
         if(BlueUpgrades[TOP_PATH] >= 0){
             blue1.Text = "Speed Upgrade #1";
         }
@@ -428,6 +458,15 @@ public class Global : Node
         if(BlueUpgrades[BOT_PATH] >= 3){
             blue3.Text = "Upgrade Path Finished!";
         }
+        }else{
+            blue1.Disabled = true;
+            blue1.Text = "Out of Upgrade Points!";
+            blue2.Disabled = true;
+            blue2.Text = "Out of Upgrade Points!";
+            blue3.Disabled = true;
+            blue3.Text = "Out of Upgrade Points!";
+        }
+
 
     }
 
