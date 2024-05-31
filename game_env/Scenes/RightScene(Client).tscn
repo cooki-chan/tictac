@@ -19,7 +19,7 @@
 [ext_resource path="res://DaveVEvadAssets/Background.png" type="Texture" id=17]
 [ext_resource path="res://DaveVEvadAssets/Elecronics.png" type="Texture" id=18]
 [ext_resource path="res://DaveVEvadAssets/CarbonFiber.png" type="Texture" id=19]
-[ext_resource path="res://DaveVEvadAssets/Steel.png" type="Texture" id=20]
+[ext_resource path="res://Steeln2.png" type="Texture" id=20]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.392157, 0.258824, 0.258824, 1 )
@@ -45,8 +45,8 @@ position = Vector2( 960, 538 )
 texture = ExtResource( 17 )
 
 [node name="Field" type="Sprite" parent="."]
-position = Vector2( 995.5, 437.5 )
-scale = Vector2( 0.555729, 0.791667 )
+position = Vector2( 983, 414.5 )
+scale = Vector2( 0.476042, 0.697222 )
 texture = ExtResource( 16 )
 
 [node name="Ships" type="ItemList" parent="."]
@@ -60,6 +60,7 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_styles/bg = SubResource( 1 )
 
 [node name="Button" type="Button" parent="Ships"]
+visible = false
 margin_left = 498.0
 margin_top = 11.0
 margin_right = 749.0
@@ -70,7 +71,7 @@ icon_align = 1
 
 [node name="Button2" type="Button" parent="Ships"]
 margin_left = 766.0
-margin_top = 4.0
+margin_top = 7.0
 margin_right = 1017.0
 margin_bottom = 186.0
 rect_pivot_offset = Vector2( 94, 119 )
@@ -105,7 +106,6 @@ text = "Generators"
 script = ExtResource( 2 )
 
 [node name="Generators" type="ItemList" parent="."]
-visible = false
 margin_left = -1.0
 margin_top = 846.0
 margin_right = 1927.0
@@ -117,7 +117,7 @@ custom_styles/bg = SubResource( 1 )
 
 [node name="Taiwan" type="Button" parent="Generators"]
 margin_left = 586.0
-margin_top = 22.0
+margin_top = 28.0
 margin_right = 834.0
 margin_bottom = 166.0
 rect_pivot_offset = Vector2( 94, 119 )
@@ -146,7 +146,7 @@ icon_align = 1
 margin_left = 1333.0
 margin_top = 26.0
 margin_right = 1559.0
-margin_bottom = 174.0
+margin_bottom = 166.0
 rect_pivot_offset = Vector2( 94, 119 )
 icon = ExtResource( 15 )
 icon_align = 1

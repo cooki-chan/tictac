@@ -27,7 +27,7 @@ public class Generator : Sprite{
             }
             case "mill":{
                 type = 2;
-                Texture = GD.Load<Texture>("res://DaveVEvadAssets/Steel.png");
+                Texture = GD.Load<Texture>("res://Steeln1.png");
                 break;
             }
             case "cobble minion":{

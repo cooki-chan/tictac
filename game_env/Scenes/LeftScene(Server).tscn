@@ -19,7 +19,7 @@
 [ext_resource path="res://game_env/Scripts/KRILL_URSELF.cs" type="Script" id=17]
 [ext_resource path="res://DaveVEvadAssets/Elecronics.png" type="Texture" id=18]
 [ext_resource path="res://DaveVEvadAssets/CarbonFiber.png" type="Texture" id=19]
-[ext_resource path="res://DaveVEvadAssets/Steel.png" type="Texture" id=20]
+[ext_resource path="res://Steeln1.png" type="Texture" id=20]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.392157, 0.258824, 0.258824, 1 )
@@ -45,7 +45,6 @@ z_index = -2021
 texture = ExtResource( 16 )
 
 [node name="Ships" type="ItemList" parent="."]
-visible = false
 margin_left = -1.0
 margin_top = 846.0
 margin_right = 1923.0
@@ -66,7 +65,7 @@ icon_align = 1
 
 [node name="Button2" type="Button" parent="Ships"]
 margin_left = 734.0
-margin_top = 4.0
+margin_top = 10.0
 margin_right = 985.0
 margin_bottom = 186.0
 rect_pivot_offset = Vector2( 94, 119 )
@@ -101,6 +100,7 @@ text = "Generators"
 script = ExtResource( 1 )
 
 [node name="Generators" type="ItemList" parent="."]
+visible = false
 margin_left = -1.0
 margin_top = 846.0
 margin_right = 1927.0
@@ -299,8 +299,8 @@ margin_bottom = 780.0
 script = ExtResource( 4 )
 
 [node name="Field" type="Sprite" parent="Village"]
-position = Vector2( 508.5, 407.5 )
-scale = Vector2( 0.555729, 0.791667 )
+position = Vector2( 492.5, 379.5 )
+scale = Vector2( 0.539062, 0.739815 )
 texture = ExtResource( 11 )
 
 [node name="Dave" type="Sprite" parent="."]

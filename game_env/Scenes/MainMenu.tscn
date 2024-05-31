@@ -1,51 +1,116 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://game_env/Fonts/Font1.tres" type="DynamicFont" id=1]
 [ext_resource path="res://dave.png" type="Texture" id=2]
 [ext_resource path="res://game_env/Scripts/MainMenu.cs" type="Script" id=3]
+[ext_resource path="res://evad.jpg" type="Texture" id=4]
+[ext_resource path="res://game_env/RightFacingShips/Ship3.png" type="Texture" id=5]
+[ext_resource path="res://game_env/RightFacingShips/Ship2.png" type="Texture" id=6]
+[ext_resource path="res://game_env/LeftFacingShips/Ship5.png" type="Texture" id=7]
+[ext_resource path="res://game_env/LeftFacingShips/Ship1.png" type="Texture" id=8]
+[ext_resource path="res://DaveVEvadAssets/Field.png" type="Texture" id=9]
+[ext_resource path="res://Rocket.png" type="Texture" id=10]
+[ext_resource path="res://ShieldR.png" type="Texture" id=11]
+[ext_resource path="res://DaveVEvadAssets/Background.png" type="Texture" id=12]
+[ext_resource path="res://game_env/Fonts/FRABK.TTF" type="DynamicFontData" id=13]
+
+[sub_resource type="DynamicFont" id=1]
+size = 60
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 13 )
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 3 )
 
-[node name="Dave" type="Sprite" parent="."]
-position = Vector2( 1936.17, -14.7546 )
-scale = Vector2( 1.955, 1.122 )
-texture = ExtResource( 2 )
-offset = Vector2( -500.085, 499.781 )
+[node name="Background" type="Sprite" parent="."]
+position = Vector2( 961, 542 )
+texture = ExtResource( 12 )
+
+[node name="Evad" type="Sprite" parent="."]
+position = Vector2( 1727, 161 )
+rotation = -0.785398
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 4 )
+
+[node name="Field" type="Sprite" parent="."]
+position = Vector2( 85, 661 )
+scale = Vector2( 0.39375, 0.512037 )
+texture = ExtResource( 9 )
+
+[node name="Field" type="Sprite" parent="Field"]
+position = Vector2( 4566.35, 29.2948 )
+texture = ExtResource( 9 )
+
+[node name="Ship5" type="Sprite" parent="Field/Field"]
+position = Vector2( -1231.75, 369.114 )
+scale = Vector2( 1.98768, 1.66063 )
+texture = ExtResource( 7 )
+
+[node name="ShieldR" type="Sprite" parent="Field/Field/Ship5"]
+position = Vector2( -127.771, 17.6407 )
+scale = Vector2( 0.585537, 0.468459 )
+texture = ExtResource( 11 )
+
+[node name="Ship3" type="Sprite" parent="Field/Field/Ship5/ShieldR"]
+position = Vector2( -1226.35, -1252.72 )
+scale = Vector2( 2.03977, 1.83708 )
+texture = ExtResource( 5 )
+
+[node name="Rocket" type="Sprite" parent="Field/Field/Ship5/ShieldR/Ship3"]
+position = Vector2( 204.33, 62.8616 )
+texture = ExtResource( 10 )
+
+[node name="Ship1" type="Sprite" parent="Field/Field/Ship5/ShieldR"]
+position = Vector2( -327.318, -1240.17 )
+scale = Vector2( 1.94257, 2.41892 )
+texture = ExtResource( 8 )
 
 [node name="TitleLabel" type="Label" parent="."]
-margin_left = 1172.0
-margin_top = 123.0
-margin_right = 1821.0
-margin_bottom = 255.0
-custom_fonts/font = ExtResource( 1 )
-text = "GAMER TIME :FIRE:"
+margin_left = 629.0
+margin_top = 23.0
+margin_right = 1299.0
+margin_bottom = 155.0
+custom_fonts/font = SubResource( 1 )
+text = "The Battle of Dave vs Evad"
+align = 1
+valign = 1
 
 [node name="StartLocal" type="Button" parent="."]
-margin_left = 249.0
-margin_top = 452.0
-margin_right = 995.0
-margin_bottom = 744.0
+margin_left = 1544.0
+margin_top = 515.0
+margin_right = 1899.0
+margin_bottom = 620.0
 custom_fonts/font = ExtResource( 1 )
 text = "START LOCAL GAME"
 
 [node name="JoinLocal" type="Button" parent="."]
-margin_left = 1014.0
-margin_top = 452.0
-margin_right = 1760.0
-margin_bottom = 744.0
+margin_left = 1544.0
+margin_top = 345.0
+margin_right = 1899.0
+margin_bottom = 450.0
 custom_fonts/font = ExtResource( 1 )
 text = "JOIN LOCAL GAME"
 
 [node name="Leave" type="Button" parent="."]
-margin_left = 39.0
-margin_top = 773.0
-margin_right = 1904.0
-margin_bottom = 1065.0
+margin_left = 1544.0
+margin_top = 685.0
+margin_right = 1899.0
+margin_bottom = 790.0
 custom_fonts/font = ExtResource( 1 )
-text = "LEAVE D:"
+text = "EXIT TO DESKTOP"
+
+[node name="Dave" type="Sprite" parent="."]
+position = Vector2( 183, 172 )
+rotation = 0.785398
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 2 )
+
+[node name="Ship2" type="Sprite" parent="."]
+position = Vector2( 242, 883 )
+texture = ExtResource( 6 )
 
 [connection signal="pressed" from="StartLocal" to="." method="_on_StartLocal_pressed"]
 [connection signal="pressed" from="JoinLocal" to="." method="_on_JoinLocal_pressed"]
