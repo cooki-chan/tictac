@@ -50,7 +50,6 @@ scale = Vector2( 0.555729, 0.791667 )
 texture = ExtResource( 16 )
 
 [node name="Ships" type="ItemList" parent="."]
-visible = false
 margin_left = -1.0
 margin_top = 846.0
 margin_right = 1923.0
@@ -106,6 +105,7 @@ text = "Generators"
 script = ExtResource( 2 )
 
 [node name="Generators" type="ItemList" parent="."]
+visible = false
 margin_left = -1.0
 margin_top = 846.0
 margin_right = 1927.0

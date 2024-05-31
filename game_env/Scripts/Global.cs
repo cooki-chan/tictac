@@ -6,7 +6,7 @@ using System.CodeDom;
 public class Global : Node
 {
     public static bool IsServer = false;
-    public static int Health = 1; //TODO: CHANGE THIS!!!
+    public static int Health = 100; //TODO: CHANGE THIS!!!
 
     static public int RedUpgradePoints = 4;
     static public int YellowUpgradePoints = 4;
@@ -23,19 +23,19 @@ public class Global : Node
 
 
         //Health Reference
-    static public int RedHealth = 5;
-    static public int YellowHealth = 7;
-    static public int OrangeHealth = 4;
+    static public int RedHealth = 10;
+    static public int YellowHealth = 5;
+    static public int OrangeHealth = 10;
     static public int PurpleHealth = 2;
-    static public int BlueHealth = 2;
+    static public int BlueHealth = 20;
 
 
     //Cost Reference
-    static public int RedCost = 10;
-    static public int YellowCost = 10;
-    static public int OrangeCost = 10;
-    static public int PurpleCost = 10;
-    static public int BlueCost = 10;
+    static public int[] RedCost = {20,10,10,0};
+    static public int[] YellowCost = {10,20,20,0};
+    static public int[] OrangeCost = {20,30,10,0};
+    static public int[] PurpleCost = {0,0,0,0};
+    static public int[] BlueCost = {10, 40,10, 10};
 
     //Ship vs Ship Damage Ref
     static public int RedShipDamage = 10;
@@ -226,30 +226,30 @@ public class Global : Node
             RedSpeed = 6;
         }
         if(RedUpgrades[TOP_PATH] >= 2){
-            RedSpeed = 8;
+            RedSpeed = 7;
         }
         if(RedUpgrades[TOP_PATH] >= 3){
             transferAbility = true;
         }
 
         if(RedUpgrades[MID_PATH] >= 1){
-            RedHealth = 15;
+            RedHealth = 12;
         }
         if(RedUpgrades[MID_PATH] >= 2){
-            RedHealth = 25;
+            RedHealth = 20;
         }
         if(RedUpgrades[MID_PATH] >= 3){
-            transferAbility = true;
+            RedHealth = 25;
         }
 
         if(RedUpgrades[BOT_PATH] >= 1){
-            RedCost = 9;
+            RedCost = new int[] {18,9,9,0};
         }
         if(RedUpgrades[BOT_PATH] >= 2){
-            RedCost = 7;
+            RedCost = new int[] {14,7,7,0};
         }
         if(RedUpgrades[BOT_PATH] >= 3){
-            RedCost = 5;
+            RedCost = new int[] {10,5,5,0};
         }
 
         //orange
@@ -264,31 +264,31 @@ public class Global : Node
         }
 
         if(YellowUpgrades[MID_PATH] >= 1){
-            YellowHealth = 8;
+            YellowHealth = 7;
         }
         if(YellowUpgrades[MID_PATH] >= 2){
             dashAbility = true;
         }
         if(YellowUpgrades[MID_PATH] >= 3){
-            dashSpeed = 30;
+            dashSpeed = 24;
         }
 
         if(YellowUpgrades[BOT_PATH] >= 1){
-            YellowCost = 9;
+            YellowCost = new int[] {8,16,16,0};
         }
         if(YellowUpgrades[BOT_PATH] >= 2){
-            YellowCost = 7;
+            YellowCost = new int[] {6,13,13,0};
         }
         if(YellowUpgrades[BOT_PATH] >= 3){
-            YellowCost = 5;
+            YellowCost = new int[] {4,9,9,0};
         }
 
         //orange
         if(OrangeUpgrades[TOP_PATH] >= 1){
-            missileDamage = 20;
+            missileDamage = 11;
         }
         if(OrangeUpgrades[TOP_PATH] >= 2){
-            missileDamage = 30;
+            missileDamage = 12;
         }
         if(OrangeUpgrades[TOP_PATH] >= 3){
             missilePercing = true;
@@ -298,29 +298,29 @@ public class Global : Node
             missileSpawnSpeed = 1800;
         }
         if(OrangeUpgrades[MID_PATH] >= 2){
-            missileSpeed = 15;
+            missileSpawnSpeed = 1440;
         }
         if(OrangeUpgrades[MID_PATH] >= 3){
-            missileSpeed = 20;
+            missileSpeed = 12;
         }
 
         if(OrangeUpgrades[BOT_PATH] >= 1){
-            OrangeHealth = 6;
+            OrangeHealth = 11;
         }
         if(OrangeUpgrades[BOT_PATH] >= 2){
-            OrangeCost = 9;
+            OrangeCost = new int[] {16,24,8,0};
         }
         if(OrangeUpgrades[BOT_PATH] >= 3){
-            OrangeCost = 8;
+            OrangeCost = new int[] {11,17,6,0};
         }
 
 
         //Blue
         if(BlueUpgrades[TOP_PATH] >= 1){
-            shieldHealth = 15;
+            shieldHealth = 20;
         }
         if(BlueUpgrades[TOP_PATH] >= 2){
-            shieldHealth = 20;
+            shieldHealth = 30;
         }
         if(BlueUpgrades[TOP_PATH] >= 3){
             doubleShieldAbility = true;
@@ -330,20 +330,20 @@ public class Global : Node
             BlueHealth = 15;
         }
         if(BlueUpgrades[MID_PATH] >= 2){
-            BlueSpeed = 20;
+            BlueSpeed = 3;
         }
         if(BlueUpgrades[MID_PATH] >= 3){
-            BlueSpeed = 22;
+            BlueSpeed = 5;
         }
 
         if(BlueUpgrades[BOT_PATH] >= 1){
-            BlueSpeed = 9;
+            BlueSpeed = 4;
         }
         if(BlueUpgrades[BOT_PATH] >= 2){
-            BlueCost = 9;
+            BlueCost = new int[] {8, 38,8, 8};
         }
         if(BlueUpgrades[BOT_PATH] >= 3){
-            BlueCost = 8;
+            BlueCost = new int[] {6, 27,6, 6};
         }
     }
 
@@ -371,10 +371,10 @@ public class Global : Node
                 red2.Text = "Health Upgrade #1";
             }
             if(RedUpgrades[MID_PATH] >= 1){
-                red2.Text = "Base Damage Upgrade #1";
+                red2.Text = "Health Upgrade #2";
             }
             if(RedUpgrades[MID_PATH] >= 2){
-                red2.Text = "Health Upgrade #2";
+                red2.Text = "Health Upgrade #3";
             }
             if(RedUpgrades[MID_PATH] >= 3){
                 red2.Text = "Upgrade Path Finished!";
