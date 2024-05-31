@@ -12,7 +12,7 @@
 [ext_resource path="res://game_env/LeftFacingShips/Ship1.png" type="Texture" id=10]
 [ext_resource path="res://game_env/LeftFacingShips/Ship2.png" type="Texture" id=11]
 [ext_resource path="res://game_env/LeftFacingShips/Ship3.png" type="Texture" id=12]
-[ext_resource path="res://game_env/KRILL_URSELF.cs" type="Script" id=13]
+[ext_resource path="res://game_env/Scripts/KRILL_URSELF.cs" type="Script" id=13]
 [ext_resource path="res://game_env/Fonts/FRABK.TTF" type="DynamicFontData" id=14]
 [ext_resource path="res://SmallEvad.png" type="Texture" id=15]
 

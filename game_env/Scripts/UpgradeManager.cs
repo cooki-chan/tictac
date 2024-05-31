@@ -4,7 +4,7 @@ using System.Collections;
 using System.Drawing.Drawing2D;
 using System.Runtime.ConstrainedExecution;
 
-public class UpgradeManager : Node
+public class UpgradeManager : Control
 {
     private const int RED = 0;
     private const int YELLOW = 1;
@@ -29,7 +29,7 @@ public class UpgradeManager : Node
                 button.Connect("pressed", this, "PLEASE", array);
             }
         }
-        PLEASE(GetNode<Godot.Button>("/Red/1"));
+        GetNode<Global>("../../../Global").refreshButtonNames();
     }
 
     public void PLEASE(Godot.Button button){
@@ -66,6 +66,7 @@ public class UpgradeManager : Node
 
     public void  _on_exit_pressed(){
         GetNode<Godot.Control>("..").Visible = false;
+        GetNode<Godot.CanvasItem>("..").PropagateCall("Hide");
     }
 /*
 tree

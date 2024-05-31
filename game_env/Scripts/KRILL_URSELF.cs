@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class Button : Godot.Button
+public class KRILL_URSELF : Godot.Button
 {
     // Declare member variables here. Examples:
     // private int a = 2;
@@ -15,6 +15,13 @@ public class Button : Godot.Button
     }
 
     public void _on_Button_pressed(){
-        GetNode<Control>("..").AddChild(scene.Instance());
+        if(!GetNode<Node>("..").HasNode("Control")){
+            GetNode<Control>("..").AddChild(scene.Instance());
+        }
+        else {
+            CanvasItem temp = GetNode<Control>("..").GetNode<Control>("Control");
+            temp.PropagateCall("Show");
+            temp.Show();
+        }
     }
 }
