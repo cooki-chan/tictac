@@ -297,8 +297,14 @@ blu  (turtle shel)
     public void shield(){
         if(Type == 5 && FromOpponent != true){
             Ship shield = new Ship(6, false){
-                Texture = GD.Load<Texture>("res://game_env/shield.png")
+                Texture = GD.Load<Texture>(Global.IsServer?"res://shield.png":"res://shieldR.png")
             };
+            if(FromOpponent){
+                shield = new Ship(6, false){
+                Texture = GD.Load<Texture>(Global.IsServer?"res://shieldR.png":"res://shield.png")
+            };
+            }
+
             if (Global.IsServer){
                 shield.Position = FromOpponent?new Vector2(Position.x-Texture.GetWidth()-6, Position.y):new Vector2(Position.x+Texture.GetWidth()+6, Position.y);
             } else {
@@ -308,7 +314,7 @@ blu  (turtle shel)
             GetParent().AddChild(shield);
             if(Global.doubleShieldAbility){
                 Ship shield2 = new Ship(6,false){
-                   Texture = GD.Load<Texture>("res://game_env/shield.png")
+                   Texture = GD.Load<Texture>("res://shield.png")
                 };
                 if (Global.IsServer){
                 shield2.Position = FromOpponent?new Vector2(shield.Position.x-Texture.GetWidth()-6, Position.y):new Vector2(shield.Position.x+Texture.GetWidth()+6, Position.y);

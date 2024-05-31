@@ -60,7 +60,6 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_styles/bg = SubResource( 1 )
 
 [node name="Button" type="Button" parent="Ships"]
-visible = false
 margin_left = 498.0
 margin_top = 11.0
 margin_right = 749.0
