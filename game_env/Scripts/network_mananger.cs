@@ -50,7 +50,7 @@ public class network_mananger : Node{
         if(Global.IsServer){
             newship.Position = new Vector2(OS.WindowSize.x + newship.Scale.x * GD.Load<Texture>("res://game_env/RightFacingShips/Ship" + newship.getType() + ".png").GetWidth()/2,yPos); //On server, enemy needs to spawn on the right
         } else {
-            newship.Position = new Vector2(0,yPos); //On client, enemy needs to spawn on the left
+            newship.Position = new Vector2(GD.Load<Texture>("res://game_env/RightFacingShips/Ship" + newship.getType() + ".png").GetWidth()/2 * -1 + 10,yPos); //On client, enemy needs to spawn on the left
         }
         GD.Print("Ship hasth been sumoned");
     }

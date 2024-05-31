@@ -109,7 +109,8 @@ public class Ship : Sprite, ICloneable{
             if(Position.x - Scale.x * Texture.GetWidth()/2 <= 500){
                 if(FromOpponent){
                     Debug.Print("Taken Damage OMG :OOOOOOOO!!!!");
-                    Global.Health -= 500;
+                    Global.Health -= shipHP;
+                    Global.updateHealth(GetNode<Label>("../health"));
                     if(Global.isDefeated()){
                         GetTree().ChangeScene("res://game_env/Scenes/LoseScene.tscn");
                         EmitSignal("lost");
@@ -122,7 +123,8 @@ public class Ship : Sprite, ICloneable{
             if(Position.x + Scale.x * Texture.GetWidth()/2 >= 1420){
                 if(FromOpponent){
                     Debug.Print("Taken Damage OMG :OOOOOOOO!!!!");
-                    Global.Health -= 500;
+                    Global.Health -= shipHP;
+                    Global.updateHealth(GetNode<Label>("../health"));
                     if(Global.isDefeated()){
                         GetTree().ChangeScene("res://game_env/Scenes/LoseScene.tscn");
                         EmitSignal("lost");

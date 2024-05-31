@@ -317,6 +317,22 @@ margin_bottom = 1044.0
 text = "Upgrades"
 script = ExtResource( 17 )
 
+[node name="Label2" type="Label" parent="."]
+margin_left = 519.0
+margin_top = 792.0
+margin_right = 559.0
+margin_bottom = 838.0
+custom_fonts/font = ExtResource( 10 )
+text = "Base Health:"
+
+[node name="health" type="Label" parent="."]
+margin_left = 739.0
+margin_top = 792.0
+margin_right = 1073.0
+margin_bottom = 838.0
+custom_fonts/font = ExtResource( 10 )
+text = "100"
+
 [connection signal="pressed" from="Ships/Button" to="Bay1" method="onButtonPressed"]
 [connection signal="pressed" from="Ships/Button" to="Bay2" method="onButtonPressed"]
 [connection signal="pressed" from="Ships/Button" to="Bay3" method="onButtonPressed"]

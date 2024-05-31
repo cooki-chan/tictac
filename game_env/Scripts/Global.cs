@@ -89,6 +89,8 @@ public class Global : Node
     private const int MID_PATH = 1;
     private const int BOT_PATH = 2;
 
+    
+
     private static int[, , , ] upgradeCosts = {
             {//red
                 {//top
@@ -163,7 +165,9 @@ public class Global : Node
 
         };
 
-
+public static void updateHealth(Label healthNode){
+    healthNode.Text = "" + Health;
+}
 
     public static void upgrade(int color, int path){
         int[] upgrades = new int [] {0,0,0};
