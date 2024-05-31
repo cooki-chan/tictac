@@ -6,7 +6,7 @@ using System.CodeDom;
 public class Global : Node
 {
     public static bool IsServer = false;
-    public static int Health = 314159265; //TODO: CHANGE THIS!!!
+    public static int Health = 1; //TODO: CHANGE THIS!!!
 
     static public int RedUpgradePoints = 4;
     static public int YellowUpgradePoints = 4;
@@ -578,7 +578,9 @@ public class Global : Node
 
 
     }
-
+    public static bool isDefeated(){
+        return Health <= 0;
+    }
     /******************************************************************************
 tree
 red (general use)

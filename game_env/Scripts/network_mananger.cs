@@ -57,6 +57,13 @@ public class network_mananger : Node{
     void rocketTransport(int yPos, bool IsServer){
         Rpc("summonRocket", yPos, IsServer);
     }
+    void lost(){
+        Rpc("lostFunc");
+    }
+    [Remote]
+    void lostFunc(){
+        GetTree().ChangeScene("res://game_env/Scenes/WinScene.tscn");
+    }
     [Remote]
     void summonRocket(int yPos, bool isServer, bool pierce){
         Control control = GetNode<Control>("..");

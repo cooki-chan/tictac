@@ -7,6 +7,7 @@ public class Ship : Sprite, ICloneable{
     [Signal] public delegate void died(int yPos, int type);
     [Signal] public delegate void _core_damaged(int damage);
     [Signal] public delegate void crashed(int damage);
+    [Signal] public delegate void lost();
     private int Type;
     private int speed;
     private bool FromOpponent = false;
@@ -19,7 +20,6 @@ public class Ship : Sprite, ICloneable{
     private bool rocketsPierce = Global.missilePercing;
     private string method;
     private Sprite lazer;
-    private int rocketCooldown = 1;
     private Timer speedtimer;
     private System.Timers.Timer rocketTimer, switchTimer;
     private int shipHP;
@@ -34,6 +34,7 @@ public class Ship : Sprite, ICloneable{
                 speed = Global.RedSpeed;
                 if(Global.transferAbility) method = "swapLane";
                 shipHP = Global.RedHealth;
+
                 break;
             case 2:
                 speed = YellowSpeed;
@@ -65,6 +66,7 @@ public class Ship : Sprite, ICloneable{
     public override void _Ready(){
         Connect("died", GetNode<Node>("../network_manager"), "_dave_died");
         Connect("crashed", this, "crashedShip");
+        Connect("lost", GetNode<Node>("../network_manager"), "lost");
         if(!(Type == 6)){
             Texture = GD.Load<Texture>("res://game_env/Ships/Ship" + Type + ".png");
             if(Global.IsServer){
@@ -80,8 +82,6 @@ public class Ship : Sprite, ICloneable{
         }
         if(method != null) typeof(Ship).GetMethod(method).Invoke(this, null);
     }
-
-
 //variable movement add
  // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta){
@@ -94,31 +94,39 @@ public class Ship : Sprite, ICloneable{
         checkCollision(this);
         if(speedtimer != null && speedtimer.TimeLeft == 0)
             speed = YellowSpeed;
-        if(Position.x >= OS.WindowSize.x - this.Scale.x * Texture.GetWidth()/2 || Position.x <= this.Scale.x * Texture.GetWidth()/2){
+        if(Position.x >= OS.WindowSize.x - Scale.x * Texture.GetWidth()/2 || Position.x <= Scale.x * Texture.GetWidth()/2){
             if(Type < 5 && !FromOpponent && !sentToOpponent){
                 EmitSignal("died", Position.y, Type);
                 Debug.Print("ship has been sent");
                 sentToOpponent = true;
             }
         } 
-        if(Position.x >= OS.WindowSize.x + this.Scale.x * Texture.GetWidth()/2 || Position.x <= -1 * this.Scale.x * Texture.GetWidth()/2){
+        if(Position.x >= OS.WindowSize.x + Scale.x * Texture.GetWidth()/2 || Position.x <= -1 * Scale.x * Texture.GetWidth()/2){
             QueueFree();
             Bay.activeShips.Remove(this);
         }
         if(Global.IsServer){
-            if(Position.x - this.Scale.x * Texture.GetWidth()/2 <= 500){
+            if(Position.x - Scale.x * Texture.GetWidth()/2 <= 500){
                 if(FromOpponent){
                     Debug.Print("Taken Damage OMG :OOOOOOOO!!!!");
                     Global.Health -= 500;
+                    if(Global.isDefeated()){
+                        GetTree().ChangeScene("res://game_env/Scenes/LoseScene.tscn");
+                        EmitSignal("lost");
+                    }
                     QueueFree();
                     Bay.activeShips.Remove(this);
                 }
             }
         } else {
-            if(Position.x + this.Scale.x * Texture.GetWidth()/2 >= 1420){
+            if(Position.x + Scale.x * Texture.GetWidth()/2 >= 1420){
                 if(FromOpponent){
                     Debug.Print("Taken Damage OMG :OOOOOOOO!!!!");
                     Global.Health -= 500;
+                    if(Global.isDefeated()){
+                        GetTree().ChangeScene("res://game_env/Scenes/LoseScene.tscn");
+                        EmitSignal("lost");
+                    }
                     QueueFree();
                     Bay.activeShips.Remove(this);
                 }
