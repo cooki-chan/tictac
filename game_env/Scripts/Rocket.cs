@@ -10,11 +10,11 @@ public class Rocket : Sprite{
     private bool sentToOpponent = false;
     private bool pierce;
 
-    public Rocket(bool fromOp, float x, float y, bool pierce){
+    public Rocket(bool fromOp, float x, float y, bool Pierce){
         FromOpponent = fromOp;
         Position = new Vector2(x,y);
         Texture = GD.Load<Texture>("res://Rocket.png");
-        
+        pierce = Pierce;
     }
     public override void _Ready(){
         Connect("rDied", GetNode<Node>("/root/Control/network_manager"), "rocketTransport");

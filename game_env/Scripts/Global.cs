@@ -5,7 +5,7 @@ using System.Numerics;
 public class Global : Node
 {
     public static bool IsServer = false;
-    public static int Health = 314159265; //TODO: CHANGE THIS!!!
+    public static int Health = 1; //TODO: CHANGE THIS!!!
 
     //Speed Reference
     static public int RedSpeed = 5;
@@ -240,7 +240,9 @@ public class Global : Node
 
 
     }
-
+    public static bool isDefeated(){
+        return Health <= 0;
+    }
     /******************************************************************************
 tree
 red (general use)

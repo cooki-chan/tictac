@@ -6,16 +6,10 @@ public class Bay : ColorRect{
    private static Sprite temp;
    private static Ship ship;
    public static ArrayList activeShips = new ArrayList();
-   private int bayNum;
    public Control control;
    private String SpritePath;
    public bool inBounds(int x1, int y1){
       return RectPosition.x<=x1 && x1<=(RectPosition.x + RectSize.x) && RectPosition.y<=y1 && y1<=(RectPosition.y + RectSize.y);
-   }
-   public Bay(){
-      String name = Name;
-      //bayNum = Convert.ToInt32(Name.Substring(Name.Length));
-      
    }
    public override void _Ready(){
       control = GetNode<Control>("/root/Control");
@@ -102,6 +96,6 @@ public class Bay : ColorRect{
    }
 
    public void addShip(Ship shield){
-      activeShips.Add((Ship) shield);
+      activeShips.Add(shield);
    }
 }
