@@ -54,6 +54,7 @@ public class Ship : Sprite, ICloneable{
             case 5:
                 speed = BlueSpeed;
                 shipHP = Global.BlueHealth;; //change to global.shipHP or whatever its called
+                method = "shield";
                 break;
             default:
                 speed = BlueSpeed;
@@ -324,6 +325,7 @@ blu  (turtle shel)
                  GetParent().AddChild(shield2);
             }
         }
+        GD.Print("IPUGEUFBEblfljkbkj");
     }
 
 }
