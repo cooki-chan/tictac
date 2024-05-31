@@ -31,8 +31,8 @@ public class Ship : Sprite, ICloneable{
         method = null;
         switch (type){
             case 1:
-                speed = RedSpeed;
-                if(Global.transferAbility) method = "switchLane";
+                speed = Global.RedSpeed;
+                if(Global.transferAbility) method = "swapLane";
                 shipHP = Global.RedHealth;
                 break;
             case 2:

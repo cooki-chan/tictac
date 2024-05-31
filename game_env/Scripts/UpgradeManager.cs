@@ -36,7 +36,27 @@ public class UpgradeManager : Control
         int color = -1;
         int path = Convert.ToInt32(button.Name)-1;
 
+
         switch(button.GetParent().Name){
+            case "Red":
+                color = RED;
+
+                break;
+            case "Yellow":
+                color = YELLOW;
+                break;
+            case "Orange":
+                color = ORANGE;
+                break;
+            case "Blue":
+                color = BLUE;
+                break;
+            
+        }
+        if(!Global.upgradable(color, path)){
+                    return;
+                }
+                switch(button.GetParent().Name){
             case "Red":
                 color = RED;
                 Global.RedUpgradePoints--;
@@ -59,7 +79,7 @@ public class UpgradeManager : Control
                 break;
             
         }
-
+        
         Global.upgrade(color, path);
         GetNode<Global>("../../../Global").refreshButtonNames();
     }

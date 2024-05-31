@@ -17,22 +17,22 @@ public class Generator : Sprite{
         switch (t){
             case "elec":{
                 type = 0;
-                Texture = GD.Load<Texture>("res://TempGen.png");
+                Texture = GD.Load<Texture>("res://DaveVEvadAssets/Elecronics.png");
                 break;
             }
             case "carbs":{
                 type = 1;
-                Texture = GD.Load<Texture>("res://TempGen.png");
+                Texture = GD.Load<Texture>("res://DaveVEvadAssets/CarbonFiber.png");
                 break;
             }
             case "mill":{
                 type = 2;
-                Texture = GD.Load<Texture>("res://TempGen.png");
+                Texture = GD.Load<Texture>("res://DaveVEvadAssets/Steel.png");
                 break;
             }
             case "cobble minion":{
                 type = 3;
-                Texture = GD.Load<Texture>("res://TempGen.png");
+                Texture = GD.Load<Texture>("res://DaveVEvadAssets/Bank.png");
                 break;
             }
         }

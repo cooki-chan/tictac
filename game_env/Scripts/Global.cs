@@ -89,6 +89,80 @@ public class Global : Node
     private const int MID_PATH = 1;
     private const int BOT_PATH = 2;
 
+    private static int[, , , ] upgradeCosts = {
+            {//red
+                {//top
+                    {0,50,0,50},//1
+                    {50,100,50,100},
+                    {500, 50, 200, 200}
+                },
+                {//mid
+                    {50,50,0,10},
+                    {100,0,100, 30},
+                    {200, 10, 400, 100}
+                },
+                {//low
+                    {50,50,50,0},
+                    {100,10, 50, 100},
+                    {300,20,300,100}
+                }
+            },
+            {
+                {
+                    {
+                        30, 70, 20, 40
+                    },
+                    {
+                        60,30, 20, 100
+                    },
+                    {
+                        300, 700, 20, 10
+                    }
+                },
+                {
+                    {
+                        40, 30, 15, 17
+                    },
+                    {
+                        100, 50, 0, 65
+                    },
+                    {100, 50, 70, 500}
+                },
+                {
+                    {35, 20, 10, 5},
+                    {200, 20, 70, 130},
+                    {50, 400, 60, 78}
+                }
+            },
+            {
+                {
+                    {
+                        30, 40, 10, 5
+                    },
+                    {100, 30, 90, 70},
+                    {300, 500, 0, 80}
+                },
+                {
+                    {5, 80, 30, 2},{200, 0, 0, 10},{300, 0, 250, 65}
+                },
+                {
+                    {40, 10, 7, 9},{0, 70, 60, 130},{30, 90, 600, 0}
+                }
+            },
+            {
+                {
+                    {20, 30, 10, 40},{80, 60, 0, 90},{500, 300, 0, 100}
+                },
+                {
+                    {28, 59, 21, 32},{73, 24, 91, 134},{300, 200, 273, 239}
+                },
+                {
+                    {41, 24, 24, 24},{56, 71, 89, 154},{528, 90, 67, 167}
+                }
+            }
+
+        };
+
 
 
     public static void upgrade(int color, int path){
@@ -121,6 +195,29 @@ public class Global : Node
             GD.Print(i);
         }
 
+    }
+
+    public static bool upgradable(int color, int path){
+        int[] temp = new int[]{};
+        switch(color){
+            case RED:
+                temp = new int[]{upgradeCosts[0,path,RedUpgrades[path],0],upgradeCosts[0,path,RedUpgrades[path],2],upgradeCosts[0,path,RedUpgrades[path],2],upgradeCosts[0,path,RedUpgrades[path],3]};
+                break;
+            case YELLOW:
+                temp = new int[]{upgradeCosts[1,path,RedUpgrades[path],0],upgradeCosts[1,path,RedUpgrades[path],2],upgradeCosts[1,path,RedUpgrades[path],2],upgradeCosts[1,path,RedUpgrades[path],3]};
+                break;
+            case ORANGE:
+                temp = new int[]{upgradeCosts[2,path,RedUpgrades[path],0],upgradeCosts[2,path,RedUpgrades[path],2],upgradeCosts[2,path,RedUpgrades[path],2],upgradeCosts[2,path,RedUpgrades[path],3]};
+                break;
+            case BLUE:
+                temp = new int[]{upgradeCosts[3,path,RedUpgrades[path],0],upgradeCosts[3,path,RedUpgrades[path],2],upgradeCosts[3,path,RedUpgrades[path],2],upgradeCosts[3,path,RedUpgrades[path],3]};
+                break;
+        }
+        GD.Print(color);
+        if(Generator.build(temp)){
+                return true;
+            }
+            return false;
     }
 
     private static void refreshUpgrades(){
@@ -236,7 +333,7 @@ public class Global : Node
             BlueSpeed = 20;
         }
         if(BlueUpgrades[MID_PATH] >= 3){
-            shieldSizeUpgrade = true;
+            BlueSpeed = 22;
         }
 
         if(BlueUpgrades[BOT_PATH] >= 1){
@@ -320,7 +417,7 @@ public class Global : Node
             yellow1.Text = "Speed Upgrade #2";
         }
         if(YellowUpgrades[TOP_PATH] >= 2){
-            yellow1.Text = "Ability: Random Lane Switch";
+            yellow1.Text = "Speed Upgrade #3";
         }
         if(YellowUpgrades[TOP_PATH] >= 3){
             yellow1.Text = "Upgrade Path Finished!";
@@ -331,10 +428,10 @@ public class Global : Node
             yellow2.Text = "Health Upgrade #1";
         }
         if(YellowUpgrades[MID_PATH] >= 1){
-            yellow2.Text = "Base Damage Upgrade #1";
+            yellow2.Text = "Ability: Dash";
         }
         if(YellowUpgrades[MID_PATH] >= 2){
-            yellow2.Text = "Health Upgrade #2";
+            yellow2.Text = "Ability Upgrade: Dash Speed";
         }
         if(YellowUpgrades[MID_PATH] >= 3){
             yellow2.Text = "Upgrade Path Finished!";
@@ -372,13 +469,13 @@ public class Global : Node
         //orange
         if(OrangeUpgrades[TOP_PATH] + OrangeUpgrades[MID_PATH] + OrangeUpgrades[BOT_PATH] < 4){
         if(OrangeUpgrades[TOP_PATH] >= 0){
-            orange1.Text = "Speed Upgrade #1";
+            orange1.Text = "Ability Upgrade: Missile Damage";
         }
         if(OrangeUpgrades[TOP_PATH] >= 1){
-            orange1.Text = "Speed Upgrade #2";
+            orange1.Text = "Ability Upgrade: Missile Damage #2";
         }
         if(OrangeUpgrades[TOP_PATH] >= 2){
-            orange1.Text = "Ability: Random Lane Switch";
+            orange1.Text = "Ability: Missile Piercing";
         }
         if(OrangeUpgrades[TOP_PATH] >= 3){
             orange1.Text = "Upgrade Path Finished!";
@@ -386,13 +483,13 @@ public class Global : Node
         }
 
         if(OrangeUpgrades[MID_PATH] >= 0){
-            orange2.Text = "Health Upgrade #1";
+            orange2.Text = "Ability Upgrade: Missile Spawn Rate";
         }
         if(OrangeUpgrades[MID_PATH] >= 1){
-            orange2.Text = "Base Damage Upgrade #1";
+            orange2.Text = "Ability Upgrade: Missile Spawn Rate 2";;
         }
         if(OrangeUpgrades[MID_PATH] >= 2){
-            orange2.Text = "Health Upgrade #2";
+            orange2.Text = "Ability Upgrade: Missile Spawn Rate 3";;
         }
         if(OrangeUpgrades[MID_PATH] >= 3){
             orange2.Text = "Upgrade Path Finished!";
@@ -400,13 +497,13 @@ public class Global : Node
         }
 
         if(OrangeUpgrades[BOT_PATH] >= 0){
-            orange3.Text = "Cost Upgrade #1";
+            orange3.Text = "Health Upgrade";
         }
         if(OrangeUpgrades[BOT_PATH] >= 1){
-            orange3.Text = "Cost Upgrade #2";
+            orange3.Text = "Cost Upgrade #1";
         }
         if(OrangeUpgrades[BOT_PATH] >= 2){
-            orange3.Text = "Cost Upgrade #3";
+            orange3.Text = "Cost Upgrade #2";
         }
         if(OrangeUpgrades[BOT_PATH] >= 3){
             orange3.Text = "Upgrade Path Finished!";
@@ -430,13 +527,13 @@ public class Global : Node
         //blue
         if(BlueUpgrades[TOP_PATH] + BlueUpgrades[MID_PATH] + BlueUpgrades[BOT_PATH] < 4){
         if(BlueUpgrades[TOP_PATH] >= 0){
-            blue1.Text = "Speed Upgrade #1";
+            blue1.Text = "Ability Upgrade: Shield Health";
         }
         if(BlueUpgrades[TOP_PATH] >= 1){
-            blue1.Text = "Speed Upgrade #2";
+            blue1.Text = "Ability Upgrade: Shield Health";
         }
         if(BlueUpgrades[TOP_PATH] >= 2){
-            blue1.Text = "Ability: Random Lane Switch";
+            blue1.Text = "Ability: Stacked Shields";
         }
         if(BlueUpgrades[TOP_PATH] >= 3){
             blue1.Text = "Upgrade Path Finished!";
@@ -444,13 +541,13 @@ public class Global : Node
         }
 
         if(BlueUpgrades[MID_PATH] >= 0){
-            blue2.Text = "Health Upgrade #1";
+            blue2.Text = "Ship Health Upgrade";
         }
         if(BlueUpgrades[MID_PATH] >= 1){
-            blue2.Text = "Base Damage Upgrade #1";
+            blue2.Text = "Speed Upgrade #2";
         }
         if(BlueUpgrades[MID_PATH] >= 2){
-            blue2.Text = "Health Upgrade #2";
+            blue2.Text = "Speed Upgrade #2";
         }
         if(BlueUpgrades[MID_PATH] >= 3){
             blue2.Text = "Upgrade Path Finished!";
@@ -458,13 +555,13 @@ public class Global : Node
         }
 
         if(BlueUpgrades[BOT_PATH] >= 0){
-            blue3.Text = "Cost Upgrade #1";
+            blue3.Text = "Speed Upgrade";
         }
         if(BlueUpgrades[BOT_PATH] >= 1){
-            blue3.Text = "Cost Upgrade #2";
+            blue3.Text = "Cost Upgrade #1";
         }
         if(BlueUpgrades[BOT_PATH] >= 2){
-            blue3.Text = "Cost Upgrade #3";
+            blue3.Text = "Cost Upgrade #2";
         }
         if(BlueUpgrades[BOT_PATH] >= 3){
             blue3.Text = "Upgrade Path Finished!";
