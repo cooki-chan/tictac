@@ -70,4 +70,13 @@ public class network_mananger : Node{
         Rocket newRocket = new Rocket(true, isServer? 0:OS.WindowSize.x, yPos, pierce);
         control.AddChild(newRocket);
     }
+
+    
+    void sendGlobal(){
+        Rpc("setOpGlobal", GetNode<Node>("/root/Global"));
+    }
+    [Remote]
+    void setOpGlobal(Node global){
+
+    }
 }

@@ -17,7 +17,7 @@ public class Ship : Sprite, ICloneable{
     static public int OrangeSpeed = Global.OrangeSpeed;
     static public int PurpleSpeed = Global.PurpleSpeed;
     static public int BlueSpeed = Global.BlueSpeed;
-    private bool rocketsPierce = false;
+    private bool rocketsPierce = Global.missilePercing;
     private string method;
     private Sprite lazer;
     private Timer speedtimer;
@@ -31,33 +31,34 @@ public class Ship : Sprite, ICloneable{
         method = null;
         switch (type){
             case 1:
-                speed = RedSpeed;
-                if(Global.transferAbility) method = "switchLane";
-                shipHP = 5; //change to global.shipHP or whatever its called
+                speed = Global.RedSpeed;
+                if(Global.transferAbility) method = "swapLane";
+                shipHP = Global.RedHealth;
+
                 break;
             case 2:
                 speed = YellowSpeed;
                 if(Global.dashAbility) method = "boost";
-                shipHP = 5; //change to global.shipHP or whatever its called
+                shipHP = Global.YellowHealth; //change to global.shipHP or whatever its called
                 break;
             case 3:
                 speed = OrangeSpeed;
                 method = "rockets";
-                if(Global.missilePercing) rocketsPierce = true;
-                shipHP = 5; //change to global.shipHP or whatever its called
+                shipHP =Global.OrangeHealth; //change to global.shipHP or whatever its called
                 break;
             case 4:
                 speed = PurpleSpeed;
                 method = "laser";
-                shipHP = 5; //change to global.shipHP or whatever its called
+                shipHP =Global.RedHealth; //change to global.shipHP or whatever its called
                 break;
             case 5:
                 speed = BlueSpeed;
-                shipHP = 500; //change to global.shipHP or whatever its called
+                shipHP = Global.BlueHealth;; //change to global.shipHP or whatever its called
                 break;
             default:
                 speed = BlueSpeed;
                 method = null;
+                shipHP = Global.shieldHealth;
                 break;
         }
     }
@@ -161,22 +162,22 @@ public class Ship : Sprite, ICloneable{
                 shipHP -= 1; //rocket dmg do not touch
                 break;
             case 1:
-                shipHP -= 1; //shipdmg from global
+                shipHP -= Global.RedShipDamage; //shipdmg from global
                 break;
             case 2:
-                shipHP -= 1; //shipdmg from global
+                shipHP -= Global.OrangeShipDamage; //shipdmg from global
                 break;
             case 3: 
-                shipHP -= 1; //shipdmg from global
+                shipHP -= Global.YellowShipDamage; //shipdmg from global
                 break;
             case 4:
-                shipHP -= 1; //shipdmg from global
+                shipHP -= Global.RedShipDamage; //shipdmg from global
                 break;
             case 5:
-                shipHP -= 1; //shipdmg from global
+                shipHP -= Global.BlueShipDamage; //shipdmg from global
                 break;
             case 6:
-                shipHP -= 1; //shipdmg from global
+                shipHP -= 100000000; //shield is insta kill lol
                 break;
         }
         if(shipHP <= 0){
@@ -249,7 +250,7 @@ blu  (turtle shel)
 
     //ORANGE ABILITY
     public void rockets(){
-        rocketTimer = new System.Timers.Timer(2000);
+        rocketTimer = new System.Timers.Timer(Global.missileSpawnSpeed);
         rocketTimer.Elapsed += FireRockets;
         rocketTimer.Start();
     }

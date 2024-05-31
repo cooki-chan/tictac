@@ -1,9 +1,10 @@
 using Godot;
 using System;
+using System.Collections;
 using System.Drawing.Drawing2D;
 using System.Runtime.ConstrainedExecution;
 
-public class UpgradeManager : Node
+public class UpgradeManager : Control
 {
     private const int RED = 0;
     private const int YELLOW = 1;
@@ -14,7 +15,7 @@ public class UpgradeManager : Node
     private const int TOP_PATH = 0;
     private const int MID_PATH = 1;
     private const int BOT_PATH = 2;
-        
+
 
     private void upgradeStat(int color, int path){
         Global.upgrade(color, path);    
@@ -25,15 +26,67 @@ public class UpgradeManager : Node
         foreach(Godot.Sprite color in this.GetChildren()){
             foreach(Godot.Button button in color.GetChildren()){
                 Godot.Collections.Array array = new Godot.Collections.Array(){button};  
-                
-
                 button.Connect("pressed", this, "PLEASE", array);
             }
         }
+        GetNode<Global>("../../../Global").refreshButtonNames();
     }
 
     public void PLEASE(Godot.Button button){
-        GD.Print(button.GetParent().Name);
+        int color = -1;
+        int path = Convert.ToInt32(button.Name)-1;
+
+
+        switch(button.GetParent().Name){
+            case "Red":
+                color = RED;
+
+                break;
+            case "Yellow":
+                color = YELLOW;
+                break;
+            case "Orange":
+                color = ORANGE;
+                break;
+            case "Blue":
+                color = BLUE;
+                break;
+            
+        }
+        if(!Global.upgradable(color, path)){
+                    return;
+                }
+                switch(button.GetParent().Name){
+            case "Red":
+                color = RED;
+                Global.RedUpgradePoints--;
+                GetNode<Label>("../redPointLabel").Text = "Red Upgrade Points: " + Convert.ToString(Global.RedUpgradePoints); 
+                break;
+            case "Yellow":
+                color = YELLOW;
+                Global.YellowUpgradePoints--;
+                GetNode<Label>("../yellowPointLabel").Text = "Yellow Upgrade Points: " + Convert.ToString(Global.YellowUpgradePoints); 
+                break;
+            case "Orange":
+                color = ORANGE;
+                Global.OrangeUpgradePoints--;
+                GetNode<Label>("../orangePointLabel").Text = "Orange Upgrade Points: " + Convert.ToString(Global.OrangeUpgradePoints); 
+                break;
+            case "Blue":
+                color = BLUE;
+                Global.BlueUpgradePoints--;
+                GetNode<Label>("../bluePointLabel").Text = "Blue Upgrade Points: " + Convert.ToString(Global.BlueUpgradePoints); 
+                break;
+            
+        }
+        
+        Global.upgrade(color, path);
+        GetNode<Global>("../../../Global").refreshButtonNames();
+    }
+
+    public void  _on_exit_pressed(){
+        GetNode<Godot.Control>("..").Visible = false;
+        GetNode<Godot.CanvasItem>("..").PropagateCall("Hide");
     }
 /*
 tree
@@ -63,4 +116,6 @@ blu  (turtle shel)
 - upgrade speed	    	- upgrade cost 	    	- upgrade cost
 
 */
+
+
 }

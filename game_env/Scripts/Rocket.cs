@@ -5,7 +5,7 @@ public class Rocket : Sprite{
     [Signal] public delegate void crashed(int damage);
     [Signal] public delegate void rDied(int yPos);
 
-    private int speed = 10;
+    private int speed = Global.missileSpeed;
     private bool FromOpponent;
     private bool sentToOpponent = false;
     private bool pierce;
